@@ -1,10 +1,11 @@
 import React from "react";
-import MainInput from "./MainInput";
+import Prompt from "./Prompt";
 
 function Game() {
   return (
     <div className="game">
-      <MainInput />{" "}
+      <p>Enter some text below!</p>
+      <Prompt />{" "}
     </div>
   );
 }
