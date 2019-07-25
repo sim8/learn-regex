@@ -1,6 +1,8 @@
-import { KEY_DOWN } from "./actionTypes";
+import { ENTER_CHARACTER } from "./actionTypes";
 
-export const keyDown = ({ key }) => ({
-  type: KEY_DOWN,
-  key
-});
+export const keyDown = ({ key }) => {
+  return {
+    type: ENTER_CHARACTER,
+    char: key
+  };
+};

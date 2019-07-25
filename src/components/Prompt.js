@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { getInputValue } from "../selectors/inputSelectors";
+import { getInputValue, getCaretPos } from "../selectors/inputSelectors";
 import { keyDown } from "../actions/inputActions";
 
 const _prompt = React.createRef();
@@ -17,7 +17,8 @@ const InputWrapper = styled.div`
 // window.getSelection().anchorOffset
 
 const mapStateToProps = state => ({
-  inputValue: getInputValue(state)
+  inputValue: getInputValue(state),
+  caretPos: getCaretPos(state)
 });
 
 function Prompt({ inputValue, keyDown }) {
