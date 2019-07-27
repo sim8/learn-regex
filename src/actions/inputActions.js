@@ -1,4 +1,4 @@
-import { ENTER_CHARACTER } from "./actionTypes";
+import { ENTER_CHARACTER, KEY_LEFT, KEY_RIGHT, BACKSPACE } from "./actionTypes";
 
 export const keyPress = ({ key }) => {
   return {
@@ -7,8 +7,27 @@ export const keyPress = ({ key }) => {
   };
 };
 
-export const keyDown = ({ key }) => {
-  return {
-    type: null
-  };
+export const keyDown = ({ key, altKey }) => dispatch => {
+  switch (key) {
+    case "ArrowLeft":
+      dispatch({
+        type: KEY_LEFT,
+        altKey
+      });
+      break;
+    case "ArrowRight":
+      dispatch({
+        type: KEY_RIGHT,
+        altKey
+      });
+      break;
+    case "Backspace":
+      dispatch({
+        type: BACKSPACE,
+        altKey
+      });
+      break;
+    default:
+      return;
+  }
 };
