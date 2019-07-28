@@ -11,6 +11,10 @@ const InputWrapper = styled.div`
     -webkit-appearance: none;
     border: 0px solid;
     font-size: 60px;
+    .caret {
+      background-color: greenyellow;
+      color: black;
+    }
   }
 `;
 
@@ -19,12 +23,32 @@ const mapStateToProps = state => ({
   caretPos: getCaretPos(state)
 });
 
-function Prompt({ inputValue, keyPress, keyDown }) {
+function formatWithCaret(inputValue, caretPos) {
+  debugger;
+  if (caretPos === inputValue.length) {
+    return (
+      <span>
+        {inputValue}
+        <span className="caret">&nbsp;</span>
+      </span>
+    );
+  }
+  return (
+    <span>
+      {inputValue.substring(0, caretPos)}
+      <span className="caret">{inputValue[caretPos]}</span>
+      {inputValue.substring(caretPos + 1)}
+    </span>
+  );
+}
+
+function Prompt({ inputValue, caretPos, keyPress, keyDown }) {
   useEffect(() => _prompt.current.focus(), []);
+  const inputValueWithCaret = formatWithCaret(inputValue, caretPos);
   return (
     <InputWrapper>
       <div ref={_prompt} tabIndex="0" onKeyPress={keyPress} onKeyDown={keyDown}>
-        >{inputValue}
+        >{inputValueWithCaret}
       </div>
     </InputWrapper>
   );

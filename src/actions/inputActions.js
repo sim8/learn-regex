@@ -1,6 +1,15 @@
-import { ENTER_CHARACTER, KEY_LEFT, KEY_RIGHT, BACKSPACE } from "./actionTypes";
+import {
+  ENTER_CHARACTER,
+  KEY_LEFT,
+  KEY_RIGHT,
+  BACKSPACE,
+  ENTER
+} from "./actionTypes";
 
-export const keyPress = ({ key }) => {
+export const keyPress = ({ key, ...rest }) => {
+  if (key === "Enter") {
+    return { type: ENTER };
+  }
   return {
     type: ENTER_CHARACTER,
     char: key
