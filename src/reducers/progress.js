@@ -7,7 +7,8 @@ import { MODULES } from "../constants/lessonConfig";
 
 const initialState = fromJS({
   moduleId: MODULES.WELCOME,
-  stageIndex: 0
+  stageIndex: 0,
+  highestStageIndexReached: 0
 });
 
 export default function progress(state = initialState, { ...action }) {

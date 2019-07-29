@@ -1,10 +1,10 @@
 import React from "react";
-import Game from "./components/Game";
+import Stage from "./components/Stage";
 
 function App() {
   return (
     <div className="App">
-      <Game />
+      <Stage />
     </div>
   );
 }

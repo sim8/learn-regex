@@ -10,9 +10,22 @@ const createProgressSelector = key =>
 
 export const getModuleId = createProgressSelector("moduleId");
 export const getStageIndex = createProgressSelector("stageIndex");
+export const getHighestStageIndexReached = createProgressSelector(
+  "highestStageIndexReached"
+);
+
+const getModuleConfig = createSelector(
+  getModuleId,
+  moduleId => MODULES_CONFIG[moduleId]
+);
 
 export const getStageConfig = createSelector(
-  [getModuleId, getStageIndex],
-  (moduleId, stageIndex) =>
-    STAGE_CONFIG[MODULES_CONFIG[moduleId].stages[stageIndex]]
+  [getModuleConfig, getStageIndex],
+  (moduleConfig, stageIndex) => STAGE_CONFIG[moduleConfig.stages[stageIndex]]
+);
+
+export const getCanMoveToNextStage = createSelector(
+  [getStageIndex, getHighestStageIndexReached, getStageConfig],
+  (index, highestIndex, config) =>
+    highestIndex > index || config.type === "LESSON"
 );

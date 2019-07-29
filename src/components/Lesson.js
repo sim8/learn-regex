@@ -7,10 +7,10 @@ const mapStateToProps = state => ({
   stageConfig: getStageConfig(state)
 });
 
-function Game({ stageConfig }) {
-  const { type, text } = stageConfig;
+function Stage({ stageConfig }) {
+  const { type, text, ...rest } = stageConfig;
   return (
-    <div className="game">
+    <div className="stage">
       {text.map((t, index) => (
         <p key={index}>{t}</p>
       ))}
@@ -21,4 +21,4 @@ function Game({ stageConfig }) {
 export default connect(
   mapStateToProps,
   {}
-)(Game);
+)(Stage);
