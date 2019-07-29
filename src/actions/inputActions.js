@@ -5,15 +5,28 @@ import {
   BACKSPACE,
   ENTER
 } from "./actionTypes";
+import { getInputValue } from "../selectors/inputSelectors";
+import { getStageConfig } from "../selectors/progressSelectors";
+import { moveToNextStage } from "./progressActions";
 
-export const keyPress = ({ key, ...rest }) => {
+export const keyPress = ({ key, ...rest }) => (dispatch, getState) => {
   if (key === "Enter") {
-    return { type: ENTER };
+    const state = getState();
+    const stageConfig = getStageConfig(state);
+    if (stageConfig.type === "LESSON") {
+      dispatch(moveToNextStage());
+    } else if (stageConfig.type === "TEST") {
+      const inputValue = getInputValue(state);
+      if (inputValue === stageConfig.answer) {
+        dispatch(moveToNextStage());
+      }
+    }
+    return;
   }
-  return {
+  dispatch({
     type: ENTER_CHARACTER,
     char: key
-  };
+  });
 };
 
 export const keyDown = ({ key, altKey }) => dispatch => {

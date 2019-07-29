@@ -1,5 +1,10 @@
+// INPUT ACTIONS
 export const ENTER_CHARACTER = "ENTER_CHARACTER";
 export const KEY_LEFT = "KEY_LEFT";
 export const KEY_RIGHT = "KEY_RIGHT";
 export const BACKSPACE = "BACKSPACE";
 export const ENTER = "ENTER";
+
+// PROGRESS ACTIONS
+export const MOVE_TO_NEXT_STAGE = "MOVE_TO_NEXT_STAGE";
+export const MOVE_TO_PREVIOUS_STAGE = "MOVE_TO_PREVIOUS_STAGE";
