@@ -20,7 +20,11 @@ export const STAGE_CONFIG = deepFreeze({
   },
   [STAGES.INTRO]: {
     type: "LESSON",
-    text: ["And hello to you!"]
+    text: [
+      "And hello to you!",
+      "Regex is a powerful tool for searching for patterns in strings.",
+      '"Hello" is actually valid regex, though we can do much more.'
+    ]
   }
 });
 

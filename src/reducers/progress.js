@@ -13,8 +13,14 @@ const initialState = fromJS({
 
 export default function progress(state = initialState, { ...action }) {
   switch (action.type) {
-    case MOVE_TO_NEXT_STAGE:
-      return state.update("stageIndex", i => i + 1);
+    case MOVE_TO_NEXT_STAGE: {
+      const newStageIndex = state.get("stageIndex") + 1;
+      return state
+        .set("stageIndex", newStageIndex)
+        .update("highestStageIndexReached", highest =>
+          Math.max(newStageIndex, highest)
+        );
+    }
     case MOVE_TO_PREVIOUS_STAGE:
       return state.update("stageIndex", i => i - 1);
     default:

@@ -29,3 +29,8 @@ export const getCanMoveToNextStage = createSelector(
   (index, highestIndex, config) =>
     highestIndex > index || config.type === "LESSON"
 );
+
+export const getCanMoveToPreviousStage = createSelector(
+  [getStageIndex],
+  index => index > 0
+);
