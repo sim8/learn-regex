@@ -11,9 +11,27 @@ const InputWrapper = styled.div`
     -webkit-appearance: none;
     border: 0px solid;
     font-size: 60px;
+    outline: none;
     .caret {
+      position: relative;
+    }
+
+    &:focus .caret {
       background-color: greenyellow;
       color: black;
+    }
+
+    &:not(:focus) .caret {
+      :after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        border: 2px solid greenyellow;
+      }
     }
   }
 `;
@@ -24,7 +42,6 @@ const mapStateToProps = state => ({
 });
 
 function formatWithCaret(inputValue, caretPos) {
-  debugger;
   if (caretPos === inputValue.length) {
     return (
       <span>
