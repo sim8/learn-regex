@@ -1,13 +1,24 @@
 import React from "react";
+import { connect } from "react-redux";
 import Prompt from "./Prompt";
+import { getStageConfig } from "../selectors/progressSelectors";
 
-function Game() {
+const mapStateToProps = state => ({
+  stageConfig: getStageConfig(state)
+});
+
+function Game({ stageConfig }) {
+  const { type, text } = stageConfig;
   return (
     <div className="game">
-      <p>Enter some text below!</p>
-      <Prompt />{" "}
+      {text.map((t, index) => (
+        <p key={index}>{t}</p>
+      ))}
+      <Prompt />
     </div>
   );
 }
-
-export default Game;
+export default connect(
+  mapStateToProps,
+  {}
+)(Game);
