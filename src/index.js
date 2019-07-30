@@ -5,8 +5,12 @@ import "./index.css";
 import App from "./App";
 import configureStore from "./configureStore";
 import * as serviceWorker from "./serviceWorker";
+import getPreloadedState from "./dev/getPreloadedState";
 
-const store = configureStore();
+const preloadedState =
+  process.env.NODE_ENV === "development" ? getPreloadedState() : {};
+
+const store = configureStore(preloadedState);
 
 ReactDOM.render(
   <Provider store={store}>
