@@ -17,10 +17,15 @@ export const getMatches = createSelector(
     if (!searchBody || !inputValue.length) {
       return null;
     }
-    const regex = new RegExp(inputValue, "g");
-    var matches = [];
-    var lastIndexes = {};
-    var match;
+    let regex;
+    try {
+      regex = new RegExp(inputValue, "g");
+    } catch (e) {
+      return false;
+    }
+    const matches = [];
+    const lastIndexes = {};
+    let match;
     lastIndexes[regex.lastIndex] = true;
     while ((match = regex.exec(searchBody))) {
       lastIndexes[regex.lastIndex] = true;
