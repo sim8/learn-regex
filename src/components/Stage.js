@@ -14,11 +14,14 @@ import {
 } from "../actions/progressActions";
 
 const StageWrapper = styled.div`
+  .main-text {
+    padding-top: 25vh;
+  }
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   height: 100vh;
-  margin-left: 20px;
+  margin: 0 20px;
 `;
 
 const NavButtons = styled.div`
@@ -42,18 +45,24 @@ function Stage({
   const { type, text, ...config } = stageConfig;
   return (
     <StageWrapper>
-      {text.map((t, index) => (
-        <p key={index}>{t}</p>
-      ))}
-      {type === "TEST" ? <Test {...config} /> : null}
-      <NavButtons>
-        {canMoveToPreviousStage && <Button onClick={onClickBack}>BACK</Button>}
-        {canMoveToNextStage && (
-          <Button type="primary" onClick={onClickNext}>
-            CONTINUE
-          </Button>
-        )}
-      </NavButtons>
+      <div className="main-text">
+        {text.map((t, index) => (
+          <p key={index}>{t}</p>
+        ))}
+      </div>
+      <div>
+        {type === "TEST" ? <Test {...config} /> : null}
+        <NavButtons>
+          {canMoveToPreviousStage && (
+            <Button onClick={onClickBack}>BACK</Button>
+          )}
+          {canMoveToNextStage && (
+            <Button type="primary" onClick={onClickNext}>
+              CONTINUE
+            </Button>
+          )}
+        </NavButtons>
+      </div>
     </StageWrapper>
   );
 }

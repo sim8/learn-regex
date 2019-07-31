@@ -33,7 +33,7 @@ export const STAGE_CONFIG = deepFreeze({
       'The "." character matches any character.',
       'Type ".s" to see what this means.'
     ],
-    searchBody: "Everything is as you'd expect",
+    searchBody: '"Everything is not as it seems."',
     answer: "hello"
   }
 });

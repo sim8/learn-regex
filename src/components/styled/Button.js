@@ -6,9 +6,9 @@ export default styled.button`
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
   background-color: ${props =>
-    props.type === "primary" ? "greenyellow" : "transparent"};
-  color: ${props => (props.type === "primary" ? "black" : "greenyellow")};
-  border: 2px solid greenyellow;
+    props.type === "primary" ? "#adff12" : "transparent"};
+  color: ${props => (props.type === "primary" ? "black" : "#adff12")};
+  border: 2px solid #adff12;
   cursor: pointer;
   margin-right: 10px;
 `;

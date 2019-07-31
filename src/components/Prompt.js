@@ -17,7 +17,7 @@ const InputWrapper = styled.div`
     }
 
     &:focus .caret {
-      background-color: greenyellow;
+      background-color: #adff12;
       color: black;
     }
 
@@ -30,7 +30,7 @@ const InputWrapper = styled.div`
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        border: 2px solid greenyellow;
+        border: 2px solid #adff12;
       }
     }
   }
