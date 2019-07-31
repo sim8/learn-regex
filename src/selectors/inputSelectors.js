@@ -17,9 +17,15 @@ export const getMatches = createSelector(
     if (!searchBody || !inputValue.length) {
       return null;
     }
-    const regexp = new RegExp(inputValue, "g");
-    // TODO - add polyfill
-    const matches = [...searchBody.matchAll(regexp)];
+    const regex = new RegExp(inputValue, "g");
+    var matches = [];
+    var lastIndexes = {};
+    var match;
+    lastIndexes[regex.lastIndex] = true;
+    while ((match = regex.exec(searchBody))) {
+      lastIndexes[regex.lastIndex] = true;
+      matches.push(match);
+    }
     return matches;
   }
 );
