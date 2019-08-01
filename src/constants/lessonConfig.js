@@ -31,7 +31,7 @@ export const STAGE_CONFIG = deepFreeze({
     type: "TEST",
     text: [
       'The "." character matches any character.',
-      'Type ".s" to see what this means.'
+      'Type "i." to see what this means.'
     ],
     searchBody: '"Everything is not as it seems."',
     answer: "hello"
