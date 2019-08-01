@@ -10,6 +10,7 @@ const SearchBody = styled.div`
   color: black;
   padding: 18px;
   margin: 18px 0;
+  box-sizing: border-box;
   .matched {
     color: #adff12;
     background-color: black;

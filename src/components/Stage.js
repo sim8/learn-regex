@@ -15,7 +15,7 @@ import {
 
 const StageWrapper = styled.div`
   .main-text {
-    padding-top: 25vh;
+    padding-top: 15vh;
   }
   display: flex;
   flex-direction: column;
@@ -26,7 +26,7 @@ const StageWrapper = styled.div`
 
 const NavButtons = styled.div`
   height: 70px;
-  padding: 100px 0;
+  padding-bottom: 10vh;
 `;
 
 const mapStateToProps = state => ({
@@ -45,24 +45,21 @@ function Stage({
   const { type, text, ...config } = stageConfig;
   return (
     <StageWrapper>
+      {/* <div className="header" /> */}
       <div className="main-text">
         {text.map((t, index) => (
           <p key={index}>{t}</p>
         ))}
       </div>
-      <div>
-        {type === "TEST" ? <Test {...config} /> : null}
-        <NavButtons>
-          {canMoveToPreviousStage && (
-            <Button onClick={onClickBack}>BACK</Button>
-          )}
-          {canMoveToNextStage && (
-            <Button type="primary" onClick={onClickNext}>
-              CONTINUE
-            </Button>
-          )}
-        </NavButtons>
-      </div>
+      {type === "TEST" ? <Test {...config} /> : null}
+      <NavButtons>
+        {canMoveToPreviousStage && <Button onClick={onClickBack}>BACK</Button>}
+        {canMoveToNextStage && (
+          <Button type="primary" onClick={onClickNext}>
+            CONTINUE
+          </Button>
+        )}
+      </NavButtons>
     </StageWrapper>
   );
 }

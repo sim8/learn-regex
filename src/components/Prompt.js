@@ -12,6 +12,7 @@ const InputWrapper = styled.div`
     border: 0px solid;
     font-size: 60px;
     outline: none;
+    word-break: break-all;
     .caret {
       position: relative;
     }
