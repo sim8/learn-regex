@@ -3,18 +3,22 @@ import {
   ENTER_CHARACTER,
   BACKSPACE,
   KEY_LEFT,
-  KEY_RIGHT
+  KEY_RIGHT,
+  MOVE_TO_NEXT_STAGE,
+  MOVE_TO_PREVIOUS_STAGE
 } from "../actions/actionTypes";
 
 const initialState = fromJS({
-  value: "abcd",
-  caretPos: 4
+  value: "",
+  caretPos: 0
 });
 
 export default function input(state = initialState, { altKey, ...action }) {
   const caretPos = state.get("caretPos");
-  console.log(action);
   switch (action.type) {
+    case MOVE_TO_NEXT_STAGE:
+    case MOVE_TO_PREVIOUS_STAGE:
+      return initialState;
     case ENTER_CHARACTER:
       return state
         .update(
