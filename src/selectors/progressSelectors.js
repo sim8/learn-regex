@@ -10,8 +10,8 @@ const createProgressSelector = key =>
 
 export const getModuleId = createProgressSelector("moduleId");
 export const getStageIndex = createProgressSelector("stageIndex");
-export const getHighestStageIndexReached = createProgressSelector(
-  "highestStageIndexReached"
+export const getHighestCompletedStageIndex = createProgressSelector(
+  "highestCompletedStageIndex"
 );
 
 const getModuleConfig = createSelector(
@@ -25,9 +25,9 @@ export const getStageConfig = createSelector(
 );
 
 export const getCanMoveToNextStage = createSelector(
-  [getStageIndex, getHighestStageIndexReached, getStageConfig],
+  [getStageIndex, getHighestCompletedStageIndex, getStageConfig],
   (index, highestIndex, config) =>
-    highestIndex > index || config.type === "LESSON"
+    highestIndex >= index || config.type === "LESSON"
 );
 
 export const getCanMoveToPreviousStage = createSelector(

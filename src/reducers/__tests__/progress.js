@@ -6,30 +6,30 @@ import {
 } from "../../actions/actionTypes";
 import { MODULES } from "../../constants/lessonConfig";
 
-it("updates the highestStageIndexReached", () => {
+it("updates the highestCompletedStageIndex", () => {
   const initialState = fromJS({
     moduleId: MODULES.WELCOME,
     stageIndex: 0,
-    highestStageIndexReached: 0
+    highestCompletedStageIndex: -1
   });
   const result = progress(initialState, { type: MOVE_TO_NEXT_STAGE });
   expect(result.toJS()).toEqual({
     moduleId: MODULES.WELCOME,
     stageIndex: 1,
-    highestStageIndexReached: 1
+    highestCompletedStageIndex: 0
   });
 });
 
-it("does not update the highestStageIndexReached if not surpassed", () => {
+it("does not update the highestCompletedStageIndex if not surpassed", () => {
   const initialState = fromJS({
     moduleId: MODULES.WELCOME,
     stageIndex: 0,
-    highestStageIndexReached: 2
+    highestCompletedStageIndex: 1
   });
   const result = progress(initialState, { type: MOVE_TO_NEXT_STAGE });
   expect(result.toJS()).toEqual({
     moduleId: MODULES.WELCOME,
     stageIndex: 1,
-    highestStageIndexReached: 2
+    highestCompletedStageIndex: 1
   });
 });
