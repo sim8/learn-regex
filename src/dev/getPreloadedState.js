@@ -5,8 +5,8 @@ export default function getPreloadedState() {
   return {
     progress: fromJS({
       moduleId: MODULES.WELCOME,
-      stageIndex: 2,
-      highestStageIndexReached: 2
+      stageIndex: 6,
+      highestCompletedStageIndex: 5
     })
   };
 }

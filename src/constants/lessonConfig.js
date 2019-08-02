@@ -3,7 +3,12 @@ import { deepFreeze } from "../utils/objectUtils";
 export const STAGES = {
   GREETING: "GREETING",
   INTRO: "INTRO",
-  LEARN_PERIOD: "LEARN_PERIOD"
+  PERIOD: "PERIOD",
+  META: "META",
+  ESCAPE: "ESCAPE",
+  SHORTHAND_DIGIT: "SHORTHAND_DIGIT",
+  SHORTHAND_DIGIT_TEST: "SHORTHAND_DIGIT_TEST",
+  SHORTHAND_NON_DIGIT_TEST: "SHORTHAND_NON_DIGIT_TEST"
 };
 
 export const MODULES = {
@@ -27,7 +32,7 @@ export const STAGE_CONFIG = deepFreeze({
       '"Hello" is actually valid regex, though we can do much more.'
     ]
   },
-  [STAGES.LEARN_PERIOD]: {
+  [STAGES.PERIOD]: {
     type: "TEST",
     text: [
       'The "." character matches any character.',
@@ -35,11 +40,59 @@ export const STAGE_CONFIG = deepFreeze({
     ],
     searchBody: '"Everything is not as it seems."',
     answer: "i."
+  },
+  [STAGES.META]: {
+    type: "LESSON",
+    text: [
+      "Congratulations! You have learnt your first meta character; the humble dot.",
+      "We're making good progress!"
+    ]
+  },
+  [STAGES.ESCAPE]: {
+    type: "TEST",
+    text: [
+      'Sometimes, we might want to search for a meta character. To do this, we use a "\\" beforehand.',
+      "Try to match all the dots in the text."
+    ],
+    searchBody: '"Erm... it wasn\'t supposed to do that."',
+    answer: "\\."
+  },
+  [STAGES.SHORTHAND_DIGIT]: {
+    type: "LESSON",
+    text: [
+      'We can also use a "\\" infront of some normal characters to do special things.',
+      'If we want to search for a digit for example, we can use "\\d".'
+    ]
+  },
+  [STAGES.SHORTHAND_DIGIT_TEST]: {
+    type: "TEST",
+    text: ["Try to match all of the digits in the text."],
+    searchBody: "Where am I going to find 50 pineapples in 20 minutes?",
+    answer: "\\d"
+  },
+  [STAGES.SHORTHAND_NON_DIGIT_TEST]: {
+    type: "TEST",
+    text: [
+      "If we use a capital D when searching for digits, we can match everything that ISN'T a digit.",
+      "Try and find all the non digits in the encrypted text."
+    ],
+    searchBody:
+      "284118204928WHERE123948954ARE123THE09820394PINEAPPLES12382822HIDDEN?31",
+    answer: "\\D"
   }
 });
 
 export const MODULES_CONFIG = deepFreeze({
   [MODULES.WELCOME]: {
-    stages: [STAGES.GREETING, STAGES.INTRO, STAGES.LEARN_PERIOD]
+    stages: [
+      STAGES.GREETING,
+      STAGES.INTRO,
+      STAGES.PERIOD,
+      STAGES.META,
+      STAGES.ESCAPE,
+      STAGES.SHORTHAND_DIGIT,
+      STAGES.SHORTHAND_DIGIT_TEST,
+      STAGES.SHORTHAND_NON_DIGIT_TEST
+    ]
   }
 });
