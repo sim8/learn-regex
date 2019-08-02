@@ -34,7 +34,7 @@ export const STAGE_CONFIG = deepFreeze({
       'Type "i." to see what this means.'
     ],
     searchBody: '"Everything is not as it seems."',
-    answer: "hello"
+    answer: "i."
   }
 });
 

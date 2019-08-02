@@ -3,23 +3,19 @@ import {
   KEY_LEFT,
   KEY_RIGHT,
   BACKSPACE,
-  ENTER
+  STAGE_COMPLETE
 } from "./actionTypes";
 import { getInputValue } from "../selectors/inputSelectors";
 import { getStageConfig } from "../selectors/progressSelectors";
 import { moveToNextStage } from "./progressActions";
 
 export const keyPress = ({ key, ...rest }) => (dispatch, getState) => {
+  const state = getState();
+  const stageConfig = getStageConfig(state);
   if (key === "Enter") {
-    const state = getState();
-    const stageConfig = getStageConfig(state);
     if (stageConfig.type === "LESSON") {
       dispatch(moveToNextStage());
     } else if (stageConfig.type === "TEST") {
-      const inputValue = getInputValue(state);
-      if (inputValue === stageConfig.answer) {
-        dispatch(moveToNextStage());
-      }
     }
     return;
   }
@@ -27,6 +23,13 @@ export const keyPress = ({ key, ...rest }) => (dispatch, getState) => {
     type: ENTER_CHARACTER,
     char: key
   });
+  const inputValue = getInputValue(getState());
+  console.log(inputValue, stageConfig.answer);
+  if (inputValue === stageConfig.answer) {
+    dispatch({
+      type: STAGE_COMPLETE
+    });
+  }
 };
 
 export const keyDown = ({ key, altKey }) => dispatch => {
