@@ -34,3 +34,8 @@ export const getMatches = createSelector(
     return matches;
   }
 );
+
+export const getHasError = createSelector(
+  getMatches,
+  matches => matches === false
+);
