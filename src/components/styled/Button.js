@@ -11,4 +11,7 @@ export default styled.button`
   border: 2px solid #adff12;
   cursor: pointer;
   margin-right: 10px;
+  &:disabled {
+    cursor: auto;
+  }
 `;

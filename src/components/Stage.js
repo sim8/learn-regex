@@ -2,16 +2,19 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import Test from "./Test";
+import Choice from "./Choice";
 import Button from "./styled/Button";
 import {
   getStageConfig,
   getCanMoveToNextStage,
-  getCanMoveToPreviousStage
+  getCanMoveToPreviousStage,
+  getStageId
 } from "../selectors/progressSelectors";
 import {
   moveToNextStage,
   moveToPreviousStage
 } from "../actions/progressActions";
+import { STAGE_TYPES } from "../constants/lessonConfig";
 
 const StageWrapper = styled.div`
   .main-text {
@@ -30,28 +33,40 @@ const NavButtons = styled.div`
 `;
 
 const mapStateToProps = state => ({
+  stageId: getStageId(state),
   stageConfig: getStageConfig(state),
   canMoveToNextStage: getCanMoveToNextStage(state),
   canMoveToPreviousStage: getCanMoveToPreviousStage(state)
 });
 
+function renderStageContent({ type, ...config }, id) {
+  switch (type) {
+    case STAGE_TYPES.REGEX:
+      return <Test {...config} stageId={id} />;
+    case STAGE_TYPES.CHOICE:
+      return <Choice {...config} stageId={id} />;
+    default:
+      return null;
+  }
+}
+
 function Stage({
   stageConfig,
+  stageId,
   canMoveToNextStage,
   canMoveToPreviousStage,
   onClickNext,
   onClickBack
 }) {
-  const { type, text, ...config } = stageConfig;
+  const { text } = stageConfig;
   return (
     <StageWrapper>
-      {/* <div className="header" /> */}
       <div className="main-text">
         {text.map((t, index) => (
           <p key={index}>{t}</p>
         ))}
       </div>
-      {type === "TEST" ? <Test {...config} /> : null}
+      {renderStageContent(stageConfig, stageId)}
       <NavButtons>
         {canMoveToPreviousStage && <Button onClick={onClickBack}>BACK</Button>}
         {canMoveToNextStage && (
