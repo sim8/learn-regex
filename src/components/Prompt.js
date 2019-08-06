@@ -23,7 +23,7 @@ const InputWrapper = styled.div`
     word-break: break-all;
 
     &:focus ${Caret} {
-      background-color: ${props => (props.hasError ? "red" : "#adff12")};
+      background-color: ${props => (props.hasError ? "#ff0000" : "#adff12")};
       color: black;
     }
 
@@ -36,7 +36,7 @@ const InputWrapper = styled.div`
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        border: 2px solid ${props => (props.hasError ? "red" : "#adff12")};
+        border: 2px solid ${props => (props.hasError ? "#ff0000" : "#adff12")};
       }
     }
   }

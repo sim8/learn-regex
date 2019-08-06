@@ -49,7 +49,6 @@ const generateHighlightedSearchBody = (searchBody, matches) => {
 };
 
 function Test({ searchBody, matches }) {
-  console.log(matches);
   return (
     <div>
       {searchBody ? (

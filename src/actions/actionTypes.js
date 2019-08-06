@@ -9,3 +9,4 @@ export const ENTER = "ENTER";
 export const MOVE_TO_NEXT_STAGE = "MOVE_TO_NEXT_STAGE";
 export const MOVE_TO_PREVIOUS_STAGE = "MOVE_TO_PREVIOUS_STAGE";
 export const STAGE_COMPLETE = "STAGE_COMPLETE";
+export const SUBMIT_ANSWER = "SUBMIT_ANSWER";
