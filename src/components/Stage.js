@@ -68,8 +68,9 @@ function Stage({
   onClickNext,
   onClickBack
 }) {
-  const { text, successText, failText } = stageConfig;
-  const completeText = answerCorrect ? successText : failText;
+  const { type, text, successText, failText } = stageConfig;
+  const completeText =
+    type !== STAGE_TYPES.CHOICE || answerCorrect ? successText : failText;
   return (
     <StageWrapper>
       <div className="main-text">

@@ -65,6 +65,9 @@ export const STAGE_CONFIG = deepFreeze({
       'The "." character matches any character.',
       'Type "i." to see what this means.'
     ],
+    successText: [
+      'Nice! Notice how we have matched every two-character string starting with an "i".'
+    ],
     searchBody: '"Everything is not as it seems."',
     answer: "i."
   },
