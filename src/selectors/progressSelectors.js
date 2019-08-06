@@ -49,3 +49,8 @@ export const getProvidedAnswerForStage = createSelector(
   [getProvidedAnswers, getStageId],
   (answers, stageId) => answers.get(stageId)
 );
+
+export const getProvidedAnswerIsCorrect = createSelector(
+  [getProvidedAnswerForStage, getStageConfig],
+  (provided, { answer }) => provided === answer
+);

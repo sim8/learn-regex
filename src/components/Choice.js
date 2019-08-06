@@ -44,13 +44,7 @@ function renderResultIcon(index, providedAnswer, actualAnswer) {
   }
 }
 
-function Choice({
-  choices,
-  submitAnswer,
-  answerIndex,
-  providedAnswer,
-  stageId
-}) {
+function Choice({ choices, submitAnswer, answer, providedAnswer, stageId }) {
   return (
     <Choices>
       {choices.map((choice, i) => (
@@ -66,7 +60,7 @@ function Choice({
               {choice}
             </Button>
           </div>
-          <div>{renderResultIcon(i, providedAnswer, answerIndex)}</div>
+          <div>{renderResultIcon(i, providedAnswer, answer)}</div>
         </li>
       ))}
     </Choices>

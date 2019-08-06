@@ -57,7 +57,7 @@ export const STAGE_CONFIG = deepFreeze({
       "What makes regex so useful is that it can be used in any language."
     ],
     choices: ["Java", "Python", "Javascript", "All the above"],
-    answerIndex: 3
+    answer: 3
   },
   [STAGES.PERIOD]: {
     type: STAGE_TYPES.REGEX,

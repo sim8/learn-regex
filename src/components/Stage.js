@@ -8,7 +8,8 @@ import {
   getStageConfig,
   getCanMoveToNextStage,
   getCanMoveToPreviousStage,
-  getStageId
+  getStageId,
+  getProvidedAnswerIsCorrect
 } from "../selectors/progressSelectors";
 import {
   moveToNextStage,
@@ -19,6 +20,9 @@ import { STAGE_TYPES } from "../constants/lessonConfig";
 const StageWrapper = styled.div`
   .main-text {
     padding-top: 15vh;
+    .complete-text {
+      font-style: italic;
+    }
   }
   display: flex;
   flex-direction: column;
@@ -36,7 +40,8 @@ const mapStateToProps = state => ({
   stageId: getStageId(state),
   stageConfig: getStageConfig(state),
   canMoveToNextStage: getCanMoveToNextStage(state),
-  canMoveToPreviousStage: getCanMoveToPreviousStage(state)
+  canMoveToPreviousStage: getCanMoveToPreviousStage(state),
+  answerCorrect: getProvidedAnswerIsCorrect(state)
 });
 
 function renderStageContent({ type, ...config }, id) {
@@ -50,21 +55,28 @@ function renderStageContent({ type, ...config }, id) {
   }
 }
 
+function renderTextLines(textLines) {
+  return textLines.map((t, index) => <p key={index}>{t}</p>);
+}
+
 function Stage({
   stageConfig,
   stageId,
   canMoveToNextStage,
   canMoveToPreviousStage,
+  answerCorrect,
   onClickNext,
   onClickBack
 }) {
-  const { text } = stageConfig;
+  const { text, successText, failText } = stageConfig;
+  const completeText = answerCorrect ? successText : failText;
   return (
     <StageWrapper>
       <div className="main-text">
-        {text.map((t, index) => (
-          <p key={index}>{t}</p>
-        ))}
+        {renderTextLines(text)}
+        {canMoveToNextStage && completeText && (
+          <div className="complete-text">{renderTextLines(completeText)}</div>
+        )}
       </div>
       {renderStageContent(stageConfig, stageId)}
       <NavButtons>
