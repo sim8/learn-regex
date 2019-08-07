@@ -14,6 +14,7 @@ const HintContent = styled.div`
 `;
 
 const HintButtonText = styled.div`
+  cursor: default;
   opacity: 1;
   transition: opacity 0.5s;
 `;
