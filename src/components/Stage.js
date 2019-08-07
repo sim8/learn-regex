@@ -19,7 +19,8 @@ import { STAGE_TYPES } from "../constants/lessonConfig";
 
 const StageWrapper = styled.div`
   .main-text {
-    padding-top: 15vh;
+    padding-top: 13vh;
+    min-height: 300px;
     .complete-text {
       font-style: italic;
     }
