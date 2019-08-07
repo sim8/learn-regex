@@ -81,10 +81,11 @@ export const STAGE_CONFIG = deepFreeze({
   [STAGES.ESCAPE]: {
     type: STAGE_TYPES.REGEX,
     text: [
-      'Sometimes, we might want to search for a meta character. To do this, we use a "\\" beforehand.',
+      'Sometimes, we might want to search for a meta character. To do this, we use a "\\" beforehand to escape it.',
       "Try to match all the dots in the text."
     ],
     searchBody: '"Erm... it wasn\'t supposed to do that."',
+    hint: "Escaped meta-characters might looks like this: \\( \\$ \\}",
     answer: "\\."
   },
   [STAGES.SHORTHAND_DIGIT]: {

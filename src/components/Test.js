@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import Prompt from "./Prompt";
 import { getMatches } from "../selectors/inputSelectors";
+import Hint from "./Hint";
 
 const SearchBody = styled.div`
   width: 100%;
@@ -16,6 +17,10 @@ const SearchBody = styled.div`
     color: #adff12;
     background-color: black;
   }
+`;
+
+const TestWrapper = styled.div`
+  position: relative;
 `;
 
 const mapStateToProps = state => ({
@@ -48,16 +53,17 @@ const generateHighlightedSearchBody = (searchBody, matches) => {
   return <span className="unmatched">{searchBody}</span>;
 };
 
-function Test({ searchBody, matches }) {
+function Test({ searchBody, matches, hint }) {
   return (
-    <div>
+    <TestWrapper>
+      {hint && <Hint hint={hint} />}
       {searchBody ? (
         <SearchBody>
           {generateHighlightedSearchBody(searchBody, matches)}
         </SearchBody>
       ) : null}
       <Prompt />
-    </div>
+    </TestWrapper>
   );
 }
 
