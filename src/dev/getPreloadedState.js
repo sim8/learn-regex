@@ -2,7 +2,7 @@ import { fromJS } from "immutable";
 import { MODULES } from "../constants/lessonConfig";
 
 export default function getPreloadedState() {
-  return {};
+  // return {};
   return {
     progress: fromJS({
       moduleId: MODULES.WELCOME,

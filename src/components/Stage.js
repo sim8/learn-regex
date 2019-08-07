@@ -24,6 +24,11 @@ const StageWrapper = styled.div`
     .complete-text {
       font-style: italic;
     }
+    .code {
+      color: black;
+      background-color: #adff12;
+      font-style: normal;
+    }
   }
   display: flex;
   flex-direction: column;
@@ -57,7 +62,9 @@ function renderStageContent({ type, ...config }, id) {
 }
 
 function renderTextLines(textLines) {
-  return textLines.map((t, index) => <p key={index}>{t}</p>);
+  return textLines.map((t, index) => (
+    <p key={index} dangerouslySetInnerHTML={{ __html: t }} />
+  ));
 }
 
 function Stage({

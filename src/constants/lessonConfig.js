@@ -42,13 +42,13 @@ export const STAGE_CONFIG = deepFreeze({
     text: [
       "And hello to you!",
       "Regex is a powerful tool for finding patterns in text. It can be used for searching, data validation, data manipulation, and much more. Better still, it can be used across any programming language.",
-      '"Hello" is actually valid regex, though we can do much more.'
+      '<span class="code">hello</span> is actually valid regex, though we can do much more.'
     ]
   },
   [STAGES.BASIC_FORM]: {
     type: STAGE_TYPES.INFO,
     text: [
-      'Typing "hello" will literally find the word "hello" in a given string. Similarly, typing "123" will find every match for "123".',
+      'Typing <span class="code">hello</span> will literally find the word "hello" in a given string. Similarly, typing <span class="code">123</span> will find every match for "123".',
       "This isn't very useful by itself - let's add some special characters to make this more powerful."
     ]
   },
@@ -68,7 +68,7 @@ export const STAGE_CONFIG = deepFreeze({
     type: STAGE_TYPES.REGEX,
     text: [
       'The "." character matches any character.',
-      'Type "i." to see what this means.'
+      'Type <span class="code">i.</span> to see what this means.'
     ],
     successText: [
       'Nice! Notice how we have matched every two-character string starting with an "i".'
@@ -100,7 +100,7 @@ export const STAGE_CONFIG = deepFreeze({
     type: STAGE_TYPES.INFO,
     text: [
       'We can also use a "\\" infront of some normal characters to do special things.',
-      'If we want to search for a digit for example, we can use "\\d".'
+      'If we want to search for a digit for example, we can use <span class="code">\\d</span>.'
     ]
   },
   [STAGES.SHORTHAND_DIGIT_TEST]: {
@@ -118,7 +118,7 @@ export const STAGE_CONFIG = deepFreeze({
       "Try and find all the non digits in the encrypted text."
     ],
     successText: [
-      'Woo! "\\d" is one of three shorthand characters. Let\'s meet the others.'
+      'Woo! <span class="code">\\d</span> is one of three shorthand characters. Let\'s meet the others.'
     ],
     searchBody:
       "284118204928WHERE123948954ARE123THE09820394PINEAPPLES12382822HIDDEN?31",
@@ -129,7 +129,7 @@ export const STAGE_CONFIG = deepFreeze({
     text: ["Which character is used to escape a meta character?"],
     successText: ["Nice work!"],
     failText: [
-      "\\ is used to escape meta characters. For example, we would us \\$ to find all the dollar signs."
+      '<span class="code">\\</span> is used to escape meta characters. For example, we would us <span class="code">\\$</span> to find all the dollar signs.'
     ],
     choices: ["\\", ".", "\\d", "!"],
     answer: 0
@@ -137,18 +137,18 @@ export const STAGE_CONFIG = deepFreeze({
   [STAGES.SHORTHAND_ALL]: {
     type: STAGE_TYPES.INFO,
     text: [
-      '"\\d" matches digits, like 4, 7, or 0.',
-      '"\\w" matches alphanumeric characters, which could be a number or letter.',
-      '"\\s" matches whitespace (space, linebreak, or tab).'
+      '<span class="code">\\d</span> matches digits, like 4, 7, or 0.',
+      '<span class="code">\\w</span> matches alphanumeric characters, which could be a number or letter.',
+      '<span class="code">\\s</span> matches whitespace (space, linebreak, or tab).'
     ]
   },
   [STAGES.SHORTHAND_ALL_NEGATED]: {
     type: STAGE_TYPES.INFO,
     text: [
       "You best believe it...",
-      '"\\D" matches NON digits (a, ., %)',
-      '"\\W" matches NON alphanumeric characters (?, $, ")',
-      '"\\S" matches NON whitespace (K, 7, !)'
+      '<span class="code">\\D</span> matches NON digits (a, ., %)',
+      '<span class="code">\\W</span> matches NON alphanumeric characters (?, $, ")',
+      '<span class="code">\\S</span> matches NON whitespace (K, 7, !)'
     ]
   },
   [STAGES.SHORTHAND_WHITESPACE_TEST]: {
