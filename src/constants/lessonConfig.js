@@ -16,7 +16,12 @@ export const STAGES = {
   ESCAPE: "ESCAPE",
   SHORTHAND_DIGIT: "SHORTHAND_DIGIT",
   SHORTHAND_DIGIT_TEST: "SHORTHAND_DIGIT_TEST",
-  SHORTHAND_NON_DIGIT_TEST: "SHORTHAND_NON_DIGIT_TEST"
+  SHORTHAND_NON_DIGIT_TEST: "SHORTHAND_NON_DIGIT_TEST",
+  ESCAPE_CHOICE: "ESCAPE_CHOICE",
+  SHORTHAND_ALL: "SHORTHAND_ALL",
+  SHORTHAND_ALL_NEGATED: "SHORTHAND_ALL_NEGATED",
+  SHORTHAND_WHITESPACE_TEST: "SHORTHAND_WHITESPACE_TEST",
+  SHORTHAND_NON_ALPHANUMERIC_TEST: "SHORTHAND_NON_ALPHANUMERIC_TEST"
 };
 
 export const MODULES = {
@@ -84,8 +89,11 @@ export const STAGE_CONFIG = deepFreeze({
       'Sometimes, we might want to search for a meta character. To do this, we use a "\\" beforehand to escape it.',
       "Try to match all the dots in the text."
     ],
-    searchBody: '"Erm... it wasn\'t supposed to do that."',
-    hint: "Escaped meta-characters might looks like this: \\( \\$ \\}",
+    successText: [
+      'Awesome! You could do the same with "?" to match the question mark.'
+    ],
+    searchBody: '"So... you don\'t want the cake?"',
+    hint: "Escaped meta-characters might look like this: \\( \\$ \\}",
     answer: "\\."
   },
   [STAGES.SHORTHAND_DIGIT]: {
@@ -98,7 +106,9 @@ export const STAGE_CONFIG = deepFreeze({
   [STAGES.SHORTHAND_DIGIT_TEST]: {
     type: STAGE_TYPES.REGEX,
     text: ["Try to match all of the digits in the text."],
+    successText: ["You rock!"],
     searchBody: "Where am I going to find 50 pineapples in 20 minutes?",
+    hint: "*cough* previous page *cough*",
     answer: "\\d"
   },
   [STAGES.SHORTHAND_NON_DIGIT_TEST]: {
@@ -107,9 +117,53 @@ export const STAGE_CONFIG = deepFreeze({
       "If we use a capital D when searching for digits, we can match everything that ISN'T a digit.",
       "Try and find all the non digits in the encrypted text."
     ],
+    successText: [
+      'Woo! "\\d" is one of three shorthand characters. Let\'s meet the others.'
+    ],
     searchBody:
       "284118204928WHERE123948954ARE123THE09820394PINEAPPLES12382822HIDDEN?31",
     answer: "\\D"
+  },
+  [STAGES.ESCAPE_CHOICE]: {
+    type: STAGE_TYPES.CHOICE,
+    text: ["Which character is used to escape a meta character?"],
+    successText: ["Nice work!"],
+    failText: [
+      "\\ is used to escape meta characters. For example, we would us \\$ to find all the dollar signs."
+    ],
+    choices: ["\\", ".", "\\d", "!"],
+    answer: 0
+  },
+  [STAGES.SHORTHAND_ALL]: {
+    type: STAGE_TYPES.INFO,
+    text: [
+      '"\\d" matches digits, like 4, 7, or 0.',
+      '"\\w" matches alphanumeric characters, which could be a number or letter.',
+      '"\\s" matches whitespace (space, linebreak, or tab).'
+    ]
+  },
+  [STAGES.SHORTHAND_ALL_NEGATED]: {
+    type: STAGE_TYPES.INFO,
+    text: [
+      "You best believe it...",
+      '"\\D" matches NON digits (a, ., %)',
+      '"\\W" matches NON alphanumeric characters (?, $, ")',
+      '"\\S" matches NON whitespace (K, 7, !)'
+    ]
+  },
+  [STAGES.SHORTHAND_WHITESPACE_TEST]: {
+    type: STAGE_TYPES.REGEX,
+    text: ["Find all the whitespace in the text."],
+    successText: ["Killing it."],
+    searchBody: "Read between the lines...",
+    answer: "\\s"
+  },
+  [STAGES.SHORTHAND_NON_ALPHANUMERIC_TEST]: {
+    type: STAGE_TYPES.REGEX,
+    text: ["Find all the NON alphanumeric characters."],
+    successText: ["Sonic BOOM!"],
+    searchBody: "ABC 123!@£)(* asdf ???",
+    answer: "\\W"
   }
 });
 
@@ -125,7 +179,12 @@ export const MODULES_CONFIG = deepFreeze({
       STAGES.ESCAPE,
       STAGES.SHORTHAND_DIGIT,
       STAGES.SHORTHAND_DIGIT_TEST,
-      STAGES.SHORTHAND_NON_DIGIT_TEST
+      STAGES.SHORTHAND_NON_DIGIT_TEST,
+      STAGES.ESCAPE_CHOICE,
+      STAGES.SHORTHAND_ALL,
+      STAGES.SHORTHAND_ALL_NEGATED,
+      STAGES.SHORTHAND_WHITESPACE_TEST,
+      STAGES.SHORTHAND_NON_ALPHANUMERIC_TEST
     ]
   }
 });
