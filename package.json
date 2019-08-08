@@ -35,7 +35,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://sim8.herokuapp.com/learn-regex",
+  "homepage": "https://sim8.herokuapp.com/apps/learn-regex",
   "devDependencies": {
     "react-test-renderer": "^16.8.6",
     "redux-mock-store": "^1.5.3"
