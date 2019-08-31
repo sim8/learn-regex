@@ -1,5 +1,5 @@
 import React from "react";
-import Stage from "./components/Stage";
+import Stage from "../components/Stage";
 
 function App() {
   return (
