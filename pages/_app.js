@@ -4,6 +4,7 @@ import App from "next/app";
 import withRedux from "next-redux-wrapper";
 import configureStore from "../lib/configureStore";
 import { fromJS } from "immutable";
+import "../style.css";
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {

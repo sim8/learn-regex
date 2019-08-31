@@ -1,0 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Ubuntu+Mono&display=swap");
+
+body {
+  background-color: black;
+  color: #adff12;
+  font-size: 30px;
+  margin: 0;
+  font-family: "Ubuntu Mono", monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@zeit/next-css": "^1.0.1",
     "immutable": "^4.0.0-rc.12",
     "next": "9.0.5",
     "next-redux-wrapper": "^3.0.0",
@@ -19,5 +20,8 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "styled-components": "^4.3.2"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.6"
   }
 }
