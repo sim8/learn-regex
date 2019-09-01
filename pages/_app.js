@@ -5,8 +5,9 @@ import withRedux from "next-redux-wrapper";
 import configureStore from "../lib/configureStore";
 import { fromJS } from "immutable";
 import "../style.css";
+import { mapKeys } from "../utils/objectUtils";
 
-class MyApp extends App {
+class LearnRegexApp extends App {
   static async getInitialProps({ Component, ctx }) {
     const pageProps = Component.getInitialProps
       ? await Component.getInitialProps(ctx)
@@ -25,21 +26,7 @@ class MyApp extends App {
   }
 }
 
-const mapKeys = (obj = {}, fn) =>
-  Object.keys(obj).reduce(
-    (newObj, key) => ({
-      ...newObj,
-      [key]: fn(obj[key])
-    }),
-    {}
-  );
-
-// export default withRedux(configureStore, {
-//   serializeState: state => mapKeys(state, key => key.toJS()),
-//   deserializeState: state => mapKeys(state, key => fromJS(key))
-// })(MyApp);
-
 export default withRedux(configureStore, {
   serializeState: state => mapKeys(state, slice => slice.toJS()),
   deserializeState: state => mapKeys(state, slice => fromJS(slice))
-})(MyApp);
+})(LearnRegexApp);
