@@ -9,3 +9,12 @@ export function deepFreeze(object) {
 
   return Object.freeze(object);
 }
+
+export const mapKeys = (obj = {}, fn) =>
+  Object.keys(obj).reduce(
+    (newObj, key) => ({
+      ...newObj,
+      [key]: fn(obj[key])
+    }),
+    {}
+  );
