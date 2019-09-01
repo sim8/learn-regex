@@ -14,9 +14,6 @@ const initialState = fromJS({
 });
 
 export default function input(state = initialState, { altKey, ...action }) {
-  if (!state.get) {
-    debugger;
-  }
   const caretPos = state.get("caretPos");
   switch (action.type) {
     case MOVE_TO_NEXT_STAGE:
