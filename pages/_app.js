@@ -1,11 +1,15 @@
+import App from "next/app";
+import Router from "next/router";
 import React from "react";
 import { Provider } from "react-redux";
-import App from "next/app";
 import withRedux from "next-redux-wrapper";
 import configureStore from "../lib/configureStore";
+import * as gtag from "../lib/gtag";
 import { fromJS } from "immutable";
 import "../style.css";
 import { mapKeys } from "../utils/objectUtils";
+
+Router.events.on("routeChangeComplete", url => gtag.pageview(url));
 
 class LearnRegexApp extends App {
   static async getInitialProps({ Component, ctx }) {
