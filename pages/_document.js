@@ -1,7 +1,6 @@
 import Document, { Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
-
-import { GA_TRACKING_ID } from "../lib/gtag";
+import { GA_TRACKING_ID } from "../constants/trackingConstants";
 
 export default class LearnRegexDocument extends Document {
   static async getInitialProps(ctx) {
