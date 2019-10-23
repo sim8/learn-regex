@@ -1,7 +1,7 @@
 import App from "next/app";
 import Router from "next/router";
 import React from "react";
-import { Provider } from "react-redux";
+import { Provider, connect } from "react-redux";
 import withRedux from "next-redux-wrapper";
 import configureStore from "../lib/configureStore";
 import * as gtag from "../lib/gtag";
