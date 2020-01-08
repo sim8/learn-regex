@@ -3,16 +3,16 @@ import Head from "next/head";
 import Nav from "../components/Nav";
 import Stage from "../components/Stage";
 
-function App() {
+function TestPrompt() {
   return (
     <div className="App">
       <Head>
-        <title>Learn Regex</title>
+        <title>Learn Regex // Test</title>
       </Head>
-      <Stage />
+      <b>This is a test</b>
       <Nav />
     </div>
   );
 }
 
-export default App;
+export default TestPrompt;
