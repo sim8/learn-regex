@@ -9,3 +9,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.complete-text {
+  font-style: italic;
+}
+.code {
+  color: black;
+  background-color: #adff12;
+  font-style: normal;
+}

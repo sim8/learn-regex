@@ -4,6 +4,7 @@ import styled from "styled-components";
 import PatternQuestion from "./questions/PatternQuestion";
 import MultiChoiceQuestion from "./questions/MultiChoiceQuestion";
 import Button from "./styled/Button";
+import FullScreenFlexBox from "./styled/FullScreenFlexBox";
 import {
   getStageConfig,
   getCanMoveToNextStage,
@@ -16,26 +17,6 @@ import {
   moveToPreviousStage
 } from "../actions/progressActions";
 import { STAGE_TYPES } from "../constants/lessonConfig";
-
-const StageWrapper = styled.div`
-  .main-text {
-    padding-top: 13vh;
-    min-height: 300px;
-    .complete-text {
-      font-style: italic;
-    }
-    .code {
-      color: black;
-      background-color: #adff12;
-      font-style: normal;
-    }
-  }
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
-  margin: 0 20px;
-`;
 
 const NavButtons = styled.div`
   height: 70px;
@@ -80,7 +61,7 @@ function Stage({
   const completeText =
     type !== STAGE_TYPES.CHOICE || answerCorrect ? successText : failText;
   return (
-    <StageWrapper>
+    <FullScreenFlexBox>
       <div className="main-text">
         {renderTextLines(text)}
         {canMoveToNextStage && completeText && (
@@ -96,7 +77,7 @@ function Stage({
           </Button>
         )}
       </NavButtons>
-    </StageWrapper>
+    </FullScreenFlexBox>
   );
 }
 export default connect(mapStateToProps, {
