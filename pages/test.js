@@ -3,7 +3,7 @@ import Head from "next/head";
 import Nav from "../components/Nav";
 import Stage from "../components/Stage";
 
-function TestPrompt() {
+function TestingPage() {
   return (
     <div className="App">
       <Head>
@@ -15,4 +15,4 @@ function TestPrompt() {
   );
 }
 
-export default TestPrompt;
+export default TestingPage;

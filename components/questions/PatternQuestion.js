@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import Prompt from "./Prompt";
-import { getMatches } from "../selectors/inputSelectors";
-import Hint from "./Hint";
+import Prompt from "../Prompt";
+import { getMatches } from "../../selectors/inputSelectors";
+import Hint from "../Hint";
 
 const SearchBody = styled.div`
   width: 100%;
@@ -19,7 +19,7 @@ const SearchBody = styled.div`
   }
 `;
 
-const TestWrapper = styled.div`
+const PatternQuestionWrapper = styled.div`
   position: relative;
 `;
 
@@ -53,9 +53,9 @@ const generateHighlightedSearchBody = (searchBody, matches) => {
   return <span className="unmatched">{searchBody}</span>;
 };
 
-function Test({ searchBody, matches, hint }) {
+function PatternQuestion({ searchBody, matches, hint }) {
   return (
-    <TestWrapper>
+    <PatternQuestionWrapper>
       {hint && <Hint hint={hint} />}
       {searchBody ? (
         <SearchBody>
@@ -63,11 +63,8 @@ function Test({ searchBody, matches, hint }) {
         </SearchBody>
       ) : null}
       <Prompt />
-    </TestWrapper>
+    </PatternQuestionWrapper>
   );
 }
 
-export default connect(
-  mapStateToProps,
-  {}
-)(Test);
+export default connect(mapStateToProps, {})(PatternQuestion);

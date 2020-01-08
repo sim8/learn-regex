@@ -3,7 +3,7 @@ import Head from "next/head";
 import Nav from "../components/Nav";
 import Stage from "../components/Stage";
 
-function App() {
+function HomePage() {
   return (
     <div className="App">
       <Head>
@@ -15,4 +15,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomePage;

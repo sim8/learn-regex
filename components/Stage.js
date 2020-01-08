@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import Test from "./Test";
-import Choice from "./Choice";
+import PatternQuestion from "./questions/PatternQuestion";
+import MultiChoiceQuestion from "./questions/MultiChoiceQuestion";
 import Button from "./styled/Button";
 import {
   getStageConfig,
@@ -53,9 +53,9 @@ const mapStateToProps = state => ({
 function renderStageContent({ type, ...config }, id) {
   switch (type) {
     case STAGE_TYPES.REGEX:
-      return <Test {...config} stageId={id} />;
+      return <PatternQuestion {...config} stageId={id} />;
     case STAGE_TYPES.CHOICE:
-      return <Choice {...config} stageId={id} />;
+      return <MultiChoiceQuestion {...config} stageId={id} />;
     default:
       return null;
   }
@@ -99,10 +99,7 @@ function Stage({
     </StageWrapper>
   );
 }
-export default connect(
-  mapStateToProps,
-  {
-    onClickNext: moveToNextStage,
-    onClickBack: moveToPreviousStage
-  }
-)(Stage);
+export default connect(mapStateToProps, {
+  onClickNext: moveToNextStage,
+  onClickBack: moveToPreviousStage
+})(Stage);

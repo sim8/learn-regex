@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import Button from "./styled/Button";
-import UnstyledList from "./styled/UnstyledList";
-import { submitAnswer as submitAnswerAction } from "../actions/progressActions";
-import { getProvidedAnswerForStage } from "../selectors/progressSelectors";
+import Button from "../styled/Button";
+import UnstyledList from "../styled/UnstyledList";
+import { submitAnswer as submitAnswerAction } from "../../actions/progressActions";
+import { getProvidedAnswerForStage } from "../../selectors/progressSelectors";
 
 const check = <span>&#10004;</span>;
 const cross = <span className="error">&#x2716;</span>;
@@ -44,7 +44,13 @@ function renderResultIcon(index, providedAnswer, actualAnswer) {
   }
 }
 
-function Choice({ choices, submitAnswer, answer, providedAnswer, stageId }) {
+function MultiChoiceQuestion({
+  choices,
+  submitAnswer,
+  answer,
+  providedAnswer,
+  stageId
+}) {
   return (
     <Choices>
       {choices.map((choice, i) => (
@@ -67,9 +73,6 @@ function Choice({ choices, submitAnswer, answer, providedAnswer, stageId }) {
   );
 }
 
-export default connect(
-  mapStateToProps,
-  {
-    submitAnswer: submitAnswerAction
-  }
-)(Choice);
+export default connect(mapStateToProps, {
+  submitAnswer: submitAnswerAction
+})(MultiChoiceQuestion);
