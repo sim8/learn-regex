@@ -190,6 +190,8 @@ export const STAGE_CONFIG = deepFreeze({
     ],
     successText: ["Heck yeah!"],
     searchBody: "sdf23l.kj?l.3sdl)^fk..1sdf8",
+    hint:
+      "A dot matches any character. Any meta-character can be searched for by putting a backslash in front of it.",
     answer: "\\W.\\.",
   },
 });
