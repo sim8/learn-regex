@@ -6,9 +6,9 @@ export default function getPreloadedState() {
   return {
     progress: fromJS({
       moduleId: MODULES.WELCOME,
-      stageIndex: 10,
-      highestCompletedStageIndex: 9,
-      answers: {}
-    })
+      stageIndex: 15,
+      highestCompletedStageIndex: 15,
+      answers: {},
+    }),
   };
 }

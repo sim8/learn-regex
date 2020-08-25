@@ -7,11 +7,15 @@ import {
   ACTIONS as TRACKING_ACTIONS,
   CATEGORIES as TRACKING_CATEGORIES
 } from "../constants/trackingConstants";
-import { getStageId } from "../selectors/progressSelectors";
+import { getStageId, getIsFinalStageInModule } from "../selectors/progressSelectors";
 import { event } from "../lib/gtag";
 
-export const moveToNextStage = () => (dispatch, getState) => {
+export const moveToNextScreen = () => (dispatch, getState) => {
   const stageId = getStageId(getState());
+  const isFinalStageInModule = getIsFinalStageInModule(getState())
+  if (isFinalStageInModule) {
+    debugger
+  }
   event(TRACKING_ACTIONS.MOVE_TO_NEXT_STAGE, {
     category: TRACKING_CATEGORIES.STAGE,
     label: stageId

@@ -12,7 +12,7 @@ import {
   getProvidedAnswerIsCorrect
 } from "../selectors/progressSelectors";
 import {
-  moveToNextStage,
+  moveToNextScreen,
   moveToPreviousStage
 } from "../actions/progressActions";
 import { STAGE_TYPES } from "../constants/lessonConfig";
@@ -102,7 +102,7 @@ function Stage({
 export default connect(
   mapStateToProps,
   {
-    onClickNext: moveToNextStage,
+    onClickNext: moveToNextScreen,
     onClickBack: moveToPreviousStage
   }
 )(Stage);

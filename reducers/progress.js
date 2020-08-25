@@ -11,6 +11,7 @@ const initialState = fromJS({
   moduleId: MODULES.WELCOME,
   stageIndex: 0,
   highestCompletedStageIndex: -1,
+  complete: false,
   answers: {}
 });
 
