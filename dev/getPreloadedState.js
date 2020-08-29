@@ -1,5 +1,5 @@
-import { fromJS } from "immutable";
-import { MODULES } from "../constants/lessonConfig";
+import { fromJS } from 'immutable';
+import { MODULES } from '../constants/lessonConfig';
 
 export default function getPreloadedState() {
   // return {};
@@ -8,7 +8,7 @@ export default function getPreloadedState() {
       moduleId: MODULES.WELCOME,
       stageIndex: 10,
       highestCompletedStageIndex: 9,
-      answers: {}
-    })
+      answers: {},
+    }),
   };
 }

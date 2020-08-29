@@ -1,6 +1,7 @@
-import Document, { Head, Main, NextScript } from "next/document";
-import { ServerStyleSheet } from "styled-components";
-import { GA_TRACKING_ID } from "../constants/trackingConstants";
+import Document, { Head, Main, NextScript } from 'next/document';
+import React from 'react';
+import { ServerStyleSheet } from 'styled-components';
+import { GA_TRACKING_ID } from '../constants/trackingConstants';
 
 export default class LearnRegexDocument extends Document {
   static async getInitialProps(ctx) {
@@ -10,7 +11,7 @@ export default class LearnRegexDocument extends Document {
     try {
       ctx.renderPage = () =>
         originalRenderPage({
-          enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
+          enhanceApp: App => props => sheet.collectStyles(<App {...props} />),
         });
 
       const initialProps = await Document.getInitialProps(ctx);
@@ -21,7 +22,7 @@ export default class LearnRegexDocument extends Document {
             {initialProps.styles}
             {sheet.getStyleElement()}
           </>
-        )
+        ),
       };
     } finally {
       sheet.seal();
@@ -38,6 +39,7 @@ export default class LearnRegexDocument extends Document {
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
           />
           <script
+            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{
               __html: `
             window.dataLayer = window.dataLayer || [];
@@ -45,7 +47,7 @@ export default class LearnRegexDocument extends Document {
             gtag('js', new Date());
 
             gtag('config', '${GA_TRACKING_ID}');
-          `
+          `,
             }}
           />
         </Head>

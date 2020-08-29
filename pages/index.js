@@ -1,6 +1,6 @@
-import React from "react";
-import Head from "next/head";
-import Stage from "../components/Stage";
+import React from 'react';
+import Head from 'next/head';
+import Stage from '../components/Stage';
 
 function App() {
   return (

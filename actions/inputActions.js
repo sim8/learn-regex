@@ -3,19 +3,19 @@ import {
   KEY_LEFT,
   KEY_RIGHT,
   BACKSPACE,
-  STAGE_COMPLETE
-} from "./actionTypes";
-import { getInputValue } from "../selectors/inputSelectors";
+  STAGE_COMPLETE,
+} from './actionTypes';
+import { getInputValue } from '../selectors/inputSelectors';
 import {
   getStageConfig,
-  getCanMoveToNextStage
-} from "../selectors/progressSelectors";
-import { moveToNextStage } from "./progressActions";
+  getCanMoveToNextStage,
+} from '../selectors/progressSelectors';
+import { moveToNextStage } from './progressActions';
 
-export const keyPress = ({ key, ...rest }) => (dispatch, getState) => {
+export const keyPress = ({ key }) => (dispatch, getState) => {
   const state = getState();
   const stageConfig = getStageConfig(state);
-  if (key === "Enter") {
+  if (key === 'Enter') {
     if (getCanMoveToNextStage(state)) {
       dispatch(moveToNextStage());
     }
@@ -23,34 +23,34 @@ export const keyPress = ({ key, ...rest }) => (dispatch, getState) => {
   }
   dispatch({
     type: ENTER_CHARACTER,
-    char: key
+    char: key,
   });
   const inputValue = getInputValue(getState());
   if (inputValue === stageConfig.answer) {
     dispatch({
-      type: STAGE_COMPLETE
+      type: STAGE_COMPLETE,
     });
   }
 };
 
 export const keyDown = ({ key, altKey }) => dispatch => {
   switch (key) {
-    case "ArrowLeft":
+    case 'ArrowLeft':
       dispatch({
         type: KEY_LEFT,
-        altKey
+        altKey,
       });
       break;
-    case "ArrowRight":
+    case 'ArrowRight':
       dispatch({
         type: KEY_RIGHT,
-        altKey
+        altKey,
       });
       break;
-    case "Backspace":
+    case 'Backspace':
       dispatch({
         type: BACKSPACE,
-        altKey
+        altKey,
       });
       break;
     default:

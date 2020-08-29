@@ -1,23 +1,20 @@
-import { createSelector } from "reselect";
+import { createSelector } from 'reselect';
 import {
   STAGE_CONFIG,
   STAGE_TYPES,
-  MODULES_CONFIG
-} from "../constants/lessonConfig";
+  MODULES_CONFIG,
+} from '../constants/lessonConfig';
 
 const getProgress = state => state.progress;
 const createProgressSelector = key =>
-  createSelector(
-    getProgress,
-    progress => progress.get(key)
-  );
+  createSelector(getProgress, progress => progress.get(key));
 
-export const getModuleId = createProgressSelector("moduleId");
-export const getStageIndex = createProgressSelector("stageIndex");
+export const getModuleId = createProgressSelector('moduleId');
+export const getStageIndex = createProgressSelector('stageIndex');
 export const getHighestCompletedStageIndex = createProgressSelector(
-  "highestCompletedStageIndex"
+  'highestCompletedStageIndex'
 );
-export const getProvidedAnswers = createProgressSelector("answers");
+export const getProvidedAnswers = createProgressSelector('answers');
 
 const getModuleConfig = createSelector(
   getModuleId,

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "test": "jest"
@@ -11,7 +12,7 @@
   "dependencies": {
     "@zeit/next-css": "^1.0.1",
     "immutable": "^4.0.0-rc.12",
-    "next": "9.0.5",
+    "next": "^9.5.2",
     "next-redux-wrapper": "^3.0.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",
@@ -24,6 +25,15 @@
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.10.6",
-    "jest": "^24.9.0"
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "jest": "^24.9.0",
+    "prettier": "^2.0.5"
   }
 }

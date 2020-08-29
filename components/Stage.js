@@ -1,21 +1,21 @@
-import React from "react";
-import { connect } from "react-redux";
-import styled from "styled-components";
-import Test from "./Test";
-import Choice from "./Choice";
-import Button from "./styled/Button";
+import React from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import Test from './Test';
+import Choice from './Choice';
+import Button from './styled/Button';
 import {
   getStageConfig,
   getCanMoveToNextStage,
   getCanMoveToPreviousStage,
   getStageId,
-  getProvidedAnswerIsCorrect
-} from "../selectors/progressSelectors";
+  getProvidedAnswerIsCorrect,
+} from '../selectors/progressSelectors';
 import {
   moveToNextStage,
-  moveToPreviousStage
-} from "../actions/progressActions";
-import { STAGE_TYPES } from "../constants/lessonConfig";
+  moveToPreviousStage,
+} from '../actions/progressActions';
+import { STAGE_TYPES } from '../constants/lessonConfig';
 
 const StageWrapper = styled.div`
   .main-text {
@@ -47,7 +47,7 @@ const mapStateToProps = state => ({
   stageConfig: getStageConfig(state),
   canMoveToNextStage: getCanMoveToNextStage(state),
   canMoveToPreviousStage: getCanMoveToPreviousStage(state),
-  answerCorrect: getProvidedAnswerIsCorrect(state)
+  answerCorrect: getProvidedAnswerIsCorrect(state),
 });
 
 function renderStageContent({ type, ...config }, id) {
@@ -62,8 +62,10 @@ function renderStageContent({ type, ...config }, id) {
 }
 
 function renderTextLines(textLines) {
-  return textLines.map((t, index) => (
-    <p key={index} dangerouslySetInnerHTML={{ __html: t }} />
+  return textLines.map(t => (
+    // eslint-disable-next-line react/no-array-index-key
+    // eslint-disable-next-line react/no-danger
+    <p key={`${t}`} dangerouslySetInnerHTML={{ __html: t }} />
   ));
 }
 
@@ -74,7 +76,7 @@ function Stage({
   canMoveToPreviousStage,
   answerCorrect,
   onClickNext,
-  onClickBack
+  onClickBack,
 }) {
   const { type, text, successText, failText } = stageConfig;
   const completeText =
@@ -99,10 +101,7 @@ function Stage({
     </StageWrapper>
   );
 }
-export default connect(
-  mapStateToProps,
-  {
-    onClickNext: moveToNextStage,
-    onClickBack: moveToPreviousStage
-  }
-)(Stage);
+export default connect(mapStateToProps, {
+  onClickNext: moveToNextStage,
+  onClickBack: moveToPreviousStage,
+})(Stage);
