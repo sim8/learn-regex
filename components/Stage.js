@@ -26,11 +26,6 @@ const StageWrapper = styled.div`
     .complete-text {
       font-style: italic;
     }
-    .code {
-      color: black;
-      background-color: #adff12;
-      font-style: normal;
-    }
   }
   display: flex;
   flex-direction: column;
