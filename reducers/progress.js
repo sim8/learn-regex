@@ -5,6 +5,7 @@ import {
   STAGE_COMPLETE,
   SUBMIT_ANSWER,
   COMPLETE_MODULE,
+  RETURN_TO_ALL_MODULES,
 } from '../actions/actionTypes';
 import { MODULES } from '../constants/lessonConfig';
 
@@ -37,6 +38,8 @@ export default function progress(state = initialState, { ...action }) {
       );
     case COMPLETE_MODULE:
       return markStageCompleted(state).set('moduleComplete', true);
+    case RETURN_TO_ALL_MODULES:
+      return initialState.set('moduleId', null);
     default:
       return state;
   }
