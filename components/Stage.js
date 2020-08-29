@@ -10,12 +10,14 @@ import {
   getCanMoveToPreviousStage,
   getStageId,
   getProvidedAnswerIsCorrect,
+  getModuleComplete,
 } from '../selectors/progressSelectors';
 import {
-  moveToNextStage,
+  moveToNextScreen,
   moveToPreviousStage,
 } from '../actions/progressActions';
 import { STAGE_TYPES } from '../constants/lessonConfig';
+import ModuleComplete from './ModuleComplete';
 
 const StageWrapper = styled.div`
   .main-text {
@@ -23,11 +25,6 @@ const StageWrapper = styled.div`
     min-height: 300px;
     .complete-text {
       font-style: italic;
-    }
-    .code {
-      color: black;
-      background-color: #adff12;
-      font-style: normal;
     }
   }
   display: flex;
@@ -48,6 +45,7 @@ const mapStateToProps = state => ({
   canMoveToNextStage: getCanMoveToNextStage(state),
   canMoveToPreviousStage: getCanMoveToPreviousStage(state),
   answerCorrect: getProvidedAnswerIsCorrect(state),
+  moduleComplete: getModuleComplete(state),
 });
 
 function renderStageContent({ type, ...config }, id) {
@@ -77,10 +75,14 @@ function Stage({
   answerCorrect,
   onClickNext,
   onClickBack,
+  moduleComplete,
 }) {
   const { type, text, successText, failText } = stageConfig;
   const completeText =
     type !== STAGE_TYPES.CHOICE || answerCorrect ? successText : failText;
+  if (moduleComplete) {
+    return <ModuleComplete />;
+  }
   return (
     <StageWrapper>
       <div className="main-text">
@@ -102,6 +104,6 @@ function Stage({
   );
 }
 export default connect(mapStateToProps, {
-  onClickNext: moveToNextStage,
+  onClickNext: moveToNextScreen,
   onClickBack: moveToPreviousStage,
 })(Stage);

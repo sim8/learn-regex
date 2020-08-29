@@ -22,10 +22,13 @@ export const STAGES = {
   SHORTHAND_ALL_NEGATED: 'SHORTHAND_ALL_NEGATED',
   SHORTHAND_WHITESPACE_TEST: 'SHORTHAND_WHITESPACE_TEST',
   SHORTHAND_NON_ALPHANUMERIC_TEST: 'SHORTHAND_NON_ALPHANUMERIC_TEST',
+  BASIC_SEQUENCE: 'BASIC_SEQUENCE',
+  BASIC_SEQUENCE_TEST: 'BASIC_SEQUENCE_TEST',
+  BASIC_SEQUENCE_2_TEST: 'BASIC_SEQUENCE_2_TEST',
 };
 
 export const MODULES = {
-  WELCOME: 'WELCOME',
+  BASICS: 'BASICS',
 };
 
 export const STAGE_CONFIG = deepFreeze({
@@ -165,10 +168,39 @@ export const STAGE_CONFIG = deepFreeze({
     searchBody: 'ABC 123!@£)(* asdf ???',
     answer: '\\W',
   },
+  [STAGES.BASIC_SEQUENCE]: {
+    type: STAGE_TYPES.INFO,
+    text: [
+      "We're nearly there!",
+      "Everything we've learnt so far can be combined in a sequence, to match a sequence of characters.",
+      'For example, <span class="code">\\w\\d</span> will match any alphanumeric character followed by any digit.',
+    ],
+  },
+  [STAGES.BASIC_SEQUENCE_TEST]: {
+    type: STAGE_TYPES.REGEX,
+    text: ['Find every digit followed by a space.'],
+    successText: ['Wahoo! One more to go!'],
+    searchBody: '8SS 1 H2 93 16B 4 5 7K6 K',
+    answer: '\\d\\s',
+  },
+  [STAGES.BASIC_SEQUENCE_2_TEST]: {
+    type: STAGE_TYPES.REGEX,
+    text: [
+      'Find every NON-alphanumeric character, followed by ANY character, followed by a full-stop.',
+    ],
+    successText: ['Heck yeah!'],
+    searchBody: 'sdf23l.kj?l.3sdl)^fk..1sdf8',
+    hint:
+      'A dot matches any character. Any meta-character can be searched for by putting a backslash in front of it.',
+    answer: '\\W.\\.',
+  },
 });
 
 export const MODULES_CONFIG = deepFreeze({
-  [MODULES.WELCOME]: {
+  [MODULES.BASICS]: {
+    id: MODULES.BASICS,
+    name: 'Basics',
+    points: 300,
     stages: [
       STAGES.GREETING,
       STAGES.INTRO,
@@ -185,6 +217,9 @@ export const MODULES_CONFIG = deepFreeze({
       STAGES.SHORTHAND_ALL_NEGATED,
       STAGES.SHORTHAND_WHITESPACE_TEST,
       STAGES.SHORTHAND_NON_ALPHANUMERIC_TEST,
+      STAGES.BASIC_SEQUENCE,
+      STAGES.BASIC_SEQUENCE_TEST,
+      STAGES.BASIC_SEQUENCE_2_TEST,
     ],
   },
 });

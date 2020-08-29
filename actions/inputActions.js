@@ -10,14 +10,14 @@ import {
   getStageConfig,
   getCanMoveToNextStage,
 } from '../selectors/progressSelectors';
-import { moveToNextStage } from './progressActions';
+import { moveToNextScreen } from './progressActions';
 
 export const keyPress = ({ key }) => (dispatch, getState) => {
   const state = getState();
   const stageConfig = getStageConfig(state);
   if (key === 'Enter') {
     if (getCanMoveToNextStage(state)) {
-      dispatch(moveToNextStage());
+      dispatch(moveToNextScreen());
     }
     return;
   }
