@@ -4,6 +4,7 @@ import {
   MOVE_TO_PREVIOUS_STAGE,
   STAGE_COMPLETE,
   SUBMIT_ANSWER,
+  COMPLETE_MODULE,
 } from '../actions/actionTypes';
 import { MODULES } from '../constants/lessonConfig';
 
@@ -12,6 +13,7 @@ const initialState = fromJS({
   stageIndex: 0,
   highestCompletedStageIndex: -1,
   answers: {},
+  complete: false,
 });
 
 const markStageCompleted = state =>
@@ -33,6 +35,8 @@ export default function progress(state = initialState, { ...action }) {
         ['answers', action.stage],
         action.answer
       );
+    case COMPLETE_MODULE:
+      return markStageCompleted(state).set('complete', true);
     default:
       return state;
   }

@@ -26,6 +26,11 @@ export const getStageId = createSelector(
   (moduleConfig, stageIndex) => moduleConfig.stages[stageIndex]
 );
 
+export const getIsFinalStageInModule = createSelector(
+  [getModuleConfig, getStageIndex],
+  (moduleConfig, stageIndex) => stageIndex + 1 === moduleConfig.stages.length
+);
+
 export const getStageConfig = createSelector(
   getStageId,
   stageId => STAGE_CONFIG[stageId]
