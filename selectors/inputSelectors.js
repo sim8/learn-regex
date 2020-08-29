@@ -1,15 +1,12 @@
-import { createSelector } from "reselect";
-import { getStageConfig } from "./progressSelectors";
+import { createSelector } from 'reselect';
+import { getStageConfig } from './progressSelectors';
 
 const getInput = state => state.input;
 const createInputSelector = key =>
-  createSelector(
-    getInput,
-    input => input.get(key)
-  );
+  createSelector(getInput, input => input.get(key));
 
-export const getInputValue = createInputSelector("value");
-export const getCaretPos = createInputSelector("caretPos");
+export const getInputValue = createInputSelector('value');
+export const getCaretPos = createInputSelector('caretPos');
 
 export const getMatches = createSelector(
   [getInputValue, getStageConfig],
@@ -19,7 +16,7 @@ export const getMatches = createSelector(
     }
     let regex;
     try {
-      regex = new RegExp(inputValue, "g");
+      regex = new RegExp(inputValue, 'g');
     } catch (e) {
       return false;
     }
@@ -27,6 +24,7 @@ export const getMatches = createSelector(
     const lastIndexes = {};
     let match;
     lastIndexes[regex.lastIndex] = true;
+    // eslint-disable-next-line no-cond-assign
     while ((match = regex.exec(searchBody))) {
       lastIndexes[regex.lastIndex] = true;
       matches.push(match);

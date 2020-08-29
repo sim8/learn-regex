@@ -1,10 +1,10 @@
-import React from "react";
-import { connect } from "react-redux";
-import styled from "styled-components";
-import Button from "./styled/Button";
-import UnstyledList from "./styled/UnstyledList";
-import { submitAnswer as submitAnswerAction } from "../actions/progressActions";
-import { getProvidedAnswerForStage } from "../selectors/progressSelectors";
+import React from 'react';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import Button from './styled/Button';
+import UnstyledList from './styled/UnstyledList';
+import { submitAnswer as submitAnswerAction } from '../actions/progressActions';
+import { getProvidedAnswerForStage } from '../selectors/progressSelectors';
 
 const check = <span>&#10004;</span>;
 const cross = <span className="error">&#x2716;</span>;
@@ -31,31 +31,35 @@ const Choices = styled(UnstyledList)`
 `;
 
 const mapStateToProps = state => ({
-  providedAnswer: getProvidedAnswerForStage(state)
+  providedAnswer: getProvidedAnswerForStage(state),
 });
 
 function renderResultIcon(index, providedAnswer, actualAnswer) {
   if (providedAnswer !== undefined) {
     if (index === providedAnswer) {
       return providedAnswer === actualAnswer ? check : cross;
-    } else if (index === actualAnswer) {
+    }
+    if (index === actualAnswer) {
       return check;
     }
   }
+  return null;
 }
 
 function Choice({ choices, submitAnswer, answer, providedAnswer, stageId }) {
   return (
     <Choices>
       {choices.map((choice, i) => (
-        <li key={`${i}`}>
+        <li key={`${choice}`}>
           <div>
             <Button
-              onClick={() =>
-                providedAnswer === undefined && submitAnswer(stageId, i)
-              }
+              onClick={() => {
+                if (providedAnswer === undefined) {
+                  submitAnswer(stageId, i);
+                }
+              }}
               disabled={providedAnswer !== undefined}
-              type={i === providedAnswer ? "primary" : null}
+              type={i === providedAnswer ? 'primary' : null}
             >
               {choice}
             </Button>
@@ -67,9 +71,6 @@ function Choice({ choices, submitAnswer, answer, providedAnswer, stageId }) {
   );
 }
 
-export default connect(
-  mapStateToProps,
-  {
-    submitAnswer: submitAnswerAction
-  }
-)(Choice);
+export default connect(mapStateToProps, {
+  submitAnswer: submitAnswerAction,
+})(Choice);
