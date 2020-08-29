@@ -9,11 +9,11 @@ import {
 import { MODULES } from '../constants/lessonConfig';
 
 const initialState = fromJS({
-  moduleId: MODULES.WELCOME,
+  moduleId: MODULES.BASICS,
   stageIndex: 0,
   highestCompletedStageIndex: -1,
   answers: {},
-  complete: false,
+  moduleComplete: false,
 });
 
 const markStageCompleted = state =>
@@ -36,7 +36,7 @@ export default function progress(state = initialState, { ...action }) {
         action.answer
       );
     case COMPLETE_MODULE:
-      return markStageCompleted(state).set('complete', true);
+      return markStageCompleted(state).set('moduleComplete', true);
     default:
       return state;
   }

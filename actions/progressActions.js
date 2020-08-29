@@ -3,6 +3,7 @@ import {
   MOVE_TO_PREVIOUS_STAGE,
   SUBMIT_ANSWER,
   COMPLETE_MODULE,
+  RETURN_TO_ALL_MODULES,
 } from './actionTypes';
 import {
   ACTIONS as TRACKING_ACTIONS,
@@ -53,4 +54,8 @@ export const submitAnswer = (stage, answer) => ({
   type: SUBMIT_ANSWER,
   stage,
   answer,
+});
+
+export const returnToAllModules = () => ({
+  type: RETURN_TO_ALL_MODULES,
 });

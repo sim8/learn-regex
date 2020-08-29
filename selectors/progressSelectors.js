@@ -15,8 +15,9 @@ export const getHighestCompletedStageIndex = createProgressSelector(
   'highestCompletedStageIndex'
 );
 export const getProvidedAnswers = createProgressSelector('answers');
+export const getModuleComplete = createProgressSelector('moduleComplete');
 
-const getModuleConfig = createSelector(
+export const getModuleConfig = createSelector(
   getModuleId,
   moduleId => MODULES_CONFIG[moduleId]
 );

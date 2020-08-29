@@ -28,7 +28,7 @@ export const STAGES = {
 };
 
 export const MODULES = {
-  WELCOME: 'WELCOME',
+  BASICS: 'BASICS',
 };
 
 export const STAGE_CONFIG = deepFreeze({
@@ -197,7 +197,10 @@ export const STAGE_CONFIG = deepFreeze({
 });
 
 export const MODULES_CONFIG = deepFreeze({
-  [MODULES.WELCOME]: {
+  [MODULES.BASICS]: {
+    id: MODULES.BASICS,
+    name: 'Basics',
+    points: 300,
     stages: [
       STAGES.GREETING,
       STAGES.INTRO,
