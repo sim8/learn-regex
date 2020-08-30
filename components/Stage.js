@@ -10,11 +10,11 @@ import {
   getCanMoveToPreviousStage,
   getStageId,
   getProvidedAnswerIsCorrect,
-} from '../selectors/progressSelectors';
+} from '../selectors/moduleProgressSelectors';
 import {
   moveToNextScreen,
   moveToPreviousStage,
-} from '../actions/progressActions';
+} from '../actions/moduleProgressActions';
 import { STAGE_TYPES } from '../constants/lessonConfig';
 
 const StageWrapper = styled.div`

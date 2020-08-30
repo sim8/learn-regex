@@ -13,7 +13,7 @@ import {
   getStageId,
   getIsFinalStageInModule,
   getModuleId,
-} from '../selectors/progressSelectors';
+} from '../selectors/moduleProgressSelectors';
 import { event } from '../lib/gtag';
 
 export const moveToNextScreen = () => (dispatch, getState) => {

@@ -4,7 +4,7 @@ import { MODULES } from '../constants/lessonConfig';
 export default function getPreloadedState() {
   // return {};
   return {
-    progress: fromJS({
+    moduleProgress: fromJS({
       moduleId: MODULES.BASICS,
       stageIndex: 15,
       highestCompletedStageIndex: 15,

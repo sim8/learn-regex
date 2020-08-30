@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { getStageConfig } from './progressSelectors';
+import { getStageConfig } from './moduleProgressSelectors';
 
 const getInput = state => state.input;
 const createInputSelector = key =>

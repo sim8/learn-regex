@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Button from './styled/Button';
 import UnstyledList from './styled/UnstyledList';
-import { submitAnswer as submitAnswerAction } from '../actions/progressActions';
-import { getProvidedAnswerForStage } from '../selectors/progressSelectors';
+import { submitAnswer as submitAnswerAction } from '../actions/moduleProgressActions';
+import { getProvidedAnswerForStage } from '../selectors/moduleProgressSelectors';
 
 const check = <span>&#10004;</span>;
 const cross = <span className="error">&#x2716;</span>;

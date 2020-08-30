@@ -22,7 +22,7 @@ const markStageCompleted = state =>
     Math.max(state.get('stageIndex'), highest)
   );
 
-export default function progress(state = initialState, { ...action }) {
+export default function moduleProgress(state = initialState, { ...action }) {
   switch (action.type) {
     case MOVE_TO_NEXT_STAGE: {
       return markStageCompleted(state).update('stageIndex', i => i + 1);

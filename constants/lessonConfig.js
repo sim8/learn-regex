@@ -29,6 +29,8 @@ export const STAGES = {
 
 export const MODULES = {
   BASICS: 'BASICS',
+  QUANTIFIERS: 'QUANTIFIERS',
+  LOGIC: 'LOGIC',
 };
 
 export const STAGE_CONFIG = deepFreeze({
@@ -200,6 +202,7 @@ export const MODULES_CONFIG = deepFreeze({
   [MODULES.BASICS]: {
     id: MODULES.BASICS,
     name: 'Basics',
+    pictureText: '\\\\',
     points: 300,
     stages: [
       STAGES.GREETING,
@@ -221,5 +224,13 @@ export const MODULES_CONFIG = deepFreeze({
       STAGES.BASIC_SEQUENCE_TEST,
       STAGES.BASIC_SEQUENCE_2_TEST,
     ],
+  },
+  [MODULES.QUANTIFIERS]: {
+    id: MODULES.QUANTIFIERS,
+    comingSoon: true,
+    name: 'Quantifiers',
+    pictureText: '123',
+    points: 300,
+    stages: [],
   },
 });

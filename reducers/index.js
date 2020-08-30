@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
 import input from './input';
-import progress from './progress';
+import moduleProgress from './moduleProgress';
 
-export default combineReducers({ input, progress });
+export default combineReducers({ input, moduleProgress });

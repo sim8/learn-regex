@@ -5,17 +5,19 @@ import {
   MODULES_CONFIG,
 } from '../constants/lessonConfig';
 
-const getProgress = state => state.progress;
-const createProgressSelector = key =>
-  createSelector(getProgress, progress => progress.get(key));
+const getModuleProgress = state => state.moduleProgress;
+const createModulemoduleProgressSelector = key =>
+  createSelector(getModuleProgress, moduleProgress => moduleProgress.get(key));
 
-export const getModuleId = createProgressSelector('moduleId');
-export const getStageIndex = createProgressSelector('stageIndex');
-export const getHighestCompletedStageIndex = createProgressSelector(
+export const getModuleId = createModulemoduleProgressSelector('moduleId');
+export const getStageIndex = createModulemoduleProgressSelector('stageIndex');
+export const getHighestCompletedStageIndex = createModulemoduleProgressSelector(
   'highestCompletedStageIndex'
 );
-export const getProvidedAnswers = createProgressSelector('answers');
-export const getModuleComplete = createProgressSelector('moduleComplete');
+export const getProvidedAnswers = createModulemoduleProgressSelector('answers');
+export const getModuleComplete = createModulemoduleProgressSelector(
+  'moduleComplete'
+);
 
 export const getModuleConfig = createSelector(
   getModuleId,

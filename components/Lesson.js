@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Prompt from './Prompt';
-import { getStageConfig } from '../selectors/progressSelectors';
+import { getStageConfig } from '../selectors/moduleProgressSelectors';
 
 const mapStateToProps = state => ({
   stageConfig: getStageConfig(state),

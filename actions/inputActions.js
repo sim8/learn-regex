@@ -9,8 +9,8 @@ import { getInputValue } from '../selectors/inputSelectors';
 import {
   getStageConfig,
   getCanMoveToNextStage,
-} from '../selectors/progressSelectors';
-import { moveToNextScreen } from './progressActions';
+} from '../selectors/moduleProgressSelectors';
+import { moveToNextScreen } from './moduleProgressActions';
 
 export const keyPress = ({ key }) => (dispatch, getState) => {
   const state = getState();

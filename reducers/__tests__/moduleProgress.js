@@ -1,16 +1,16 @@
 import { fromJS } from 'immutable';
-import progress from '../progress';
+import moduleProgress from '../moduleProgress';
 import { MOVE_TO_NEXT_STAGE } from '../../actions/actionTypes';
 import { MODULES } from '../../constants/lessonConfig';
 
-describe('progress reducer', () => {
+describe('moduleProgress reducer', () => {
   it('updates the highestCompletedStageIndex', () => {
     const initialState = fromJS({
       moduleId: MODULES.BASICS,
       stageIndex: 0,
       highestCompletedStageIndex: -1,
     });
-    const result = progress(initialState, { type: MOVE_TO_NEXT_STAGE });
+    const result = moduleProgress(initialState, { type: MOVE_TO_NEXT_STAGE });
     expect(result.toJS()).toEqual({
       moduleId: MODULES.BASICS,
       stageIndex: 1,
@@ -24,7 +24,7 @@ describe('progress reducer', () => {
       stageIndex: 0,
       highestCompletedStageIndex: 1,
     });
-    const result = progress(initialState, { type: MOVE_TO_NEXT_STAGE });
+    const result = moduleProgress(initialState, { type: MOVE_TO_NEXT_STAGE });
     expect(result.toJS()).toEqual({
       moduleId: MODULES.BASICS,
       stageIndex: 1,
