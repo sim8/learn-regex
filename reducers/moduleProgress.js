@@ -6,6 +6,7 @@ import {
   SUBMIT_ANSWER,
   COMPLETE_MODULE,
   RETURN_TO_ALL_MODULES,
+  START_MODULE,
 } from '../actions/actionTypes';
 import { MODULES } from '../constants/lessonConfig';
 
@@ -40,6 +41,8 @@ export default function moduleProgress(state = initialState, { ...action }) {
       return markStageCompleted(state).set('moduleComplete', true);
     case RETURN_TO_ALL_MODULES:
       return initialState.set('moduleId', null);
+    case START_MODULE:
+      return initialState.set('moduleId', action.moduleId);
     default:
       return state;
   }

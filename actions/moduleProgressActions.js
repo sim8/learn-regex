@@ -4,6 +4,7 @@ import {
   SUBMIT_ANSWER,
   COMPLETE_MODULE,
   RETURN_TO_ALL_MODULES,
+  START_MODULE,
 } from './actionTypes';
 import {
   ACTIONS as TRACKING_ACTIONS,
@@ -21,12 +22,14 @@ export const moveToNextScreen = () => (dispatch, getState) => {
   const stageId = getStageId(state);
   const isFinalStageInModule = getIsFinalStageInModule(state);
   if (isFinalStageInModule) {
+    const moduleId = getModuleId(state);
     dispatch({
       type: COMPLETE_MODULE,
+      moduleId,
     });
     event(TRACKING_ACTIONS.COMPLETE_MODULE, {
       category: TRACKING_CATEGORIES.MODULE,
-      label: getModuleId(state),
+      label: moduleId,
     });
   } else {
     dispatch({
@@ -58,4 +61,9 @@ export const submitAnswer = (stage, answer) => ({
 
 export const returnToAllModules = () => ({
   type: RETURN_TO_ALL_MODULES,
+});
+
+export const startModule = moduleId => ({
+  type: START_MODULE,
+  moduleId,
 });
