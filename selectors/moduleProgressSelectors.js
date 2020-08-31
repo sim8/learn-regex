@@ -26,7 +26,7 @@ export const getModuleConfig = createSelector(
 
 export const getStageId = createSelector(
   [getModuleConfig, getStageIndex],
-  (moduleConfig, stageIndex) => moduleConfig.stages[stageIndex]
+  (moduleConfig, stageIndex) => moduleConfig && moduleConfig.stages[stageIndex]
 );
 
 export const getIsFinalStageInModule = createSelector(

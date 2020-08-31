@@ -188,7 +188,7 @@ export const STAGE_CONFIG = deepFreeze({
   [STAGES.BASIC_SEQUENCE_2_TEST]: {
     type: STAGE_TYPES.REGEX,
     text: [
-      'Find every NON-alphanumeric character, followed by ANY character, followed by a full-stop.',
+      'Find every NON-alphanumeric character, followed by ANY character, followed by a dot.',
     ],
     successText: ['Heck yeah!'],
     searchBody: 'sdf23l.kj?l.3sdl)^fk..1sdf8',

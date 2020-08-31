@@ -8,16 +8,24 @@ import {
 } from '../selectors/moduleProgressSelectors';
 import ModuleSelection from './ModuleSelection';
 import ModuleComplete from './ModuleComplete';
+import Nav from './Nav';
 
 export default function LearnRegexApp() {
   const isInModule = !!useSelector(getModuleId);
   const moduleComplete = useSelector(getModuleComplete);
 
+  let page;
   if (!isInModule) {
-    return <ModuleSelection />;
+    page = <ModuleSelection />;
+  } else if (moduleComplete) {
+    page = <ModuleComplete />;
+  } else {
+    page = <Stage />;
   }
-  if (moduleComplete) {
-    return <ModuleComplete />;
-  }
-  return <Stage />;
+  return (
+    <>
+      <Nav />
+      {page}
+    </>
+  );
 }
