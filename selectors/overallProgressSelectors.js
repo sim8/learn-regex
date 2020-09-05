@@ -7,6 +7,4 @@ const createOverallProgressSelector = key =>
   );
 
 // eslint-disable-next-line import/prefer-default-export
-export const getCompletedModules = createOverallProgressSelector(
-  'completedModules'
-);
+export const getAllModulesProgress = createOverallProgressSelector('modules');

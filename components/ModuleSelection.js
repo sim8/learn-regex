@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { MODULES_CONFIG } from '../constants/lessonConfig';
 import Button from './styled/Button';
 import Checkmark from './styled/Checkmark';
-import { getCompletedModules } from '../selectors/overallProgressSelectors';
+import { getAllModulesProgress } from '../selectors/overallProgressSelectors';
 import { startModule } from '../actions/moduleProgressActions';
 // import { useSelector } from 'react-redux';
 
@@ -66,12 +66,12 @@ function Module({ module: { name, pictureText, id, comingSoon }, isComplete }) {
 }
 
 export default function ModuleSelection() {
-  const completedModules = useSelector(getCompletedModules);
+  const allModulesProgress = useSelector(getAllModulesProgress);
   // const isInModule = !!useSelector(getModuleId);
   return Object.keys(MODULES_CONFIG).map(key => (
     <Module
       key={key}
-      isComplete={completedModules.get(key)}
+      isComplete={allModulesProgress.get(key)}
       module={MODULES_CONFIG[key]}
     />
   ));

@@ -4,6 +4,7 @@ import {
   STAGE_TYPES,
   MODULES_CONFIG,
 } from '../constants/lessonConfig';
+import { getAllModulesProgress } from './overallProgressSelectors';
 
 const getModuleProgress = state => state.moduleProgress;
 const createModulemoduleProgressSelector = key =>
@@ -11,14 +12,22 @@ const createModulemoduleProgressSelector = key =>
 
 export const getModuleId = createModulemoduleProgressSelector('moduleId');
 export const getStageIndex = createModulemoduleProgressSelector('stageIndex');
-export const getHighestCompletedStageIndex = createModulemoduleProgressSelector(
-  'highestCompletedStageIndex'
+const getCurrentModuleProgress = createSelector(
+  [getAllModulesProgress, getModuleId],
+  (modules, moduleId) => {
+    return modules.get(moduleId);
+  }
+);
+export const getHighestCompletedStageIndex = createSelector(
+  getCurrentModuleProgress,
+  currentModule =>
+    currentModule ? currentModule.get('highestCompletedStageIndex') : -1
+);
+export const getModuleComplete = createSelector(
+  getCurrentModuleProgress,
+  currentModule => currentModule && currentModule.get('hasBeenCompleted')
 );
 export const getProvidedAnswers = createModulemoduleProgressSelector('answers');
-export const getModuleComplete = createModulemoduleProgressSelector(
-  'moduleComplete'
-);
-
 export const getModuleConfig = createSelector(
   getModuleId,
   moduleId => MODULES_CONFIG[moduleId]

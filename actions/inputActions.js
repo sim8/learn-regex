@@ -1,16 +1,10 @@
-import {
-  ENTER_CHARACTER,
-  KEY_LEFT,
-  KEY_RIGHT,
-  BACKSPACE,
-  STAGE_COMPLETE,
-} from './actionTypes';
+import { ENTER_CHARACTER, KEY_LEFT, KEY_RIGHT, BACKSPACE } from './actionTypes';
 import { getInputValue } from '../selectors/inputSelectors';
 import {
   getStageConfig,
   getCanMoveToNextStage,
 } from '../selectors/moduleProgressSelectors';
-import { moveToNextScreen } from './moduleProgressActions';
+import { moveToNextScreen, stageCompleteAction } from './moduleProgressActions';
 
 export const keyPress = ({ key }) => (dispatch, getState) => {
   const state = getState();
@@ -27,9 +21,7 @@ export const keyPress = ({ key }) => (dispatch, getState) => {
   });
   const inputValue = getInputValue(getState());
   if (inputValue === stageConfig.answer) {
-    dispatch({
-      type: STAGE_COMPLETE,
-    });
+    dispatch(stageCompleteAction());
   }
 };
 
@@ -54,6 +46,5 @@ export const keyDown = ({ key, altKey }) => dispatch => {
       });
       break;
     default:
-      return;
   }
 };

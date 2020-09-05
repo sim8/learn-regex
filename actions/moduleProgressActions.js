@@ -1,6 +1,7 @@
 import {
   MOVE_TO_NEXT_STAGE,
   MOVE_TO_PREVIOUS_STAGE,
+  MARK_STAGE_AS_COMPLETE,
   SUBMIT_ANSWER,
   COMPLETE_MODULE,
   RETURN_TO_ALL_MODULES,
@@ -14,8 +15,25 @@ import {
   getStageId,
   getIsFinalStageInModule,
   getModuleId,
+  getStageIndex,
+  getHighestCompletedStageIndex,
 } from '../selectors/moduleProgressSelectors';
 import { event } from '../lib/gtag';
+
+export const stageCompleteAction = action => (dispatch, getState) => {
+  const state = getState();
+  const stageIndex = getStageIndex(state);
+  const prevHighestCompletedStageIndex = getHighestCompletedStageIndex(state);
+  dispatch({
+    type: MARK_STAGE_AS_COMPLETE,
+    moduleId: getModuleId(state),
+    highestCompletedStageIndex: Math.max(
+      stageIndex,
+      prevHighestCompletedStageIndex
+    ),
+  });
+  if (action) dispatch(action);
+};
 
 export const moveToNextScreen = () => (dispatch, getState) => {
   const state = getState();
@@ -23,18 +41,22 @@ export const moveToNextScreen = () => (dispatch, getState) => {
   const isFinalStageInModule = getIsFinalStageInModule(state);
   if (isFinalStageInModule) {
     const moduleId = getModuleId(state);
-    dispatch({
-      type: COMPLETE_MODULE,
-      moduleId,
-    });
+    dispatch(
+      stageCompleteAction({
+        type: COMPLETE_MODULE,
+        moduleId,
+      })
+    );
     event(TRACKING_ACTIONS.COMPLETE_MODULE, {
       category: TRACKING_CATEGORIES.MODULE,
       label: moduleId,
     });
   } else {
-    dispatch({
-      type: MOVE_TO_NEXT_STAGE,
-    });
+    dispatch(
+      stageCompleteAction({
+        type: MOVE_TO_NEXT_STAGE,
+      })
+    );
     event(TRACKING_ACTIONS.MOVE_TO_NEXT_STAGE, {
       category: TRACKING_CATEGORIES.STAGE,
       label: stageId,
@@ -53,11 +75,12 @@ export const moveToPreviousStage = () => (dispatch, getState) => {
   });
 };
 
-export const submitAnswer = (stage, answer) => ({
-  type: SUBMIT_ANSWER,
-  stage,
-  answer,
-});
+export const submitAnswer = (stage, answer) =>
+  stageCompleteAction({
+    type: SUBMIT_ANSWER,
+    stage,
+    answer,
+  });
 
 export const returnToAllModules = () => ({
   type: RETURN_TO_ALL_MODULES,
