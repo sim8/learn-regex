@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { MODULES_CONFIG } from '../constants/lessonConfig';
 import Button from './styled/Button';
-import Checkmark from './styled/Checkmark';
-import { getAllModulesProgress } from '../selectors/overallProgressSelectors';
+import ProgressBar from './styled/ProgressBar';
+import { getModuleCompletionPercentages } from '../selectors/overallProgressSelectors';
 import { startModule } from '../actions/moduleProgressActions';
+import ContinueOrStartOver from './ContinueOrStartOver';
 // import { useSelector } from 'react-redux';
 
 // import Stage from './Stage';
@@ -14,15 +15,18 @@ import { startModule } from '../actions/moduleProgressActions';
 const ModuleWrapper = styled.div`
   width: 270px;
   margin: 30px 0 0 30px;
-  position: relative;
   display: inline-block;
+  position: relative;
 `;
 
-const CheckmarkWrapper = styled.div`
+const ProgressWrapper = styled.div`
   position: absolute;
-  left: calc(50% - 13px);
+  width: 100%;
   bottom: 17px;
   font-size: 40px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 `;
 
 const ComingSoonWrapper = styled.div`
@@ -35,8 +39,9 @@ const ComingSoonWrapper = styled.div`
 const ModuleButton = styled(Button)`
   border: 4px solid #adff12;
   text-align: center;
-  padding: 60px 40px;
+  padding: 60px 0;
   width: 100%;
+  position: relative;
 `;
 
 const PictureText = styled.div`
@@ -45,12 +50,28 @@ const PictureText = styled.div`
   width: 70px;
 `;
 
-function Module({ module: { name, pictureText, id, comingSoon }, isComplete }) {
-  const dispatch = useDispatch();
+function Module({
+  module: { name, pictureText, comingSoon },
+  onClick,
+  percentageComplete,
+}) {
+  let progressIndicator;
+  if (percentageComplete) {
+    progressIndicator =
+      percentageComplete === 1 ? (
+        <span>&#10004;</span>
+      ) : (
+        <ProgressBar
+          width="70px"
+          percentageComplete={percentageComplete}
+          style={{ position: 'relative', bottom: '10px' }}
+        />
+      );
+  }
   return (
     <ModuleWrapper>
       <ModuleButton
-        onClick={() => dispatch(startModule(id))}
+        onClick={onClick}
         disabled={comingSoon}
         style={{ opacity: comingSoon ? 0.3 : 1 }}
       >
@@ -58,20 +79,46 @@ function Module({ module: { name, pictureText, id, comingSoon }, isComplete }) {
           {pictureText}
         </PictureText>
         {name}
+        {progressIndicator && (
+          <ProgressWrapper>{progressIndicator}</ProgressWrapper>
+        )}
       </ModuleButton>
-      {isComplete && <CheckmarkWrapper>&#10004;</CheckmarkWrapper>}
       {comingSoon && <ComingSoonWrapper>COMING SOON</ComingSoonWrapper>}
     </ModuleWrapper>
   );
 }
 
 export default function ModuleSelection() {
-  const allModulesProgress = useSelector(getAllModulesProgress);
-  // const isInModule = !!useSelector(getModuleId);
+  const moduleCompletionPercentages = useSelector(
+    getModuleCompletionPercentages
+  );
+  const [startOrContinueModuleId, setStartOrContinueModuleId] = useState(null);
+  const dispatch = useDispatch();
+  const onModuleClick = moduleId => {
+    const percentageComplete = moduleCompletionPercentages.get(moduleId);
+    if (percentageComplete && percentageComplete < 1) {
+      setStartOrContinueModuleId(moduleId);
+    } else {
+      dispatch(startModule(moduleId));
+    }
+  };
+
+  if (startOrContinueModuleId) {
+    return (
+      <ContinueOrStartOver
+        moduleId={startOrContinueModuleId}
+        percentageComplete={moduleCompletionPercentages.get(
+          startOrContinueModuleId
+        )}
+        onCancel={() => setStartOrContinueModuleId(null)}
+      />
+    );
+  }
   return Object.keys(MODULES_CONFIG).map(key => (
     <Module
       key={key}
-      isComplete={allModulesProgress.get(key)}
+      onClick={() => onModuleClick(key)}
+      percentageComplete={moduleCompletionPercentages.get(key)}
       module={MODULES_CONFIG[key]}
     />
   ));

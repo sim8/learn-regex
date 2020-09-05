@@ -24,8 +24,8 @@ export default function LearnRegexApp() {
   }
   return (
     <>
-      <Nav />
       {page}
+      <Nav />
     </>
   );
 }

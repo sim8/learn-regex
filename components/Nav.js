@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { returnToAllModules } from '../actions/moduleProgressActions';
+import Link from './styled/Link';
 
 const NavWrapper = styled.div`
   position: fixed;
@@ -9,24 +10,12 @@ const NavWrapper = styled.div`
   right: 10px;
 `;
 
-const NavItem = styled.a`
-  display: inline-block;
-  padding: 10px;
-  opacity: 0.5;
-  font-size: 20px;
-  text-decoration: underline;
-  color: #adff12;
-  cursor: pointer;
-  :hover {
-    opacity: 1;
-  }
-`;
-
 export default function Nav() {
   const dispatch = useDispatch();
   return (
     <NavWrapper>
-      <NavItem
+      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+      <Link
         href="#"
         onClick={e => {
           e.preventDefault();
@@ -34,7 +23,7 @@ export default function Nav() {
         }}
       >
         ALL LESSONS
-      </NavItem>
+      </Link>
     </NavWrapper>
   );
 }
