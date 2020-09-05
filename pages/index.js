@@ -1,7 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
 import LearnRegexApp from '../components/LearnRegexApp';
-import '../lib/firebase';
 
 function App() {
   return (
