@@ -2,6 +2,7 @@ import { fromJS } from 'immutable';
 import {
   COMPLETE_MODULE,
   MARK_STAGE_AS_COMPLETE,
+  START_OVER_MODULE,
 } from '../actions/actionTypes';
 
 const initialState = fromJS({
@@ -17,9 +18,11 @@ export default function overallProgress(state = initialState, { ...action }) {
       );
     case COMPLETE_MODULE:
       return state.setIn(
-        ['modules', action.moduleId, 'hasBeenCompleted'],
+        ['modules', action.moduleId, 'hasEverBeenCompleted'],
         true
       );
+    case START_OVER_MODULE:
+      return state.deleteIn(['modules', action.moduleId]);
     default:
       return state;
   }

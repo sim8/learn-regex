@@ -5,7 +5,11 @@ import { MODULES_CONFIG } from '../constants/lessonConfig';
 import Button from './styled/Button';
 import ProgressBar from './styled/ProgressBar';
 import { getModuleCompletionPercentages } from '../selectors/overallProgressSelectors';
-import { startModule } from '../actions/moduleProgressActions';
+import {
+  startModule,
+  continueModule,
+  startOverModule,
+} from '../actions/moduleProgressActions';
 import ContinueOrStartOver from './ContinueOrStartOver';
 // import { useSelector } from 'react-redux';
 
@@ -111,6 +115,8 @@ export default function ModuleSelection() {
           startOrContinueModuleId
         )}
         onCancel={() => setStartOrContinueModuleId(null)}
+        onContinue={() => dispatch(continueModule(startOrContinueModuleId))}
+        onStartOver={() => dispatch(startOverModule(startOrContinueModuleId))}
       />
     );
   }

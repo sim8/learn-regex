@@ -7,12 +7,13 @@ export default function getPreloadedState() {
       moduleId: MODULES.BASICS,
       stageIndex: 16,
       answers: {},
+      isComplete: false,
     }),
     overallProgress: fromJS({
       modules: {
         [MODULES.BASICS]: {
           highestCompletedStageIndex: 16,
-          hasBeenCompleted: false,
+          hasEverBeenCompleted: false,
         },
       },
     }),

@@ -18,8 +18,10 @@ export default function ContinueOrStartOver({
         <span className="code">{MODULES_CONFIG[moduleId].name}</span>.
       </div>
       <div style={{ marginBottom: '40px' }}>
-        <Button type="primary">Continue</Button>
-        <Button>Start over</Button>
+        <Button type="primary" onClick={onContinue}>
+          Continue
+        </Button>
+        <Button onClick={onStartOver}>Start over</Button>
       </div>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <Link

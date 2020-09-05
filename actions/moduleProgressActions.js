@@ -6,6 +6,8 @@ import {
   COMPLETE_MODULE,
   RETURN_TO_ALL_MODULES,
   START_MODULE,
+  START_OVER_MODULE,
+  CONTINUE_MODULE,
 } from './actionTypes';
 import {
   ACTIONS as TRACKING_ACTIONS,
@@ -19,6 +21,7 @@ import {
   getHighestCompletedStageIndex,
 } from '../selectors/moduleProgressSelectors';
 import { event } from '../lib/gtag';
+import { getAllModulesProgress } from '../selectors/overallProgressSelectors';
 
 export const stageCompleteAction = action => (dispatch, getState) => {
   const state = getState();
@@ -88,5 +91,19 @@ export const returnToAllModules = () => ({
 
 export const startModule = moduleId => ({
   type: START_MODULE,
+  moduleId,
+});
+
+export const continueModule = moduleId => (dispatch, getState) => {
+  const progress = getAllModulesProgress(getState()).get(moduleId);
+  dispatch({
+    type: CONTINUE_MODULE,
+    moduleId,
+    highestCompletedStageIndex: progress.get('highestCompletedStageIndex'),
+  });
+};
+
+export const startOverModule = moduleId => ({
+  type: START_OVER_MODULE,
   moduleId,
 });

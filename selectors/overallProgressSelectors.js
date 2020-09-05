@@ -11,7 +11,7 @@ const createOverallProgressSelector = key =>
 export const getAllModulesProgress = createOverallProgressSelector('modules');
 
 const getCompletionPercentage = (module, key) =>
-  module.get('hasBeenCompleted')
+  module.get('hasEverBeenCompleted')
     ? 1
     : (module.get('highestCompletedStageIndex') + 1) /
       MODULES_CONFIG[key].stages.length;

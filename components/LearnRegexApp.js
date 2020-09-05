@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Stage from './Stage';
 import {
   getModuleId,
-  getModuleComplete,
+  getModuleIsComplete,
 } from '../selectors/moduleProgressSelectors';
 import ModuleSelection from './ModuleSelection';
 import ModuleComplete from './ModuleComplete';
@@ -12,7 +12,7 @@ import Nav from './Nav';
 
 export default function LearnRegexApp() {
   const isInModule = !!useSelector(getModuleId);
-  const moduleComplete = useSelector(getModuleComplete);
+  const moduleComplete = useSelector(getModuleIsComplete);
 
   let page;
   if (!isInModule) {
