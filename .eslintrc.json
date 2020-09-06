@@ -8,6 +8,7 @@
     "prettier/prettier": ["error"],
     "react/jsx-filename-extension": "off",
     "react/jsx-props-no-spreading": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "react/prop-types": [
       "warn",
       {

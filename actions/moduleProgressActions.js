@@ -23,6 +23,10 @@ import {
 import { event } from '../lib/gtag';
 import { getAllModulesProgress } from '../selectors/overallProgressSelectors';
 
+/**
+ * Marks the current stage as complete before dispatching the passed action
+ * @param {*} action redux action
+ */
 export const stageCompleteAction = action => (dispatch, getState) => {
   const state = getState();
   const stageIndex = getStageIndex(state);
