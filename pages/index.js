@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <Head>
-        <title>Learn Regex</title>
+        <title>Learn R egex</title>
       </Head>
       <Stage />
     </div>
