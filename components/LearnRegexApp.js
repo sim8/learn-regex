@@ -9,6 +9,7 @@ import {
 import ModuleSelection from './ModuleSelection';
 import ModuleComplete from './ModuleComplete';
 import Nav from './Nav';
+import ModuleProgress from './ModuleProgress';
 
 export default function LearnRegexApp() {
   const isInModule = !!useSelector(getModuleId);
@@ -20,7 +21,12 @@ export default function LearnRegexApp() {
   } else if (moduleComplete) {
     page = <ModuleComplete />;
   } else {
-    page = <Stage />;
+    page = (
+      <>
+        <Stage />
+        <ModuleProgress />
+      </>
+    );
   }
   return (
     <>

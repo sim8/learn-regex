@@ -7,11 +7,11 @@ import {
 import { getAllModulesProgress } from './overallProgressSelectors';
 
 const getModuleProgress = state => state.moduleProgress;
-const createModulemoduleProgressSelector = key =>
+const createModuleProgressSelector = key =>
   createSelector(getModuleProgress, moduleProgress => moduleProgress.get(key));
 
-export const getModuleId = createModulemoduleProgressSelector('moduleId');
-export const getStageIndex = createModulemoduleProgressSelector('stageIndex');
+export const getModuleId = createModuleProgressSelector('moduleId');
+export const getStageIndex = createModuleProgressSelector('stageIndex');
 const getCurrentModuleProgress = createSelector(
   [getAllModulesProgress, getModuleId],
   (modules, moduleId) => {
@@ -23,10 +23,13 @@ export const getHighestCompletedStageIndex = createSelector(
   currentModule =>
     currentModule ? currentModule.get('highestCompletedStageIndex') : -1
 );
-export const getModuleIsComplete = createModulemoduleProgressSelector(
-  'isComplete'
+export const getCurrentModuleCompletionPercentage = createSelector(
+  [getStageIndex, getModuleId],
+  (stageIndex, id) => stageIndex / MODULES_CONFIG[id].stages.length
 );
-export const getProvidedAnswers = createModulemoduleProgressSelector('answers');
+
+export const getModuleIsComplete = createModuleProgressSelector('isComplete');
+export const getProvidedAnswers = createModuleProgressSelector('answers');
 export const getModuleConfig = createSelector(
   getModuleId,
   moduleId => MODULES_CONFIG[moduleId]
