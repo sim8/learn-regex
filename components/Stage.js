@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Test from './Test';
 import Choice from './Choice';
@@ -10,14 +10,12 @@ import {
   getCanMoveToPreviousStage,
   getStageId,
   getProvidedAnswerIsCorrect,
-  getModuleComplete,
-} from '../selectors/progressSelectors';
+} from '../selectors/moduleProgressSelectors';
 import {
   moveToNextScreen,
   moveToPreviousStage,
-} from '../actions/progressActions';
+} from '../actions/moduleProgressActions';
 import { STAGE_TYPES } from '../constants/lessonConfig';
-import ModuleComplete from './ModuleComplete';
 
 const StageWrapper = styled.div`
   .main-text {
@@ -39,15 +37,6 @@ const NavButtons = styled.div`
   padding-bottom: 10vh;
 `;
 
-const mapStateToProps = state => ({
-  stageId: getStageId(state),
-  stageConfig: getStageConfig(state),
-  canMoveToNextStage: getCanMoveToNextStage(state),
-  canMoveToPreviousStage: getCanMoveToPreviousStage(state),
-  answerCorrect: getProvidedAnswerIsCorrect(state),
-  moduleComplete: getModuleComplete(state),
-});
-
 function renderStageContent({ type, ...config }, id) {
   switch (type) {
     case STAGE_TYPES.REGEX:
@@ -67,22 +56,18 @@ function renderTextLines(textLines) {
   ));
 }
 
-function Stage({
-  stageConfig,
-  stageId,
-  canMoveToNextStage,
-  canMoveToPreviousStage,
-  answerCorrect,
-  onClickNext,
-  onClickBack,
-  moduleComplete,
-}) {
+export default function Stage() {
+  const dispatch = useDispatch();
+  const stageId = useSelector(getStageId);
+  const stageConfig = useSelector(getStageConfig);
+  const canMoveToNextStage = useSelector(getCanMoveToNextStage);
+  const canMoveToPreviousStage = useSelector(getCanMoveToPreviousStage);
+  const answerCorrect = useSelector(getProvidedAnswerIsCorrect);
+
   const { type, text, successText, failText } = stageConfig;
   const completeText =
     type !== STAGE_TYPES.CHOICE || answerCorrect ? successText : failText;
-  if (moduleComplete) {
-    return <ModuleComplete />;
-  }
+
   return (
     <StageWrapper>
       <div className="main-text">
@@ -93,9 +78,11 @@ function Stage({
       </div>
       {renderStageContent(stageConfig, stageId)}
       <NavButtons>
-        {canMoveToPreviousStage && <Button onClick={onClickBack}>BACK</Button>}
+        {canMoveToPreviousStage && (
+          <Button onClick={() => dispatch(moveToPreviousStage())}>BACK</Button>
+        )}
         {canMoveToNextStage && (
-          <Button type="primary" onClick={onClickNext}>
+          <Button type="primary" onClick={() => dispatch(moveToNextScreen())}>
             CONTINUE
           </Button>
         )}
@@ -103,7 +90,3 @@ function Stage({
     </StageWrapper>
   );
 }
-export default connect(mapStateToProps, {
-  onClickNext: moveToNextScreen,
-  onClickBack: moveToPreviousStage,
-})(Stage);

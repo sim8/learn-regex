@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import styled from 'styled-components';
-import { getModuleConfig } from '../selectors/progressSelectors';
+import { getModuleConfig } from '../selectors/moduleProgressSelectors';
 import FullScreenCenter from './styled/FullScreenCenter';
 import Button from './styled/Button';
-import { returnToAllModules } from '../actions/progressActions';
+import { returnToAllModules } from '../actions/moduleProgressActions';
 import Checkmark from './styled/Checkmark';
 
 const Certificate = styled.div`

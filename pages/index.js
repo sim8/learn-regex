@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import Stage from '../components/Stage';
+import LearnRegexApp from '../components/LearnRegexApp';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <Head>
         <title>Learn Regex</title>
       </Head>
-      <Stage />
+      <LearnRegexApp />
     </div>
   );
 }

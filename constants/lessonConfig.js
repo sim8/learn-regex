@@ -29,6 +29,8 @@ export const STAGES = {
 
 export const MODULES = {
   BASICS: 'BASICS',
+  QUANTIFIERS: 'QUANTIFIERS',
+  LOGIC: 'LOGIC',
 };
 
 export const STAGE_CONFIG = deepFreeze({
@@ -186,7 +188,7 @@ export const STAGE_CONFIG = deepFreeze({
   [STAGES.BASIC_SEQUENCE_2_TEST]: {
     type: STAGE_TYPES.REGEX,
     text: [
-      'Find every NON-alphanumeric character, followed by ANY character, followed by a full-stop.',
+      'Find every NON-alphanumeric character, followed by ANY character, followed by a dot.',
     ],
     successText: ['Heck yeah!'],
     searchBody: 'sdf23l.kj?l.3sdl)^fk..1sdf8',
@@ -200,6 +202,7 @@ export const MODULES_CONFIG = deepFreeze({
   [MODULES.BASICS]: {
     id: MODULES.BASICS,
     name: 'Basics',
+    pictureText: '\\\\',
     points: 300,
     stages: [
       STAGES.GREETING,
@@ -221,5 +224,13 @@ export const MODULES_CONFIG = deepFreeze({
       STAGES.BASIC_SEQUENCE_TEST,
       STAGES.BASIC_SEQUENCE_2_TEST,
     ],
+  },
+  [MODULES.QUANTIFIERS]: {
+    id: MODULES.QUANTIFIERS,
+    comingSoon: true,
+    name: 'Quantifiers',
+    pictureText: '123',
+    points: 300,
+    stages: [],
   },
 });

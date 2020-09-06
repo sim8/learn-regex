@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { getStageConfig } from './progressSelectors';
+import { getStageConfig } from './moduleProgressSelectors';
 
 const getInput = state => state.input;
 const createInputSelector = key =>
@@ -10,8 +10,8 @@ export const getCaretPos = createInputSelector('caretPos');
 
 export const getMatches = createSelector(
   [getInputValue, getStageConfig],
-  (inputValue, { searchBody }) => {
-    if (!searchBody || !inputValue.length) {
+  (inputValue, stageConfig) => {
+    if (!stageConfig || !stageConfig.searchBody || !inputValue.length) {
       return null;
     }
     let regex;
@@ -25,7 +25,7 @@ export const getMatches = createSelector(
     let match;
     lastIndexes[regex.lastIndex] = true;
     // eslint-disable-next-line no-cond-assign
-    while ((match = regex.exec(searchBody))) {
+    while ((match = regex.exec(stageConfig.searchBody))) {
       lastIndexes[regex.lastIndex] = true;
       matches.push(match);
     }
