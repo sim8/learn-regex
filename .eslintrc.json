@@ -5,10 +5,11 @@
   "extends": ["airbnb", "prettier"],
   "plugins": ["prettier"],
   "rules": {
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/prefer-default-export": "off",
     "prettier/prettier": ["error"],
     "react/jsx-filename-extension": "off",
     "react/jsx-props-no-spreading": "off",
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "react/prop-types": [
       "warn",
       {

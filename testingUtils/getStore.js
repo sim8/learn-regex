@@ -8,7 +8,6 @@ const getMockStore = () => {
   return configureMockStore(middlewares);
 };
 
-// eslint-disable-next-line import/prefer-default-export
 export const getStore = ({
   moduleId = MODULES.BASICS,
   stageIndex = 3,

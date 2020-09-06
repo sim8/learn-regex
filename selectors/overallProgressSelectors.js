@@ -7,7 +7,6 @@ const createOverallProgressSelector = key =>
     overallProgress.get(key)
   );
 
-// eslint-disable-next-line import/prefer-default-export
 export const getAllModulesProgress = createOverallProgressSelector('modules');
 
 const getCompletionPercentage = (module, key) =>
