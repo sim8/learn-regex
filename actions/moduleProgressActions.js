@@ -22,6 +22,8 @@ import {
 } from '../selectors/moduleProgressSelectors';
 import { event } from '../lib/gtag';
 import { getAllModulesProgress } from '../selectors/overallProgressSelectors';
+import { STAGE_TYPES } from '../constants/lessonConfig';
+import { stageByIndex } from '../utils/configUtils';
 
 /**
  * Marks the current stage as complete before dispatching the passed action
@@ -42,10 +44,25 @@ export const stageCompleteAction = action => (dispatch, getState) => {
   if (action) dispatch(action);
 };
 
+/**
+ * Get prefilled answer for a stage if it's a regex test that has previously been completed.
+ * @param {*} state
+ * @param {*} stageIndex
+ */
+const maybeGetPrefilledAnswer = (state, stageIndex) => {
+  const moduleId = getModuleId(state);
+  const highestCompletedStageIndex = getHighestCompletedStageIndex(state);
+  const { type, answer } = stageByIndex(moduleId, stageIndex);
+  if (stageIndex <= highestCompletedStageIndex && type === STAGE_TYPES.REGEX) {
+    return answer;
+  }
+  return null;
+};
+
 export const moveToNextScreen = () => (dispatch, getState) => {
   const state = getState();
-  const stageId = getStageId(state);
   const isFinalStageInModule = getIsFinalStageInModule(state);
+
   if (isFinalStageInModule) {
     const moduleId = getModuleId(state);
     dispatch(
@@ -59,9 +76,12 @@ export const moveToNextScreen = () => (dispatch, getState) => {
       label: moduleId,
     });
   } else {
+    const stageId = getStageId(state);
+    const nextStageIndex = getStageIndex(state) + 1;
     dispatch(
       stageCompleteAction({
         type: MOVE_TO_NEXT_STAGE,
+        prefilledAnswer: maybeGetPrefilledAnswer(state, nextStageIndex),
       })
     );
     event(TRACKING_ACTIONS.MOVE_TO_NEXT_STAGE, {
@@ -72,13 +92,17 @@ export const moveToNextScreen = () => (dispatch, getState) => {
 };
 
 export const moveToPreviousStage = () => (dispatch, getState) => {
-  const stageId = getStageId(getState());
+  const state = getState();
+  const stageId = getStageId(state);
+  const prevStageIndex = getStageIndex(state) - 1;
+
   event(TRACKING_ACTIONS.MOVE_TO_PREVIOUS_STAGE, {
     category: TRACKING_CATEGORIES.STAGE,
     label: stageId,
   });
   dispatch({
     type: MOVE_TO_PREVIOUS_STAGE,
+    prefilledAnswer: maybeGetPrefilledAnswer(state, prevStageIndex),
   });
 };
 

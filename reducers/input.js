@@ -6,6 +6,8 @@ import {
   KEY_RIGHT,
   MOVE_TO_NEXT_STAGE,
   MOVE_TO_PREVIOUS_STAGE,
+  RETURN_TO_ALL_MODULES,
+  COMPLETE_MODULE,
 } from '../actions/actionTypes';
 
 const initialState = fromJS({
@@ -16,8 +18,16 @@ const initialState = fromJS({
 export default function input(state = initialState, { altKey, ...action }) {
   const caretPos = state.get('caretPos');
   switch (action.type) {
-    case MOVE_TO_NEXT_STAGE:
+    case RETURN_TO_ALL_MODULES:
+    case COMPLETE_MODULE:
     case MOVE_TO_PREVIOUS_STAGE:
+    case MOVE_TO_NEXT_STAGE:
+      if (action.prefilledAnswer) {
+        return initialState.merge({
+          value: action.prefilledAnswer,
+          caretPos: action.prefilledAnswer.length,
+        });
+      }
       return initialState;
     case ENTER_CHARACTER:
       return state
