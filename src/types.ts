@@ -4,7 +4,7 @@ export type StageKey = (typeof STAGES)[keyof typeof STAGES];
 export type ModuleKey = (typeof MODULES)[keyof typeof MODULES];
 type StageType = (typeof STAGE_TYPES)[keyof typeof STAGE_TYPES];
 
-type RegexStage = {
+export type RegexStage = {
   type: typeof STAGE_TYPES.REGEX;
   text: string[];
   searchBody?: string;

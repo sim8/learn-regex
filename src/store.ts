@@ -1,10 +1,16 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
-import counterReducer from './features/counter/counterSlice';
+import moduleProgressReducer from './slices/moduleProgress';
+import overallProgressReducer from './slices/overallProgress';
+import inputReducer from './slices/input';
 
 export function makeStore() {
   return configureStore({
-    reducer: { counter: counterReducer },
+    reducer: {
+      moduleProgress: moduleProgressReducer,
+      overallProgress: overallProgressReducer,
+      input: inputReducer,
+    },
   });
 }
 
