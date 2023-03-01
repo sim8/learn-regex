@@ -8,7 +8,11 @@ import {
   STAGE_TYPES,
 } from '../constants/lessonConfig';
 import { ModuleKey, StageKey } from '../types';
-import { getAllModulesProgress } from './overallProgress';
+import {
+  getAllModulesProgress,
+  completeModule,
+  startOverModule,
+} from './overallProgress';
 
 type Answers = Record<StageKey, number>;
 
@@ -55,17 +59,6 @@ export const moduleProgressSlice = createSlice({
       ...initialState,
       moduleId,
     }),
-    // TODO dedupe
-    startOverModule: (
-      state,
-      { payload: moduleId }: PayloadAction<ModuleKey>
-    ) => ({
-      ...initialState,
-      moduleId,
-    }),
-    completeModule: (state) => {
-      state.isComplete = true;
-    },
     continueModule: (
       state,
       {
@@ -80,6 +73,15 @@ export const moduleProgressSlice = createSlice({
       stageIndex: highestCompletedStageIndex + 1,
     }),
   },
+  extraReducers: (builder) => {
+    builder.addCase(completeModule, (state) => {
+      state.isComplete = true;
+    });
+    builder.addCase(startOverModule, (state, { payload: moduleId }) => ({
+      ...initialState,
+      moduleId,
+    }));
+  },
 });
 
 export const {
@@ -88,8 +90,6 @@ export const {
   submitAnswer,
   returnToAllModules,
   startModule,
-  startOverModule,
-  completeModule,
   continueModule,
 } = moduleProgressSlice.actions;
 

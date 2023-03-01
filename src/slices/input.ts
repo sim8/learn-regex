@@ -1,7 +1,11 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import type { AppState } from '../store';
-import { getRegexStageConfig, getStageConfig } from './moduleProgress';
+import {
+  getRegexStageConfig,
+  moveToNextStage,
+  moveToPreviousStage,
+} from './moduleProgress';
 
 export interface InputState {
   value: string;
@@ -17,8 +21,6 @@ export const inputSlice = createSlice({
   name: 'input',
   initialState,
   reducers: {
-    moveToNextStage: () => initialState,
-    moveToPreviousStage: () => initialState,
     enterCharacter: (state, { payload: char }: PayloadAction<string>) => {
       const { value, caretPos } = state;
       state.value = `${value.slice(0, caretPos)}${char}${value.slice(
@@ -33,7 +35,7 @@ export const inputSlice = createSlice({
       }
     },
     keyLeft: (state) => {
-      const { value, caretPos } = state;
+      const { caretPos } = state;
       if (caretPos > 0) {
         state.caretPos -= 1;
       }
@@ -45,9 +47,11 @@ export const inputSlice = createSlice({
       }
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(moveToNextStage, () => initialState);
+    builder.addCase(moveToPreviousStage, () => initialState);
+  },
 });
-
-export const { moveToNextStage, moveToPreviousStage } = inputSlice.actions;
 
 export const getInputValue = (state: AppState) => state.input.value;
 export const getCaretPos = (state: AppState) => state.input.caretPos;
