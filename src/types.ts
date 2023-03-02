@@ -13,7 +13,7 @@ export type RegexStage = {
   hint?: string;
 };
 
-type ChoiceStage = {
+export type ChoiceStage = {
   type: typeof STAGE_TYPES.CHOICE;
   text: string[];
   answer: number;

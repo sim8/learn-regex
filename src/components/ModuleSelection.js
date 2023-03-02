@@ -16,7 +16,7 @@ export default function ModuleSelection() {
   const [startOrContinueModuleId, setStartOrContinueModuleId] = useState(null);
   const dispatch = useDispatch();
   const onModuleClick = (moduleId) => {
-    const percentageComplete = moduleCompletionPercentages.get(moduleId);
+    const percentageComplete = moduleCompletionPercentages[moduleId];
     if (percentageComplete && percentageComplete < 1) {
       setStartOrContinueModuleId(moduleId);
     } else {
@@ -28,9 +28,9 @@ export default function ModuleSelection() {
     return (
       <ContinueOrStartOver
         moduleId={startOrContinueModuleId}
-        percentageComplete={moduleCompletionPercentages.get(
-          startOrContinueModuleId
-        )}
+        percentageComplete={
+          moduleCompletionPercentages[startOrContinueModuleId]
+        }
         onCancel={() => setStartOrContinueModuleId(null)}
         onContinue={() => dispatch(continueModule(startOrContinueModuleId))}
         onStartOver={() => dispatch(startOverModule(startOrContinueModuleId))}
@@ -41,7 +41,7 @@ export default function ModuleSelection() {
     <BigModuleButton
       key={key}
       onClick={() => onModuleClick(key)}
-      percentageComplete={moduleCompletionPercentages.get(key)}
+      percentageComplete={moduleCompletionPercentages[key]}
       module={MODULES_CONFIG[key]}
     />
   ));

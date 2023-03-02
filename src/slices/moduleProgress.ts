@@ -11,7 +11,7 @@ import {
   ACTIONS as TRACKING_ACTIONS,
   CATEGORIES as TRACKING_CATEGORIES,
 } from '../constants/trackingConstants';
-import { ModuleKey, StageKey } from '../types';
+import { ChoiceStage, ModuleKey, RegexStage, StageKey } from '../types';
 import {
   getAllModulesProgress,
   completeModule,
@@ -112,10 +112,10 @@ function createModuleProgressSelector<K extends keyof ModuleProgressState>(
 
 export const getModuleId = createModuleProgressSelector('moduleId');
 const getModuleIdOrThrow = createSelector(getModuleId, (moduleId) => {
-  if (!moduleId) {
-    throw new Error('Using moduleId when not defined');
-  }
-  return moduleId;
+  // if (!moduleId) {
+  //   throw new Error('Using moduleId when not defined');
+  // }
+  return moduleId as ModuleKey;
 });
 
 export const getStageIndex = createModuleProgressSelector('stageIndex');
@@ -170,22 +170,22 @@ export const getProvidedAnswerForStage = createSelector(
 
 // TODO can we improve this?
 const getAnswerOrThrow = createSelector(getStageConfig, (config) => {
-  if (config.type === STAGE_TYPES.INFO) {
-    throw new Error('Using answer when not defined in stage');
-  }
-  return config.answer;
+  // if (config.type === STAGE_TYPES.INFO) {
+  //   throw new Error('Using answer when not defined in stage');
+  // }
+  return (config as RegexStage | ChoiceStage).answer;
 });
 
 // TODO can we improve this?
 export const getRegexStageConfigOrThrow = createSelector(
   getStageConfig,
   (config) => {
-    if (config.type !== STAGE_TYPES.REGEX) {
-      throw new Error(
-        'Using a regex stage when current stage is not regex type'
-      );
-    }
-    return config;
+    // if (config.type !== STAGE_TYPES.REGEX) {
+    //   throw new Error(
+    //     'Using a regex stage when current stage is not regex type'
+    //   );
+    // }
+    return config as RegexStage;
   }
 );
 
