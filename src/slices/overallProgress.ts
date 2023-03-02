@@ -1,4 +1,9 @@
-import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createSelector,
+  createSlice,
+  PayloadAction,
+  Draft,
+} from '@reduxjs/toolkit';
 
 import type { AppState, AppThunk } from '../store';
 import { MODULES_CONFIG } from '../constants/lessonConfig';
@@ -19,6 +24,16 @@ const initialState: OverallProgressState = {
   modules: {} as ModulesCompletion,
 };
 
+const initModuleIfMissing = (
+  state: Draft<OverallProgressState>,
+  moduleId: ModuleKey
+) => {
+  state.modules[moduleId] = state.modules[moduleId] || {
+    highestCompletedStageIndex: 0,
+    hasEverBeenCompleted: false,
+  };
+};
+
 export const overallProgressSlice = createSlice({
   name: 'overallProgress',
   initialState,
@@ -32,10 +47,12 @@ export const overallProgressSlice = createSlice({
         highestCompletedStageIndex: number;
       }>
     ) => {
+      initModuleIfMissing(state, moduleId);
       state.modules[moduleId].highestCompletedStageIndex =
         highestCompletedStageIndex;
     },
     completeModule: (state, { payload }: PayloadAction<ModuleKey>) => {
+      initModuleIfMissing(state, payload);
       state.modules[payload].hasEverBeenCompleted = true;
     },
     startOverModule: (state, { payload }: PayloadAction<ModuleKey>) => {
