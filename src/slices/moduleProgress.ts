@@ -7,12 +7,18 @@ import {
   STAGE_CONFIG,
   STAGE_TYPES,
 } from '../constants/lessonConfig';
+import {
+  ACTIONS as TRACKING_ACTIONS,
+  CATEGORIES as TRACKING_CATEGORIES,
+} from '../constants/trackingConstants';
 import { ModuleKey, StageKey } from '../types';
 import {
   getAllModulesProgress,
   completeModule,
   startOverModule,
+  markStageAsComplete,
 } from './overallProgress';
+import { event } from '../lib/gtag';
 
 type Answers = Record<StageKey, number>;
 
@@ -37,10 +43,10 @@ export const moduleProgressSlice = createSlice({
     moveToNextStage: (state) => {
       state.stageIndex += 1;
     },
-    moveToPreviousStage: (state) => {
+    _moveToPreviousStage: (state) => {
       state.stageIndex -= 1;
     },
-    submitAnswer: (
+    _submitAnswer: (
       state,
       {
         payload,
@@ -59,7 +65,7 @@ export const moduleProgressSlice = createSlice({
       ...initialState,
       moduleId,
     }),
-    continueModule: (
+    _continueModule: (
       state,
       {
         payload: { moduleId, highestCompletedStageIndex },
@@ -86,11 +92,11 @@ export const moduleProgressSlice = createSlice({
 
 export const {
   moveToNextStage,
-  moveToPreviousStage,
-  submitAnswer,
+  _moveToPreviousStage,
+  _submitAnswer,
   returnToAllModules,
   startModule,
-  continueModule,
+  _continueModule,
 } = moduleProgressSlice.actions;
 
 export const getModuleProgress = (state: AppState) => state.moduleProgress;
@@ -182,5 +188,69 @@ export const getProvidedAnswerIsCorrect = createSelector(
   [getProvidedAnswerForStage, getAnswerOrThrow],
   (provided, answer) => provided === answer
 );
+
+export const stageCompleteAction =
+  (action: PayloadAction<unknown>): AppThunk =>
+  (dispatch, getState) => {
+    const state = getState();
+    const stageIndex = getStageIndex(state);
+    const prevHighestCompletedStageIndex = getHighestCompletedStageIndex(state);
+    dispatch(
+      markStageAsComplete({
+        moduleId: getModuleIdOrThrow(state),
+        highestCompletedStageIndex: Math.max(
+          stageIndex,
+          prevHighestCompletedStageIndex
+        ),
+      })
+    );
+    if (action) dispatch(action);
+  };
+
+export const moveToNextScreen = (): AppThunk => (dispatch, getState) => {
+  const state = getState();
+  const stageId = getStageId(state);
+  const isFinalStageInModule = getIsFinalStageInModule(state);
+  if (isFinalStageInModule) {
+    const moduleId = getModuleIdOrThrow(state);
+    dispatch(stageCompleteAction(completeModule(moduleId)));
+    event(TRACKING_ACTIONS.COMPLETE_MODULE, {
+      category: TRACKING_CATEGORIES.MODULE,
+      label: moduleId,
+    });
+  } else {
+    dispatch(stageCompleteAction(moveToNextStage()));
+    event(TRACKING_ACTIONS.MOVE_TO_NEXT_STAGE, {
+      category: TRACKING_CATEGORIES.STAGE,
+      label: stageId,
+    });
+  }
+};
+
+export const moveToPreviousStage = (): AppThunk => (dispatch, getState) => {
+  const stageId = getStageId(getState());
+  event(TRACKING_ACTIONS.MOVE_TO_PREVIOUS_STAGE, {
+    category: TRACKING_CATEGORIES.STAGE,
+    label: stageId,
+  });
+  dispatch(_moveToPreviousStage());
+};
+
+export const submitAnswer = (stage: StageKey, answer: number) =>
+  stageCompleteAction(_submitAnswer({ stage, answer }));
+
+export const continueModule =
+  (moduleId: ModuleKey): AppThunk =>
+  (dispatch, getState) => {
+    const { highestCompletedStageIndex } = getAllModulesProgress(getState())[
+      moduleId
+    ];
+    dispatch(
+      _continueModule({
+        moduleId,
+        highestCompletedStageIndex,
+      })
+    );
+  };
 
 export default moduleProgressSlice.reducer;

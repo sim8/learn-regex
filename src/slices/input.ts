@@ -4,7 +4,7 @@ import type { AppState } from '../store';
 import {
   getRegexStageConfig,
   moveToNextStage,
-  moveToPreviousStage,
+  _moveToPreviousStage,
 } from './moduleProgress';
 
 export interface InputState {
@@ -49,7 +49,7 @@ export const inputSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(moveToNextStage, () => initialState);
-    builder.addCase(moveToPreviousStage, () => initialState);
+    builder.addCase(_moveToPreviousStage, () => initialState);
   },
 });
 
