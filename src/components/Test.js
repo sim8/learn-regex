@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Prompt from './Prompt';
-import { getMatches } from '../selectors/inputSelectors';
 import Hint from './Hint';
+import { getMatches } from '../slices/input';
 
 const SearchBody = styled.div`
   width: 100%;
@@ -23,7 +23,7 @@ const TestWrapper = styled.div`
   position: relative;
 `;
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   matches: getMatches(state),
 });
 

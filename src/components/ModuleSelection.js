@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MODULES_CONFIG } from '../constants/lessonConfig';
-import { getModuleCompletionPercentages } from '../selectors/overallProgressSelectors';
 import {
-  startModule,
-  continueModule,
+  getModuleCompletionPercentages,
   startOverModule,
-} from '../actions/moduleProgressActions';
+} from '../slices/overallProgress';
+import { startModule, continueModule } from '../slices/moduleProgress';
 import ContinueOrStartOver from './ContinueOrStartOver';
 import BigModuleButton from './BigModuleButton';
 
@@ -16,7 +15,7 @@ export default function ModuleSelection() {
   );
   const [startOrContinueModuleId, setStartOrContinueModuleId] = useState(null);
   const dispatch = useDispatch();
-  const onModuleClick = moduleId => {
+  const onModuleClick = (moduleId) => {
     const percentageComplete = moduleCompletionPercentages.get(moduleId);
     if (percentageComplete && percentageComplete < 1) {
       setStartOrContinueModuleId(moduleId);
@@ -38,7 +37,7 @@ export default function ModuleSelection() {
       />
     );
   }
-  return Object.keys(MODULES_CONFIG).map(key => (
+  return Object.keys(MODULES_CONFIG).map((key) => (
     <BigModuleButton
       key={key}
       onClick={() => onModuleClick(key)}

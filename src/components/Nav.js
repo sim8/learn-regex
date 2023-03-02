@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { returnToAllModules } from '../actions/moduleProgressActions';
+import { returnToAllModules } from '../slices/moduleProgress';
 import Link from './styled/Link';
 
 const NavWrapper = styled.div`
@@ -17,7 +17,7 @@ export default function Nav() {
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <Link
         href="#"
-        onClick={e => {
+        onClick={(e) => {
           e.preventDefault();
           dispatch(returnToAllModules());
         }}

@@ -2,10 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import Stage from './Stage';
-import {
-  getModuleId,
-  getModuleIsComplete,
-} from '../selectors/moduleProgressSelectors';
+import { getModuleId, getModuleIsComplete } from '../slices/moduleProgress';
 import ModuleSelection from './ModuleSelection';
 import ModuleComplete from './ModuleComplete';
 import Nav from './Nav';

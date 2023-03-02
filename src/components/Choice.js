@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Button from './styled/Button';
 import UnstyledList from './styled/UnstyledList';
-import { submitAnswer as submitAnswerAction } from '../actions/moduleProgressActions';
-import { getProvidedAnswerForStage } from '../selectors/moduleProgressSelectors';
+import {
+  submitAnswer as submitAnswerAction,
+  getProvidedAnswerForStage,
+} from '../slices/moduleProgress';
 
 const check = <span>&#10004;</span>;
 const cross = <span className="error">&#x2716;</span>;
@@ -30,7 +32,7 @@ const Choices = styled(UnstyledList)`
   }
 `;
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   providedAnswer: getProvidedAnswerForStage(state),
 });
 

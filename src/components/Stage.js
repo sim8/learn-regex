@@ -10,11 +10,9 @@ import {
   getCanMoveToPreviousStage,
   getStageId,
   getProvidedAnswerIsCorrect,
-} from '../selectors/moduleProgressSelectors';
-import {
   moveToNextScreen,
   moveToPreviousStage,
-} from '../actions/moduleProgressActions';
+} from '../slices/moduleProgress';
 import { STAGE_TYPES } from '../constants/lessonConfig';
 
 const StageWrapper = styled.div`
@@ -49,7 +47,7 @@ function renderStageContent({ type, ...config }, id) {
 }
 
 function renderTextLines(textLines) {
-  return textLines.map(t => (
+  return textLines.map((t) => (
     // eslint-disable-next-line react/no-array-index-key
     // eslint-disable-next-line react/no-danger
     <p key={`${t}`} dangerouslySetInnerHTML={{ __html: t }} />
