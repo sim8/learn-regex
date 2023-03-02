@@ -30,6 +30,7 @@ export const inputSlice = createSlice({
       state.value = `${value.slice(0, caretPos)}${char}${value.slice(
         caretPos
       )}`;
+      state.caretPos += 1;
     },
     backspace: (state) => {
       const { value, caretPos } = state;
