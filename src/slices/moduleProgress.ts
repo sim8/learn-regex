@@ -177,12 +177,17 @@ const getAnswerOrThrow = createSelector(getStageConfig, (config) => {
 });
 
 // TODO can we improve this?
-export const getRegexStageConfig = createSelector(getStageConfig, (config) => {
-  if (config.type !== STAGE_TYPES.REGEX) {
-    throw new Error('Using a regex stage when current stage is not regex type');
+export const getRegexStageConfigOrThrow = createSelector(
+  getStageConfig,
+  (config) => {
+    if (config.type !== STAGE_TYPES.REGEX) {
+      throw new Error(
+        'Using a regex stage when current stage is not regex type'
+      );
+    }
+    return config;
   }
-  return config;
-});
+);
 
 export const getProvidedAnswerIsCorrect = createSelector(
   [getProvidedAnswerForStage, getAnswerOrThrow],
@@ -190,7 +195,7 @@ export const getProvidedAnswerIsCorrect = createSelector(
 );
 
 export const stageCompleteAction =
-  (action: PayloadAction<unknown>): AppThunk =>
+  (action?: PayloadAction<unknown>): AppThunk =>
   (dispatch, getState) => {
     const state = getState();
     const stageIndex = getStageIndex(state);

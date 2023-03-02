@@ -1,9 +1,13 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import type { AppState } from '../store';
+import type { AppState, AppThunk } from '../store';
 import {
-  getRegexStageConfig,
+  getCanMoveToNextStage,
+  getRegexStageConfigOrThrow,
+  getStageConfig,
+  moveToNextScreen,
   moveToNextStage,
+  stageCompleteAction,
   _moveToPreviousStage,
 } from './moduleProgress';
 
@@ -53,11 +57,13 @@ export const inputSlice = createSlice({
   },
 });
 
+const { enterCharacter, keyLeft, keyRight, backspace } = inputSlice.actions;
+
 export const getInputValue = (state: AppState) => state.input.value;
 export const getCaretPos = (state: AppState) => state.input.caretPos;
 
 export const getMatches = createSelector(
-  [getInputValue, getRegexStageConfig],
+  [getInputValue, getRegexStageConfigOrThrow],
   (inputValue, stageConfig) => {
     if (!stageConfig || !stageConfig.searchBody || !inputValue.length) {
       return null;
@@ -85,5 +91,40 @@ export const getHasError = createSelector(
   getMatches,
   (matches) => matches === false
 );
+
+export const keyPress =
+  ({ key }: KeyboardEvent): AppThunk =>
+  (dispatch, getState) => {
+    const state = getState();
+    const stageConfig = getRegexStageConfigOrThrow(state);
+    if (key === 'Enter') {
+      if (getCanMoveToNextStage(state)) {
+        dispatch(moveToNextScreen());
+      }
+      return;
+    }
+    dispatch(enterCharacter(key));
+    const inputValue = getInputValue(getState());
+    if (inputValue === stageConfig.answer) {
+      dispatch(stageCompleteAction());
+    }
+  };
+
+export const keyDown =
+  ({ key }: KeyboardEvent): AppThunk =>
+  (dispatch) => {
+    switch (key) {
+      case 'ArrowLeft':
+        dispatch(keyLeft());
+        break;
+      case 'ArrowRight':
+        dispatch(keyRight());
+        break;
+      case 'Backspace':
+        dispatch(backspace());
+        break;
+      default:
+    }
+  };
 
 export default inputSlice.reducer;
