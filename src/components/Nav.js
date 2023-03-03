@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../hooks/store';
 import styled from 'styled-components';
 import { returnToAllModules } from '../slices/moduleProgress';
 import Link from './styled/Link';
@@ -11,7 +11,7 @@ const NavWrapper = styled.div`
 `;
 
 export default function Nav() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   return (
     <NavWrapper>
       {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

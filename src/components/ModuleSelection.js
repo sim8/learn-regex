@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../hooks/store';
 import { MODULES_CONFIG } from '../constants/lessonConfig';
 import {
   getModuleCompletionPercentages,
@@ -10,11 +10,11 @@ import ContinueOrStartOver from './ContinueOrStartOver';
 import BigModuleButton from './BigModuleButton';
 
 export default function ModuleSelection() {
-  const moduleCompletionPercentages = useSelector(
+  const moduleCompletionPercentages = useAppSelector(
     getModuleCompletionPercentages
   );
   const [startOrContinueModuleId, setStartOrContinueModuleId] = useState(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const onModuleClick = (moduleId) => {
     const percentageComplete = moduleCompletionPercentages[moduleId];
     if (percentageComplete && percentageComplete < 1) {

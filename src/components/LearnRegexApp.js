@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../hooks/store';
 
 import Stage from './Stage';
 import { getModuleId, getModuleIsComplete } from '../slices/moduleProgress';
@@ -8,8 +8,8 @@ import ModuleComplete from './ModuleComplete';
 import Nav from './Nav';
 
 export default function LearnRegexApp() {
-  const isInModule = !!useSelector(getModuleId);
-  const moduleComplete = useSelector(getModuleIsComplete);
+  const isInModule = !!useAppSelector(getModuleId);
+  const moduleComplete = useAppSelector(getModuleIsComplete);
 
   let page;
   if (!isInModule) {

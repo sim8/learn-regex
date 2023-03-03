@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../hooks/store';
 import styled from 'styled-components';
 import Test from './Test';
 import Choice from './Choice';
@@ -55,12 +55,12 @@ function renderTextLines(textLines) {
 }
 
 export default function Stage() {
-  const dispatch = useDispatch();
-  const stageId = useSelector(getStageId);
-  const stageConfig = useSelector(getStageConfig);
-  const canMoveToNextStage = useSelector(getCanMoveToNextStage);
-  const canMoveToPreviousStage = useSelector(getCanMoveToPreviousStage);
-  const answerCorrect = useSelector(getProvidedAnswerIsCorrect);
+  const dispatch = useAppDispatch();
+  const stageId = useAppSelector(getStageId);
+  const stageConfig = useAppSelector(getStageConfig);
+  const canMoveToNextStage = useAppSelector(getCanMoveToNextStage);
+  const canMoveToPreviousStage = useAppSelector(getCanMoveToPreviousStage);
+  const answerCorrect = useAppSelector(getProvidedAnswerIsCorrect);
 
   const { type, text, successText, failText } = stageConfig;
   const completeText =

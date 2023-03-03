@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../hooks/store';
 import React from 'react';
 import styled from 'styled-components';
 import FullScreenCenter from './styled/FullScreenCenter';
@@ -14,8 +14,8 @@ const Certificate = styled.div`
 `;
 
 export default function ModuleComplete() {
-  const moduleConfig = useSelector(getModuleConfig);
-  const dispatch = useDispatch();
+  const moduleConfig = useAppSelector(getModuleConfig);
+  const dispatch = useAppDispatch();
   return (
     <FullScreenCenter>
       <Certificate>
