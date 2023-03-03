@@ -80,7 +80,7 @@ export default function Stage() {
           <Button onClick={() => dispatch(moveToPreviousStage())}>BACK</Button>
         )}
         {canMoveToNextStage && (
-          <Button type="primary" onClick={() => dispatch(moveToNextScreen())}>
+          <Button use="primary" onClick={() => dispatch(moveToNextScreen())}>
             CONTINUE
           </Button>
         )}

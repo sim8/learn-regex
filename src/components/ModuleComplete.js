@@ -31,7 +31,7 @@ export default function ModuleComplete() {
           points.
         </div>
         <Button
-          type="primary"
+          use="primary"
           style={{ margin: '50px 0' }}
           onClick={() => dispatch(returnToAllModules())}
         >

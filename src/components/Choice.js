@@ -61,7 +61,7 @@ function Choice({ choices, submitAnswer, answer, providedAnswer, stageId }) {
                 }
               }}
               disabled={providedAnswer !== undefined}
-              type={i === providedAnswer ? 'primary' : null}
+              use={i === providedAnswer ? 'primary' : null}
             >
               {choice}
             </Button>
