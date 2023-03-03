@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { RegexStage } from '../types';
 
 const HintContent = styled.div`
   position: absolute;
@@ -37,7 +38,11 @@ const HintButton = styled.div`
   }
 `;
 
-export default function Hint({ hint }) {
+type Props = {
+  hint: RegexStage['hint'];
+};
+
+export default function Hint({ hint }: Props) {
   return (
     <HintButton>
       <HintButtonText>HINT</HintButtonText>

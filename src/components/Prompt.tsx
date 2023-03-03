@@ -1,6 +1,12 @@
-import React, { useEffect } from 'react';
+import React, {
+  KeyboardEventHandler,
+  useEffect,
+  useRef,
+  MutableRefObject,
+} from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { useAppDispatch, useAppSelector } from '../hooks/store';
 import {
   getInputValue,
   getCaretPos,
@@ -9,13 +15,11 @@ import {
   keyDown,
 } from '../slices/input';
 
-const promptRef = React.createRef();
-
 const Caret = styled.span`
   position: relative;
 `;
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.div<{ hasError: boolean }>`
   > div {
     -webkit-appearance: none;
     border: 0px solid;
@@ -43,13 +47,7 @@ const InputWrapper = styled.div`
   }
 `;
 
-const mapStateToProps = (state) => ({
-  inputValue: getInputValue(state),
-  caretPos: getCaretPos(state),
-  hasError: getHasError(state),
-});
-
-function formatWithCaret(inputValue, caretPos) {
+function formatWithCaret(inputValue: string, caretPos: number) {
   if (caretPos === inputValue.length) {
     return (
       <span>
@@ -67,17 +65,28 @@ function formatWithCaret(inputValue, caretPos) {
   );
 }
 
-function Prompt({ inputValue, caretPos, onKeyPress, onKeyDown, hasError }) {
-  useEffect(() => promptRef.current.focus(), []);
+export default function Prompt() {
+  const dispatch = useAppDispatch();
+  const inputValue = useAppSelector(getInputValue);
+  const caretPos = useAppSelector(getCaretPos);
+  const hasError = useAppSelector(getHasError);
+
+  const promptRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (promptRef.current) {
+      promptRef.current.focus();
+    }
+  }, []);
   const inputValueWithCaret = formatWithCaret(inputValue, caretPos);
   return (
     <InputWrapper hasError={hasError}>
       <div
         ref={promptRef}
-        tabIndex="0"
+        tabIndex={0}
         role="textbox"
-        onKeyPress={onKeyPress}
-        onKeyDown={onKeyDown}
+        onKeyPress={(e) => dispatch(keyPress(e))}
+        onKeyDown={(e) => dispatch(keyDown(e))}
       >
         &gt;
         {inputValueWithCaret}
@@ -85,8 +94,3 @@ function Prompt({ inputValue, caretPos, onKeyPress, onKeyDown, hasError }) {
     </InputWrapper>
   );
 }
-
-export default connect(mapStateToProps, {
-  onKeyPress: keyPress,
-  onKeyDown: keyDown,
-})(Prompt);

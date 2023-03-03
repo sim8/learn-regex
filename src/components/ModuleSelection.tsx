@@ -8,14 +8,16 @@ import {
 import { startModule, continueModule } from '../slices/moduleProgress';
 import ContinueOrStartOver from './ContinueOrStartOver';
 import BigModuleButton from './BigModuleButton';
+import { ModuleKey } from '../types';
 
 export default function ModuleSelection() {
   const moduleCompletionPercentages = useAppSelector(
     getModuleCompletionPercentages
   );
-  const [startOrContinueModuleId, setStartOrContinueModuleId] = useState(null);
+  const [startOrContinueModuleId, setStartOrContinueModuleId] =
+    useState<ModuleKey | null>(null);
   const dispatch = useAppDispatch();
-  const onModuleClick = (moduleId) => {
+  const onModuleClick = (moduleId: ModuleKey) => {
     const percentageComplete = moduleCompletionPercentages[moduleId];
     if (percentageComplete && percentageComplete < 1) {
       setStartOrContinueModuleId(moduleId);
@@ -37,12 +39,16 @@ export default function ModuleSelection() {
       />
     );
   }
-  return Object.keys(MODULES_CONFIG).map((key) => (
-    <BigModuleButton
-      key={key}
-      onClick={() => onModuleClick(key)}
-      percentageComplete={moduleCompletionPercentages[key]}
-      module={MODULES_CONFIG[key]}
-    />
-  ));
+  return (
+    <>
+      {(Object.keys(MODULES_CONFIG) as ModuleKey[]).map((key) => (
+        <BigModuleButton
+          key={key}
+          onClick={() => onModuleClick(key)}
+          percentageComplete={moduleCompletionPercentages[key]}
+          module={MODULES_CONFIG[key]}
+        />
+      ))}
+    </>
+  );
 }

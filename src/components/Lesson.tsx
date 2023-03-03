@@ -2,13 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Prompt from './Prompt';
 import { getStageConfig } from '../slices/moduleProgress';
+import { useAppSelector } from '../hooks/store';
 
-const mapStateToProps = (state) => ({
-  stageConfig: getStageConfig(state),
-});
-
-function Stage({ stageConfig }) {
-  const { text } = stageConfig;
+export default function Stage() {
+  const { text } = useAppSelector(getStageConfig);
   return (
     <div className="stage">
       {text.map((t, index) => (
@@ -19,4 +16,3 @@ function Stage({ stageConfig }) {
     </div>
   );
 }
-export default connect(mapStateToProps, {})(Stage);

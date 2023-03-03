@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import Button from './styled/Button';
 import UnstyledList from './styled/UnstyledList';
 import {
-  submitAnswer as submitAnswerAction,
+  submitAnswer,
   getProvidedAnswerForStage,
 } from '../slices/moduleProgress';
+import { AppState } from '../store';
+import { ChoiceStage, StageKey } from '../types';
+import { useAppDispatch, useAppSelector } from '../hooks/store';
 
 const check = <span>&#10004;</span>;
 const cross = <span className="error">&#x2716;</span>;
@@ -32,11 +35,11 @@ const Choices = styled(UnstyledList)`
   }
 `;
 
-const mapStateToProps = (state) => ({
-  providedAnswer: getProvidedAnswerForStage(state),
-});
-
-function renderResultIcon(index, providedAnswer, actualAnswer) {
+function renderResultIcon(
+  index: number,
+  providedAnswer: ChoiceStage['answer'],
+  actualAnswer: ChoiceStage['answer']
+) {
   if (providedAnswer !== undefined) {
     if (index === providedAnswer) {
       return providedAnswer === actualAnswer ? check : cross;
@@ -48,7 +51,13 @@ function renderResultIcon(index, providedAnswer, actualAnswer) {
   return null;
 }
 
-function Choice({ choices, submitAnswer, answer, providedAnswer, stageId }) {
+type Props = ChoiceStage & {
+  stageId: StageKey;
+};
+
+export default function Choice({ choices, answer, stageId }: Props) {
+  const dispatch = useAppDispatch();
+  const providedAnswer = useAppSelector(getProvidedAnswerForStage);
   return (
     <Choices>
       {choices.map((choice, i) => (
@@ -57,11 +66,11 @@ function Choice({ choices, submitAnswer, answer, providedAnswer, stageId }) {
             <Button
               onClick={() => {
                 if (providedAnswer === undefined) {
-                  submitAnswer(stageId, i);
+                  dispatch(submitAnswer(stageId, i));
                 }
               }}
               disabled={providedAnswer !== undefined}
-              use={i === providedAnswer ? 'primary' : null}
+              use={i === providedAnswer ? 'primary' : undefined}
             >
               {choice}
             </Button>
@@ -72,7 +81,3 @@ function Choice({ choices, submitAnswer, answer, providedAnswer, stageId }) {
     </Choices>
   );
 }
-
-export default connect(mapStateToProps, {
-  submitAnswer: submitAnswerAction,
-})(Choice);

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Module } from '../types';
 
 import Button from './styled/Button';
 import ProgressBar from './styled/ProgressBar';
@@ -44,11 +45,17 @@ const PictureText = styled.div`
   width: 70px;
 `;
 
+type Props = {
+  module: Module;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  percentageComplete: number;
+};
+
 export default function BigModuleButton({
   module: { name, pictureText, comingSoon },
   onClick,
   percentageComplete,
-}) {
+}: Props) {
   let progressIndicator;
   if (percentageComplete) {
     progressIndicator =

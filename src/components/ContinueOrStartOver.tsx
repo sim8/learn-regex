@@ -1,8 +1,17 @@
 import React from 'react';
 import { MODULES_CONFIG } from '../constants/lessonConfig';
+import { ModuleKey } from '../types';
 import Button from './styled/Button';
 import FullScreenCenter from './styled/FullScreenCenter';
 import Link from './styled/Link';
+
+type Props = {
+  moduleId: ModuleKey;
+  percentageComplete: number;
+  onCancel: () => void;
+  onContinue: () => void;
+  onStartOver: () => void;
+};
 
 export default function ContinueOrStartOver({
   moduleId,
@@ -10,7 +19,7 @@ export default function ContinueOrStartOver({
   onCancel,
   onContinue,
   onStartOver,
-}) {
+}: Props) {
   return (
     <FullScreenCenter>
       <div style={{ marginBottom: '40px' }}>

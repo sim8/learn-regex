@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 type Props = {
   width: number;
-  borderWidth: number; // remove?
+  borderWidth?: number; // remove?
+  color?: string;
 };
 
 const Checkmark = styled.div<Props>`

@@ -1,4 +1,5 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { KeyboardEvent } from 'react';
 
 import type { AppState, AppThunk } from '../store';
 import {
@@ -94,7 +95,7 @@ export const getHasError = createSelector(
 );
 
 export const keyPress =
-  ({ key }: KeyboardEvent): AppThunk =>
+  ({ key }: KeyboardEvent<HTMLDivElement>): AppThunk =>
   (dispatch, getState) => {
     const state = getState();
     const stageConfig = getRegexStageConfigOrThrow(state);
@@ -112,7 +113,7 @@ export const keyPress =
   };
 
 export const keyDown =
-  ({ key }: KeyboardEvent): AppThunk =>
+  ({ key }: KeyboardEvent<HTMLDivElement>): AppThunk =>
   (dispatch) => {
     switch (key) {
       case 'ArrowLeft':

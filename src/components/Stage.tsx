@@ -14,6 +14,7 @@ import {
   moveToPreviousStage,
 } from '../slices/moduleProgress';
 import { STAGE_TYPES } from '../constants/lessonConfig';
+import { Stage, StageKey } from '../types';
 
 const StageWrapper = styled.div`
   .main-text {
@@ -35,10 +36,10 @@ const NavButtons = styled.div`
   padding-bottom: 10vh;
 `;
 
-function renderStageContent({ type, ...config }, id) {
-  switch (type) {
+function renderStageContent(config: Stage, id: StageKey) {
+  switch (config.type) {
     case STAGE_TYPES.REGEX:
-      return <Test {...config} stageId={id} />;
+      return <Test {...config} />;
     case STAGE_TYPES.CHOICE:
       return <Choice {...config} stageId={id} />;
     default:
@@ -46,7 +47,7 @@ function renderStageContent({ type, ...config }, id) {
   }
 }
 
-function renderTextLines(textLines) {
+function renderTextLines(textLines: Stage['text']) {
   return textLines.map((t) => (
     // eslint-disable-next-line react/no-array-index-key
     // eslint-disable-next-line react/no-danger
@@ -54,7 +55,7 @@ function renderTextLines(textLines) {
   ));
 }
 
-export default function Stage() {
+export default function StageComponent() {
   const dispatch = useAppDispatch();
   const stageId = useAppSelector(getStageId);
   const stageConfig = useAppSelector(getStageConfig);
@@ -62,6 +63,7 @@ export default function Stage() {
   const canMoveToPreviousStage = useAppSelector(getCanMoveToPreviousStage);
   const answerCorrect = useAppSelector(getProvidedAnswerIsCorrect);
 
+  // @ts-expect-error needs fixing
   const { type, text, successText, failText } = stageConfig;
   const completeText =
     type !== STAGE_TYPES.CHOICE || answerCorrect ? successText : failText;

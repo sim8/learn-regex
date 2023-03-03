@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Prompt from './Prompt';
 import Hint from './Hint';
 import { getMatches } from '../slices/input';
+import { useAppSelector } from '../hooks/store';
+import { ChoiceStage, RegexStage } from '../types';
 
 const SearchBody = styled.div`
   width: 100%;
@@ -23,11 +25,10 @@ const TestWrapper = styled.div`
   position: relative;
 `;
 
-const mapStateToProps = (state) => ({
-  matches: getMatches(state),
-});
-
-const generateHighlightedSearchBody = (searchBody, matches) => {
+const generateHighlightedSearchBody = (
+  searchBody: NonNullable<RegexStage['searchBody']>,
+  matches: ReturnType<typeof getMatches>
+) => {
   if (matches && matches.length) {
     const textEls = [];
     let currentLength = 0;
@@ -53,7 +54,10 @@ const generateHighlightedSearchBody = (searchBody, matches) => {
   return <span className="unmatched">{searchBody}</span>;
 };
 
-function Test({ searchBody, matches, hint }) {
+type Props = RegexStage & {};
+
+export default function Test({ searchBody, hint }: Props) {
+  const matches = useAppSelector(getMatches);
   return (
     <TestWrapper>
       {hint && <Hint hint={hint} />}
@@ -66,5 +70,3 @@ function Test({ searchBody, matches, hint }) {
     </TestWrapper>
   );
 }
-
-export default connect(mapStateToProps, {})(Test);
