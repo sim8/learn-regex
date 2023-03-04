@@ -1,16 +1,27 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import {
+  configureStore,
+  ThunkAction,
+  Action,
+  StateFromReducersMapObject,
+  PreloadedState,
+} from '@reduxjs/toolkit';
 
 import moduleProgressReducer from './slices/moduleProgress';
 import overallProgressReducer from './slices/overallProgress';
 import inputReducer from './slices/input';
 
-export function makeStore() {
+const reducer = {
+  moduleProgress: moduleProgressReducer,
+  overallProgress: overallProgressReducer,
+  input: inputReducer,
+};
+
+export type RootState = StateFromReducersMapObject<typeof reducer>;
+
+export function makeStore(preloadedState?: PreloadedState<RootState>) {
   return configureStore({
-    reducer: {
-      moduleProgress: moduleProgressReducer,
-      overallProgress: overallProgressReducer,
-      input: inputReducer,
-    },
+    reducer,
+    preloadedState,
   });
 }
 
