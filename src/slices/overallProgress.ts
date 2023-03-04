@@ -20,7 +20,7 @@ export interface OverallProgressState {
   modules: ModulesCompletion;
 }
 
-const initialState: OverallProgressState = {
+export const initialState: OverallProgressState = {
   modules: {} as ModulesCompletion,
 };
 
