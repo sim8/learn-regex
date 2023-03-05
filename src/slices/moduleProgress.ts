@@ -29,7 +29,7 @@ export interface ModuleProgressState {
   isComplete: boolean;
 }
 
-const initialState: ModuleProgressState = {
+export const initialState: ModuleProgressState = {
   moduleId: MODULES.BASICS,
   stageIndex: 0,
   answers: {} as Answers,

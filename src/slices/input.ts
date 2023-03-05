@@ -17,7 +17,7 @@ export interface InputState {
   caretPos: number;
 }
 
-const initialState: InputState = {
+export const initialState: InputState = {
   value: '',
   caretPos: 0,
 };

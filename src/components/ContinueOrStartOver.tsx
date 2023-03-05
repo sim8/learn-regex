@@ -20,10 +20,13 @@ export default function ContinueOrStartOver({
   onContinue,
   onStartOver,
 }: Props) {
+  const textContent = `You've completed ${Math.floor(
+    percentageComplete * 100
+  )}% of `;
   return (
     <FullScreenCenter>
       <div style={{ marginBottom: '40px' }}>
-        You've completed {Math.floor(percentageComplete * 100)}% of{' '}
+        {textContent}
         <span className="code">{MODULES_CONFIG[moduleId].name}</span>.
       </div>
       <div style={{ marginBottom: '40px' }}>
