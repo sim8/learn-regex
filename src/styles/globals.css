@@ -1,0 +1,14 @@
+body {
+  background-color: black;
+  color: #adff12;
+  font-size: 30px;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.code {
+  color: black;
+  background-color: #adff12;
+  font-style: normal;
+}
