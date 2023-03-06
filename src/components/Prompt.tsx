@@ -1,10 +1,4 @@
-import React, {
-  KeyboardEventHandler,
-  useEffect,
-  useRef,
-  MutableRefObject,
-} from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../hooks/store';
 import {
