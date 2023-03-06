@@ -10,7 +10,6 @@ import { pageview } from '../lib/gtag';
 import Head from 'next/head';
 import { GA_TRACKING_ID } from '../constants/trackingConstants';
 import Script from 'next/script';
-import Meta from '../components/Meta';
 
 const ubuntuMono = Ubuntu_Mono({
   weight: '400',
