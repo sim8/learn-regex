@@ -35,6 +35,7 @@ export default function ContinueOrStartOver({
         </Button>
         <Button onClick={onStartOver}>Start over</Button>
       </div>
+      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <Link
         href="#"
         onClick={(e) => {
