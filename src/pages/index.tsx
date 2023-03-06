@@ -1,13 +1,14 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import LearnRegexApp from '../components/LearnRegexApp';
+import Meta from '../components/Meta';
 
 const IndexPage: NextPage = () => {
   return (
     <div className="App">
       <Head>
         <title>Learn Regex</title>
-        <link rel="icon" href="/favicon.ico" />
+        <Meta />
       </Head>
       <LearnRegexApp />
     </div>
