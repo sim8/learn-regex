@@ -1,4 +1,4 @@
-export const GA_TRACKING_ID = 'UA-146906169-1';
+export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_ID as string;
 
 export const ACTIONS = {
   COMPLETE_STAGE: 'complete-stage',
