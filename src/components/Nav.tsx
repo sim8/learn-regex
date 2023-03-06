@@ -14,7 +14,6 @@ export default function Nav() {
   const dispatch = useAppDispatch();
   return (
     <NavWrapper>
-      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
       <Link
         href="#"
         onClick={(e) => {
