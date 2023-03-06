@@ -215,6 +215,7 @@ export const stageCompleteAction =
 export const moveToNextScreen = (): AppThunk => (dispatch, getState) => {
   const state = getState();
   const stageId = getStageId(state);
+  const stageIndex = getStageIndex(state);
   const isFinalStageInModule = getIsFinalStageInModule(state);
   if (isFinalStageInModule) {
     const moduleId = getModuleIdOrThrow(state);
@@ -228,6 +229,7 @@ export const moveToNextScreen = (): AppThunk => (dispatch, getState) => {
     event(TRACKING_ACTIONS.MOVE_TO_NEXT_STAGE, {
       category: TRACKING_CATEGORIES.STAGE,
       label: stageId,
+      value: stageIndex,
     });
   }
 };
