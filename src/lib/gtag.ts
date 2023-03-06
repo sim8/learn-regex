@@ -1,6 +1,13 @@
 /* global window */
 
-import { GA_TRACKING_ID } from '../constants/trackingConstants';
+import {
+  GA_TRACKING_ID,
+  ACTIONS,
+  CATEGORIES,
+} from '../constants/trackingConstants';
+
+type TrackingAction = (typeof ACTIONS)[keyof typeof ACTIONS];
+type TrackingCategory = (typeof CATEGORIES)[keyof typeof CATEGORIES];
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/pages
 export const pageview = (url: string) => {
@@ -11,13 +18,13 @@ export const pageview = (url: string) => {
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
 export const event = (
-  action: string,
+  action: TrackingAction,
   {
     category,
     label,
     value,
   }: {
-    category?: string;
+    category?: TrackingCategory;
     label?: string;
     value?: number;
   } = {}
