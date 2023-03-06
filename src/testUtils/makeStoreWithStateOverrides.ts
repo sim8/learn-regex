@@ -7,7 +7,7 @@ import {
   ModuleProgressState,
 } from '../slices/moduleProgress';
 import { initialState as inputInitialState, InputState } from '../slices/input';
-import { makeStore, RootState } from '../store';
+import { makeStore } from '../store';
 
 const makeStoreWithTestOverrides = ({
   moduleProgress = {},
