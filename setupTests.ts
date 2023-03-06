@@ -3,4 +3,6 @@ import { loadEnvConfig } from '@next/env';
 
 loadEnvConfig(__dirname, true, { info: () => null, error: console.error });
 
-window.gtag = () => {};
+window.gtag = () => {
+  // no op
+};

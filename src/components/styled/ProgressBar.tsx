@@ -14,11 +14,16 @@ const Progress = styled.div<{ percentageComplete: number }>`
   width: ${(props) => props.percentageComplete * 100}%;
 `;
 
+type Props = {
+  percentageComplete: number;
+  width: string;
+};
+
 export default function ProgressBar({
   width = '100%',
   percentageComplete = 0.5,
   ...rest
-}) {
+}: Props) {
   return (
     <ProgressBarWrapper width={width} {...rest}>
       <Progress percentageComplete={percentageComplete} />

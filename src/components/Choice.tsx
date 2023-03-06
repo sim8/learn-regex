@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Button from './styled/Button';
 import UnstyledList from './styled/UnstyledList';
@@ -7,7 +6,6 @@ import {
   submitAnswer,
   getProvidedAnswerForStage,
 } from '../slices/moduleProgress';
-import { AppState } from '../store';
 import { ChoiceStage, StageKey } from '../types';
 import { useAppDispatch, useAppSelector } from '../hooks/store';
 

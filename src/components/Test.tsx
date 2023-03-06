@@ -1,11 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Prompt from './Prompt';
 import Hint from './Hint';
 import { getMatches } from '../slices/input';
 import { useAppSelector } from '../hooks/store';
-import { ChoiceStage, RegexStage } from '../types';
+import { RegexStage } from '../types';
 
 const SearchBody = styled.div`
   width: 100%;
@@ -54,7 +53,7 @@ const generateHighlightedSearchBody = (
   return <span className="unmatched">{searchBody}</span>;
 };
 
-type Props = RegexStage & {};
+type Props = RegexStage;
 
 export default function Test({ searchBody, hint }: Props) {
   const matches = useAppSelector(getMatches);

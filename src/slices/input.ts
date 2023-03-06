@@ -5,7 +5,6 @@ import type { AppState, AppThunk } from '../store';
 import {
   getCanMoveToNextStage,
   getRegexStageConfigOrThrow,
-  getStageConfig,
   moveToNextScreen,
   moveToNextStage,
   stageCompleteAction,
