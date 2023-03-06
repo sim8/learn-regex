@@ -5,9 +5,9 @@ import {
   Draft,
 } from '@reduxjs/toolkit';
 
-import type { AppState } from '../store';
+import type { AppState, AppThunk } from '../store';
 import { MODULES_CONFIG } from '../constants/lessonConfig';
-import { ModuleKey } from '../types';
+import { ModuleKey, StageKey } from '../types';
 
 type ModuleCompletion = {
   highestCompletedStageIndex: number;

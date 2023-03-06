@@ -5,6 +5,7 @@ import user from '@testing-library/user-event';
 import { makeStore } from '../store';
 import LearnRegexApp from '../components/LearnRegexApp';
 import makeStoreWithTestOverrides from '../testUtils/makeStoreWithStateOverrides';
+import { createFalse } from 'typescript';
 
 describe('Stage', () => {
   it('renders the first stage', () => {
