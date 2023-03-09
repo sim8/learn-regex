@@ -194,6 +194,12 @@ export const getProvidedAnswerIsCorrect = createSelector(
   (provided, answer) => provided === answer
 );
 
+export const getPreviousStageAsPercentage = createSelector(
+  [getModuleConfig, getStageIndex],
+  // Calc is 1-indexed, so stageId == previousStageId
+  (moduleConfig, stageIndex) => stageIndex / moduleConfig.stages.length
+);
+
 export const stageCompleteAction =
   (action?: PayloadAction<unknown>): AppThunk =>
   (dispatch, getState) => {

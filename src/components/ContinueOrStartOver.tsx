@@ -1,6 +1,7 @@
 import React from 'react';
 import { MODULES_CONFIG } from '../constants/lessonConfig';
 import { ModuleKey } from '../types';
+import { formatPercentage } from '../utils/textUtils';
 import Button from './styled/Button';
 import FullScreenCenter from './styled/FullScreenCenter';
 import Link from './styled/Link';
@@ -20,9 +21,9 @@ export default function ContinueOrStartOver({
   onContinue,
   onStartOver,
 }: Props) {
-  const textContent = `You've completed ${Math.floor(
-    percentageComplete * 100
-  )}% of `;
+  const textContent = `You've completed ${formatPercentage(
+    percentageComplete
+  )} of `;
   return (
     <FullScreenCenter>
       <div style={{ marginBottom: '40px' }}>

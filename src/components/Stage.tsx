@@ -13,8 +13,9 @@ import {
   moveToNextScreen,
   moveToPreviousStage,
 } from '../slices/moduleProgress';
-import { STAGE_TYPES } from '../constants/lessonConfig';
+import { STAGE_TYPES, STAGES } from '../constants/lessonConfig';
 import { Stage, StageKey } from '../types';
+import ModuleProgressBar from './ModuleProgressBar';
 
 const StageWrapper = styled.div`
   .main-text {
@@ -70,6 +71,7 @@ export default function StageComponent() {
 
   return (
     <StageWrapper>
+      {stageId !== STAGES.GREETING && <ModuleProgressBar />}
       <div className="main-text">
         {renderTextLines(text)}
         {canMoveToNextStage && completeText && (
