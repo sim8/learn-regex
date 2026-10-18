@@ -53,7 +53,7 @@ export const moduleProgressSlice = createSlice({
       }: PayloadAction<{
         stage: StageKey;
         answer: number;
-      }>
+      }>,
     ) => {
       state.answers[payload.stage] = payload.answer;
     },
@@ -72,7 +72,7 @@ export const moduleProgressSlice = createSlice({
       }: PayloadAction<{
         moduleId: ModuleKey;
         highestCompletedStageIndex: number;
-      }>
+      }>,
     ) => ({
       ...initialState,
       moduleId,
@@ -102,11 +102,11 @@ export const {
 export const getModuleProgress = (state: AppState) => state.moduleProgress;
 
 function createModuleProgressSelector<K extends keyof ModuleProgressState>(
-  key: K
+  key: K,
 ) {
   return createSelector(
     getModuleProgress,
-    (moduleProgress) => moduleProgress[key]
+    (moduleProgress) => moduleProgress[key],
   );
 }
 
@@ -123,49 +123,49 @@ const getCurrentModuleProgress = createSelector(
   [getAllModulesProgress, getModuleIdOrThrow],
   (modules, moduleId) => {
     return modules[moduleId];
-  }
+  },
 );
 export const getHighestCompletedStageIndex = createSelector(
   getCurrentModuleProgress,
   (currentModule) =>
-    currentModule ? currentModule.highestCompletedStageIndex : -1
+    currentModule ? currentModule.highestCompletedStageIndex : -1,
 );
 export const getModuleIsComplete = createModuleProgressSelector('isComplete');
 export const getProvidedAnswers = createModuleProgressSelector('answers');
 export const getModuleConfig = createSelector(
   getModuleIdOrThrow,
-  (moduleId) => MODULES_CONFIG[moduleId]
+  (moduleId) => MODULES_CONFIG[moduleId],
 );
 
 export const getStageId = createSelector(
   [getModuleConfig, getStageIndex],
-  (moduleConfig, stageIndex) => moduleConfig && moduleConfig.stages[stageIndex]
+  (moduleConfig, stageIndex) => moduleConfig && moduleConfig.stages[stageIndex],
 );
 
 export const getIsFinalStageInModule = createSelector(
   [getModuleConfig, getStageIndex],
-  (moduleConfig, stageIndex) => stageIndex + 1 === moduleConfig.stages.length
+  (moduleConfig, stageIndex) => stageIndex + 1 === moduleConfig.stages.length,
 );
 
 export const getStageConfig = createSelector(
   getStageId,
-  (stageId) => STAGE_CONFIG[stageId]
+  (stageId) => STAGE_CONFIG[stageId],
 );
 
 export const getCanMoveToNextStage = createSelector(
   [getStageIndex, getHighestCompletedStageIndex, getStageConfig],
   (index, highestIndex, config) =>
-    highestIndex >= index || config.type === STAGE_TYPES.INFO
+    highestIndex >= index || config.type === STAGE_TYPES.INFO,
 );
 
 export const getCanMoveToPreviousStage = createSelector(
   [getStageIndex],
-  (index) => index > 0
+  (index) => index > 0,
 );
 
 export const getProvidedAnswerForStage = createSelector(
   [getProvidedAnswers, getStageId],
-  (answers, stageId) => answers[stageId]
+  (answers, stageId) => answers[stageId],
 );
 
 // TODO can we improve this?
@@ -186,18 +186,18 @@ export const getRegexStageConfigOrThrow = createSelector(
     //   );
     // }
     return config as RegexStage;
-  }
+  },
 );
 
 export const getProvidedAnswerIsCorrect = createSelector(
   [getProvidedAnswerForStage, getAnswerOrThrow],
-  (provided, answer) => provided === answer
+  (provided, answer) => provided === answer,
 );
 
 export const getPreviousStageAsPercentage = createSelector(
   [getModuleConfig, getStageIndex],
   // Calc is 1-indexed, so stageId == previousStageId
-  (moduleConfig, stageIndex) => stageIndex / moduleConfig.stages.length
+  (moduleConfig, stageIndex) => stageIndex / moduleConfig.stages.length,
 );
 
 export const stageCompleteAction =
@@ -211,9 +211,9 @@ export const stageCompleteAction =
         moduleId: getModuleIdOrThrow(state),
         highestCompletedStageIndex: Math.max(
           stageIndex,
-          prevHighestCompletedStageIndex
+          prevHighestCompletedStageIndex,
         ),
-      })
+      }),
     );
     if (action) dispatch(action);
   };
@@ -255,14 +255,13 @@ export const submitAnswer = (stage: StageKey, answer: number) =>
 export const continueModule =
   (moduleId: ModuleKey): AppThunk =>
   (dispatch, getState) => {
-    const { highestCompletedStageIndex } = getAllModulesProgress(getState())[
-      moduleId
-    ];
+    const { highestCompletedStageIndex } =
+      getAllModulesProgress(getState())[moduleId];
     dispatch(
       _continueModule({
         moduleId,
         highestCompletedStageIndex,
-      })
+      }),
     );
   };
 

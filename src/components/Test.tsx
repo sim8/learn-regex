@@ -26,7 +26,7 @@ const TestWrapper = styled.div`
 
 const generateHighlightedSearchBody = (
   searchBody: NonNullable<RegexStage['searchBody']>,
-  matches: ReturnType<typeof getMatches>
+  matches: ReturnType<typeof getMatches>,
 ) => {
   if (matches && matches.length) {
     const textEls = [];
@@ -39,14 +39,14 @@ const generateHighlightedSearchBody = (
         </span>,
         <span key={`matched-${i}`} className="matched">
           {matchedStr}
-        </span>
+        </span>,
       );
       currentLength = match.index + matchedStr.length;
     });
     textEls.push(
       <span key={`unmatched-${matches.length}`} className="unmatched">
         {searchBody.substring(currentLength)}
-      </span>
+      </span>,
     );
     return textEls;
   }

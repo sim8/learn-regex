@@ -12,7 +12,7 @@ import { ModuleKey } from '../types';
 
 export default function ModuleSelection() {
   const moduleCompletionPercentages = useAppSelector(
-    getModuleCompletionPercentages
+    getModuleCompletionPercentages,
   );
   const [startOrContinueModuleId, setStartOrContinueModuleId] =
     useState<ModuleKey | null>(null);

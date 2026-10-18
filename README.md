@@ -1,29 +1,34 @@
-# Redux Toolkit TypeScript Example
+# Learn Regex
 
-This example shows how to integrate Next.js with [Redux Toolkit](https://redux-toolkit.js.org).
+An interactive regex course built with Next.js, React, Redux Toolkit, and styled-components.
 
-The **Redux Toolkit** is a standardized way to write Redux logic (create actions and reducers, setup the store with some default middlewares like redux devtools extension). This example demonstrates each of these features with Next.js
+## Development
 
-## Deploy your own
+Use Node.js 24 LTS (also specified in `.nvmrc`):
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-redux&project-name=with-redux&repository-name=with-redux)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-redux with-redux-app
+```sh
+nvm use
+npm ci
+npm run dev
 ```
 
-```bash
-yarn create next-app --example with-redux with-redux-app
+The development server listens on port 3000. No application secrets or backend services are required.
+
+Next.js downloads Ubuntu Mono through `next/font/google` at compile time and serves the resulting files locally. Allow HTTPS access to `fonts.googleapis.com` and `fonts.gstatic.com` in restricted environments. Keep TLS verification enabled.
+
+## Checks
+
+```sh
+npm run lint
+npm run type-check
+npm test -- --runInBand
+npm run build
 ```
 
-```bash
-pnpm create next-app --example with-redux with-redux-app
+To run the production build:
+
+```sh
+npm run start
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Tests use Next.js's Jest integration and Testing Library. ESLint runs separately because Next.js 16 no longer runs linting during builds. ESLint stays on version 9 for compatibility with the React lint plugin, and TypeScript stays on 6.0 for compatibility with typescript-eslint.

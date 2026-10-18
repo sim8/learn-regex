@@ -1,5 +1,5 @@
 import '../styles/globals.css';
-import { Ubuntu_Mono } from '@next/font/google';
+import { Ubuntu_Mono } from 'next/font/google';
 
 import { Provider } from 'react-redux';
 import type { AppProps } from 'next/app';
