@@ -13,7 +13,7 @@ const Caret = styled.span`
   position: relative;
 `;
 
-const InputWrapper = styled.div<{ hasError: boolean }>`
+const InputWrapper = styled.div<{ $hasError: boolean }>`
   > div {
     -webkit-appearance: none;
     border: 0px solid;
@@ -22,12 +22,12 @@ const InputWrapper = styled.div<{ hasError: boolean }>`
     word-break: break-all;
 
     &:focus ${Caret} {
-      background-color: ${(props) => (props.hasError ? '#ff0000' : '#adff12')};
+      background-color: ${(props) => (props.$hasError ? '#ff0000' : '#adff12')};
       color: black;
     }
 
     &:not(:focus) ${Caret} {
-      :after {
+      &::after {
         content: '';
         position: absolute;
         top: 0;
@@ -35,7 +35,8 @@ const InputWrapper = styled.div<{ hasError: boolean }>`
         width: 100%;
         height: 100%;
         box-sizing: border-box;
-        border: 2px solid ${(props) => (props.hasError ? '#ff0000' : '#adff12')};
+        border: 2px solid
+          ${(props) => (props.$hasError ? '#ff0000' : '#adff12')};
       }
     }
   }
@@ -74,7 +75,7 @@ export default function Prompt() {
   }, []);
   const inputValueWithCaret = formatWithCaret(inputValue, caretPos);
   return (
-    <InputWrapper hasError={hasError}>
+    <InputWrapper $hasError={hasError}>
       <div
         ref={promptRef}
         tabIndex={0}

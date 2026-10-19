@@ -22,7 +22,7 @@ export default function ContinueOrStartOver({
   onStartOver,
 }: Props) {
   const textContent = `You've completed ${formatPercentage(
-    percentageComplete
+    percentageComplete,
   )} of `;
   return (
     <FullScreenCenter>

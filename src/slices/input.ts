@@ -28,7 +28,7 @@ export const inputSlice = createSlice({
     enterCharacter: (state, { payload: char }: PayloadAction<string>) => {
       const { value, caretPos } = state;
       state.value = `${value.slice(0, caretPos)}${char}${value.slice(
-        caretPos
+        caretPos,
       )}`;
       state.caretPos += 1;
     },
@@ -72,14 +72,13 @@ export const getMatches = createSelector(
     let regex;
     try {
       regex = new RegExp(inputValue, 'g');
-    } catch (e) {
+    } catch {
       return false;
     }
     const matches = [];
     const lastIndexes: Record<number, boolean> = {};
     let match;
     lastIndexes[regex.lastIndex] = true;
-    // eslint-disable-next-line no-cond-assign
     while ((match = regex.exec(stageConfig.searchBody))) {
       lastIndexes[regex.lastIndex] = true;
       matches.push(match);
@@ -89,12 +88,12 @@ export const getMatches = createSelector(
       }
     }
     return matches;
-  }
+  },
 );
 
 export const getHasError = createSelector(
   getMatches,
-  (matches) => matches === false
+  (matches) => matches === false,
 );
 
 export const keyPress =

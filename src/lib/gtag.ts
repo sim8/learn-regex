@@ -27,7 +27,7 @@ export const event = (
     category?: TrackingCategory;
     label?: string;
     value?: number;
-  } = {}
+  } = {},
 ) => {
   window.gtag('event', action, {
     event_category: category,

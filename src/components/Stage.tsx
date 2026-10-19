@@ -50,8 +50,6 @@ function renderStageContent(config: Stage, id: StageKey) {
 
 function renderTextLines(textLines: Stage['text']) {
   return textLines.map((t) => (
-    // eslint-disable-next-line react/no-array-index-key
-    // eslint-disable-next-line react/no-danger
     <p key={`${t}`} dangerouslySetInnerHTML={{ __html: t }} />
   ));
 }
