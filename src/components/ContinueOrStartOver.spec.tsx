@@ -1,13 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import user from '@testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 
 import LearnRegexApp from '../components/LearnRegexApp';
 import makeStoreWithTestOverrides from '../testUtils/makeStoreWithStateOverrides';
 import { MODULES } from '../constants/lessonConfig';
 
 describe('ContinueOrStartOver', () => {
-  it('"Continue" and "Start over" both work', () => {
+  it('"Continue" and "Start over" both work', async () => {
+    const user = userEvent.setup();
     const store = makeStoreWithTestOverrides({
       moduleProgress: {
         stageIndex: 1,
@@ -26,22 +27,22 @@ describe('ContinueOrStartOver', () => {
     render(
       <Provider store={store}>
         <LearnRegexApp />
-      </Provider>
+      </Provider>,
     );
 
-    user.click(screen.getByText('ALL LESSONS'));
-    user.click(screen.getByText('Basics'));
+    await user.click(screen.getByText('ALL LESSONS'));
+    await user.click(screen.getByText('Basics'));
 
     expect(
-      screen.getByText("You've completed 5% of", { exact: false })
+      screen.getByText("You've completed 5% of", { exact: false }),
     ).toBeInTheDocument();
-    user.click(screen.getByText('Continue'));
+    await user.click(screen.getByText('Continue'));
     expect(screen.getByText('And hello to you!')).toBeInTheDocument();
 
-    user.click(screen.getByText('ALL LESSONS'));
-    user.click(screen.getByText('Basics'));
+    await user.click(screen.getByText('ALL LESSONS'));
+    await user.click(screen.getByText('Basics'));
 
-    user.click(screen.getByText('Start over'));
+    await user.click(screen.getByText('Start over'));
 
     expect(screen.getByText('Welcome to Learn Regex!')).toBeInTheDocument();
   });

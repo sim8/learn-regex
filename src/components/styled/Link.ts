@@ -8,7 +8,7 @@ const Link = styled.a`
   text-decoration: underline;
   color: #adff12;
   cursor: pointer;
-  :hover {
+  &:hover {
     opacity: 1;
   }
 `;

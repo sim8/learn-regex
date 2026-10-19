@@ -26,7 +26,7 @@ export const initialState: OverallProgressState = {
 
 const initModuleIfMissing = (
   state: Draft<OverallProgressState>,
-  moduleId: ModuleKey
+  moduleId: ModuleKey,
 ) => {
   state.modules[moduleId] = state.modules[moduleId] || {
     highestCompletedStageIndex: 0,
@@ -45,7 +45,7 @@ export const overallProgressSlice = createSlice({
       }: PayloadAction<{
         moduleId: ModuleKey;
         highestCompletedStageIndex: number;
-      }>
+      }>,
     ) => {
       initModuleIfMissing(state, moduleId);
       state.modules[moduleId].highestCompletedStageIndex =
@@ -68,7 +68,7 @@ export const getOverallProgress = (state: AppState) => state.overallProgress;
 
 export const getAllModulesProgress = createSelector(
   getOverallProgress,
-  (overallProgress) => overallProgress.modules
+  (overallProgress) => overallProgress.modules,
 );
 
 const getCompletionPercentage = (module: ModuleCompletion, key: ModuleKey) =>
@@ -86,7 +86,7 @@ export const getModuleCompletionPercentages = createSelector(
     ).reduce<ModuleCompletionPercentages>((acc, key) => {
       acc[key] = getCompletionPercentage(modules[key], key);
       return acc;
-    }, {} as ModuleCompletionPercentages)
+    }, {} as ModuleCompletionPercentages),
 );
 
 export default overallProgressSlice.reducer;

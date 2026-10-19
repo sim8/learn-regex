@@ -16,7 +16,7 @@ const ModuleProgressBarWrapper = styled.div`
 export default function ModuleProgressBar() {
   // Use previous stage rather than actual completion status for smoother UX
   const PreviousStageAsPercentage = useAppSelector(
-    getPreviousStageAsPercentage
+    getPreviousStageAsPercentage,
   );
   return (
     <ModuleProgressBarWrapper>

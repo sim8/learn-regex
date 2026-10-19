@@ -36,7 +36,7 @@ const Choices = styled(UnstyledList)`
 function renderResultIcon(
   index: number,
   providedAnswer: ChoiceStage['answer'],
-  actualAnswer: ChoiceStage['answer']
+  actualAnswer: ChoiceStage['answer'],
 ) {
   if (providedAnswer !== undefined) {
     if (index === providedAnswer) {
