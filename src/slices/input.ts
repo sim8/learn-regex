@@ -82,6 +82,10 @@ export const getMatches = createSelector(
     while ((match = regex.exec(stageConfig.searchBody))) {
       lastIndexes[regex.lastIndex] = true;
       matches.push(match);
+      // exec does not advance after an empty match, so move past it ourselves.
+      if (match[0].length === 0) {
+        regex.lastIndex += 1;
+      }
     }
     return matches;
   },
