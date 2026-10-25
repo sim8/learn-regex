@@ -17,6 +17,8 @@ const SearchBody = styled.div`
   .matched {
     color: #adff12;
     background-color: black;
+    outline: 1px solid #adff12;
+    outline-offset: -1px;
   }
 `;
 
