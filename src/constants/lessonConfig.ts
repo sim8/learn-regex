@@ -587,27 +587,6 @@ export const STAGE_CONFIG: Record<StageKey, Stage> = {
 };
 
 export const MODULES_CONFIG: Record<ModuleKey, Module> = {
-  [MODULES.CHARACTER_SETS]: {
-    id: MODULES.CHARACTER_SETS,
-    name: 'Character Sets',
-    pictureText: '[abc]',
-    points: 300,
-    stages: [
-      STAGES.SETS_INTRO,
-      STAGES.SETS_VOWELS,
-      STAGES.SETS_CHOICE,
-      STAGES.SETS_REPEAT,
-      STAGES.SETS_RANGE,
-      STAGES.SETS_DIGITS,
-      STAGES.SETS_COMBINED,
-      STAGES.SETS_NEGATED,
-      STAGES.SETS_NEGATED_CHOICE,
-      STAGES.SETS_PUNCTUATION,
-      STAGES.SETS_HYPHEN,
-      STAGES.SETS_CHALLENGE,
-    ],
-  },
-
   [MODULES.BASICS]: {
     id: MODULES.BASICS,
     name: 'Basics',
@@ -652,6 +631,26 @@ export const MODULES_CONFIG: Record<ModuleKey, Module> = {
       STAGES.MINIMUM_COUNT,
       STAGES.QUANTIFIER_SCOPE,
       STAGES.QUANTIFIERS_CHALLENGE,
+    ],
+  },
+  [MODULES.CHARACTER_SETS]: {
+    id: MODULES.CHARACTER_SETS,
+    name: 'Character Sets',
+    pictureText: '[]',
+    points: 300,
+    stages: [
+      STAGES.SETS_INTRO,
+      STAGES.SETS_VOWELS,
+      STAGES.SETS_CHOICE,
+      STAGES.SETS_REPEAT,
+      STAGES.SETS_RANGE,
+      STAGES.SETS_DIGITS,
+      STAGES.SETS_COMBINED,
+      STAGES.SETS_NEGATED,
+      STAGES.SETS_NEGATED_CHOICE,
+      STAGES.SETS_PUNCTUATION,
+      STAGES.SETS_HYPHEN,
+      STAGES.SETS_CHALLENGE,
     ],
   },
 };
