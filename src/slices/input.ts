@@ -9,7 +9,10 @@ import {
   moveToNextStage,
   stageCompleteAction,
   _moveToPreviousStage,
+  startModule,
+  _continueModule,
 } from './moduleProgress';
+import { startOverModule } from './overallProgress';
 
 export interface InputState {
   value: string;
@@ -53,6 +56,9 @@ export const inputSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(startModule, () => initialState);
+    builder.addCase(_continueModule, () => initialState);
+    builder.addCase(startOverModule, () => initialState);
     builder.addCase(moveToNextStage, () => initialState);
     builder.addCase(_moveToPreviousStage, () => initialState);
   },
@@ -109,7 +115,10 @@ export const keyPress =
     }
     dispatch(enterCharacter(key));
     const inputValue = getInputValue(getState());
-    if (inputValue === stageConfig.answer) {
+    if (
+      inputValue === stageConfig.answer ||
+      stageConfig.acceptedAnswers?.includes(inputValue)
+    ) {
       dispatch(stageCompleteAction());
     }
   };

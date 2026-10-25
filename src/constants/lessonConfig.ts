@@ -25,6 +25,18 @@ export const STAGES = {
   BASIC_SEQUENCE: 'BASIC_SEQUENCE',
   BASIC_SEQUENCE_TEST: 'BASIC_SEQUENCE_TEST',
   BASIC_SEQUENCE_2_TEST: 'BASIC_SEQUENCE_2_TEST',
+  QUANTIFIERS_INTRO: 'QUANTIFIERS_INTRO',
+  ONE_OR_MORE: 'ONE_OR_MORE',
+  ONE_OR_MORE_TEST: 'ONE_OR_MORE_TEST',
+  OPTIONAL: 'OPTIONAL',
+  OPTIONAL_TEST: 'OPTIONAL_TEST',
+  ZERO_OR_MORE: 'ZERO_OR_MORE',
+  QUANTIFIER_CHOICE: 'QUANTIFIER_CHOICE',
+  EXACT_COUNT: 'EXACT_COUNT',
+  COUNT_RANGE: 'COUNT_RANGE',
+  MINIMUM_COUNT: 'MINIMUM_COUNT',
+  QUANTIFIER_SCOPE: 'QUANTIFIER_SCOPE',
+  QUANTIFIERS_CHALLENGE: 'QUANTIFIERS_CHALLENGE',
 } as const;
 
 export const MODULES = {
@@ -195,6 +207,180 @@ export const STAGE_CONFIG: Record<StageKey, Stage> = {
     hint: 'A dot matches any character. Any meta-character can be searched for by putting a backslash in front of it.',
     answer: '\\W.\\.',
   },
+  [STAGES.QUANTIFIERS_INTRO]: {
+    type: STAGE_TYPES.INFO,
+    text: [
+      'Back for more? Excellent. So is regex.',
+      'Last time, we matched one character at a time. Three digits? We could write <span class="code">\\d\\d\\d</span>. Twelve digits? Our keyboard would like a word.',
+      'Meet quantifiers. They tell regex how many times to repeat the character or shorthand just before them. Less typing. More matching. Lovely.',
+    ],
+  },
+  [STAGES.ONE_OR_MORE]: {
+    type: STAGE_TYPES.REGEX,
+    text: [
+      'First up: <span class="code">+</span> means ONE OR MORE.',
+      'Put it after <span class="code">\\d</span> and we can grab a whole number, however many digits it has.',
+      'Try <span class="code">\\d+</span> on this very reasonable shopping list.',
+    ],
+    searchBody: '3 pineapples, 12 cakes, 405 emergency biscuits',
+    answer: '\\d+',
+    acceptedAnswers: ['\\d{1,}'],
+    successText: [
+      'There we go! Each number is now one match. The + repeats the digit shorthand, so we no longer have to guess how long the number will be.',
+    ],
+    hint: 'A digit shorthand, followed by a plus. No need to escape the plus this time.',
+  },
+  [STAGES.ONE_OR_MORE_TEST]: {
+    type: STAGE_TYPES.REGEX,
+    text: [
+      'Someone has been leaning on the space bar.',
+      'Match each run of whitespace below. A single space should count too. You already know the shorthand; give it a little + power.',
+    ],
+    searchBody: 'one space   three spaces     five spaces',
+    answer: '\\s+',
+    acceptedAnswers: ['\\s{1,}'],
+    hint: 'The whitespace shorthand from Basics is \\s.',
+    successText: ['Space successfully located. All of it.'],
+  },
+  [STAGES.OPTIONAL]: {
+    type: STAGE_TYPES.REGEX,
+    text: [
+      'Next: <span class="code">?</span> means ZERO OR ONE. In other words, optional.',
+      'Put it after a character and that character can turn up once, or sit this one out.',
+      'Type <span class="code">colou?r</span> to match both spellings below. International diplomacy, courtesy of regex.',
+    ],
+    searchBody: 'color colour',
+    answer: 'colou?r',
+    acceptedAnswers: ['colou{0,1}r'],
+    hint: 'Only the u is optional. The r still needs to be there.',
+    successText: [
+      'Two spellings, one pattern. Nobody has to change their dictionary.',
+    ],
+  },
+  [STAGES.OPTIONAL_TEST]: {
+    type: STAGE_TYPES.REGEX,
+    text: [
+      'One duck. Several ducks. Same pond.',
+      'Write one pattern that matches both words below. This time, you decide which character gets to be optional.',
+    ],
+    searchBody: 'duck ducks',
+    answer: 'ducks?',
+    acceptedAnswers: ['ducks{0,1}'],
+    hint: 'Start with duck. The s is the bit that may or may not appear.',
+    successText: ['Quacking stuff. The s can appear once or not at all.'],
+  },
+  [STAGES.ZERO_OR_MORE]: {
+    type: STAGE_TYPES.REGEX,
+    text: [
+      '<span class="code">*</span> means ZERO OR MORE. Like +, but happy to accept none at all.',
+      'Try <span class="code">ab*c</span> below. How many b characters do we need? As many as you like. Including zero.',
+    ],
+    searchBody: 'ac abc abbc abbbbbc',
+    answer: 'ab*c',
+    acceptedAnswers: ['ab{0,}c'],
+    hint: 'The * repeats the b. The a and c still have to show up.',
+    successText: [
+      'Even ac gets in! Zero b characters is allowed.',
+      'A pattern such as b* can also match an empty string. That is a valid match, just a rather difficult one to highlight. Here, the a and c keep our matches visible.',
+    ],
+  },
+  [STAGES.QUANTIFIER_CHOICE]: {
+    type: STAGE_TYPES.CHOICE,
+    text: [
+      'Quick b inspection.',
+      'Which pattern matches BOTH abc and abbc, but finds NO match in ac?',
+    ],
+    choices: ['ab?c', 'ab+c', 'ab*c', 'abc'],
+    answer: 1,
+    successText: [
+      'Yep! + insists on at least one b, and happily accepts a second helping.',
+    ],
+    failText: [
+      '+ needs one or more b characters. ? allows at most one, * allows none, and plain abc only allows one. So ab+c is our winner.',
+    ],
+  },
+  [STAGES.EXACT_COUNT]: {
+    type: STAGE_TYPES.REGEX,
+    text: [
+      'Sometimes "more" is a bit vague. Enter <span class="code">{n}</span>: EXACTLY n repetitions.',
+      'The tiny vault below has a four-digit code. Match the four digits using <span class="code">\\d{4}</span>.',
+      'This finds four consecutive digits. It does not check that an entire input is only four digits long; we will meet that trick in a later lesson.',
+    ],
+    searchBody: 'Vault code: 8042. Please do not tell the biscuits.',
+    answer: '\\d{4}',
+    acceptedAnswers: ['\\d\\d\\d\\d', '\\d{4,4}'],
+    hint: 'Curly braces hold the count. They do not need escaping when you use them as a quantifier.',
+    successText: ['Click. Four digits, precisely. The biscuits remain secure.'],
+  },
+  [STAGES.COUNT_RANGE]: {
+    type: STAGE_TYPES.REGEX,
+    text: [
+      'Want some wiggle room? <span class="code">{n,m}</span> means AT LEAST n, AT MOST m. Both ends count.',
+      'Match every complete beep below: a b, between two and four e characters, then a p.',
+      'The shortest and longest beeps should be left out. No earplugs required.',
+    ],
+    searchBody: 'bep beep beeep beeeep beeeeep',
+    answer: 'be{2,4}p',
+    hint: 'The e repeats. Put the lower and upper counts in braces straight after it, separated by a comma.',
+    successText: ['Beep, beeep, beeeep. A perfectly acceptable amount of e.'],
+  },
+  [STAGES.MINIMUM_COUNT]: {
+    type: STAGE_TYPES.REGEX,
+    text: [
+      'Leave the upper count blank and <span class="code">{n,}</span> means AT LEAST n, with no upper limit.',
+      'Find the numbers with three or more digits below. Grab every digit of each one; the smaller numbers can stay put.',
+    ],
+    searchBody: '7 42 305 8042 12345',
+    answer: '\\d{3,}',
+    hint: 'Use the digit shorthand, then a minimum of 3. Keep the comma, but leave the upper limit empty.',
+    successText: [
+      'Big numbers, small pattern.',
+      'You have met this idea already: {1,} means the same as +, and {0,} means the same as *. Handy little shortcuts, those two.',
+    ],
+  },
+  [STAGES.QUANTIFIER_SCOPE]: {
+    type: STAGE_TYPES.CHOICE,
+    text: [
+      'One last thing before we let you loose.',
+      'In <span class="code">ha+</span>, which bit does the + repeat?',
+    ],
+    choices: [
+      'The whole ha',
+      'Only the a',
+      'Only the h',
+      'Whatever comes after it',
+    ],
+    answer: 1,
+    successText: [
+      'Exactly! We can match ha, haa, haaa... The + only repeats the a immediately before it.',
+      'Repeating a whole chunk takes grouping. A treat for another lesson.',
+    ],
+    failText: [
+      'Only the a repeats. A quantifier works on the character or shorthand immediately before it, so ha+ matches ha, haa, haaa...',
+      'We will learn how to repeat a whole chunk when we meet grouping.',
+    ],
+  },
+  [STAGES.QUANTIFIERS_CHALLENGE]: {
+    type: STAGE_TYPES.REGEX,
+    text: [
+      'Final boss: the ticket machine. It has opinions about punctuation.',
+      'Match each complete ticket: an R, exactly three digits, an optional literal dot, then an exclamation mark.',
+      'Leave tickets with too few or too many digits alone. You have all the pieces. Time to put them together!',
+    ],
+    searchBody: 'R123! R456.! R78! R9012! R007.!',
+    answer: 'R\\d{3}\\.?!',
+    acceptedAnswers: [
+      'R\\d\\d\\d\\.?!',
+      'R\\d{3,3}\\.?!',
+      'R\\d{3}\\.{0,1}!',
+      'R\\d\\d\\d\\.{0,1}!',
+    ],
+    hint: 'Start with R, count three digits, then make an escaped dot optional. Finish with !, which is an ordinary character here.',
+    successText: [
+      'Tickets, please! R123!, R456.! and R007.! all make the cut.',
+      'You can now say one, some, lots, or exactly how many. Not bad for a handful of squiggles.',
+    ],
+  },
 };
 
 export const MODULES_CONFIG: Record<ModuleKey, Module> = {
@@ -226,10 +412,22 @@ export const MODULES_CONFIG: Record<ModuleKey, Module> = {
   },
   [MODULES.QUANTIFIERS]: {
     id: MODULES.QUANTIFIERS,
-    comingSoon: true,
     name: 'Quantifiers',
     pictureText: '123',
     points: 300,
-    stages: [],
+    stages: [
+      STAGES.QUANTIFIERS_INTRO,
+      STAGES.ONE_OR_MORE,
+      STAGES.ONE_OR_MORE_TEST,
+      STAGES.OPTIONAL,
+      STAGES.OPTIONAL_TEST,
+      STAGES.ZERO_OR_MORE,
+      STAGES.QUANTIFIER_CHOICE,
+      STAGES.EXACT_COUNT,
+      STAGES.COUNT_RANGE,
+      STAGES.MINIMUM_COUNT,
+      STAGES.QUANTIFIER_SCOPE,
+      STAGES.QUANTIFIERS_CHALLENGE,
+    ],
   },
 };
