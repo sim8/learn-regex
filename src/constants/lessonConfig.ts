@@ -7,6 +7,19 @@ export const STAGE_TYPES = {
 } as const;
 
 export const STAGES = {
+  SETS_INTRO: 'SETS_INTRO',
+  SETS_VOWELS: 'SETS_VOWELS',
+  SETS_CHOICE: 'SETS_CHOICE',
+  SETS_REPEAT: 'SETS_REPEAT',
+  SETS_RANGE: 'SETS_RANGE',
+  SETS_DIGITS: 'SETS_DIGITS',
+  SETS_COMBINED: 'SETS_COMBINED',
+  SETS_NEGATED: 'SETS_NEGATED',
+  SETS_NEGATED_CHOICE: 'SETS_NEGATED_CHOICE',
+  SETS_PUNCTUATION: 'SETS_PUNCTUATION',
+  SETS_HYPHEN: 'SETS_HYPHEN',
+  SETS_CHALLENGE: 'SETS_CHALLENGE',
+
   GREETING: 'GREETING',
   INTRO: 'INTRO',
   LANGUAGE_CHOICE: 'LANGUAGE_CHOICE',
@@ -41,6 +54,7 @@ export const STAGES = {
 
 export const MODULES = {
   BASICS: 'BASICS',
+  CHARACTER_SETS: 'CHARACTER_SETS',
   QUANTIFIERS: 'QUANTIFIERS',
   // LOGIC: 'LOGIC',
 } as const;
@@ -381,6 +395,195 @@ export const STAGE_CONFIG: Record<StageKey, Stage> = {
       'You can now say one, some, lots, or exactly how many. Not bad for a handful of squiggles.',
     ],
   },
+  [STAGES.SETS_INTRO]: {
+    type: 'INFO',
+    text: [
+      'So far, we can match a particular character, or reach for a shorthand like \\d.',
+      'But what if we only want vowels? Or letters from a to f?',
+      'Time to make our own little collection. Meet character sets.',
+    ],
+  },
+  [STAGES.SETS_VOWELS]: {
+    type: 'REGEX',
+    text: [
+      'Square brackets mean “match ONE of the characters inside.”',
+      '[aeiou] matches one lowercase vowel. Any of them. We’re not taking sides.',
+      'Try it on the robot’s lunch order.',
+    ],
+    searchBody: 'robot soup',
+    answer: '[aeiou]',
+    hint: 'Put all five lowercase vowels inside one pair of square brackets.',
+    successText: [
+      'Four vowels, four matches. Each outlined block is one character picked from our set.',
+    ],
+    acceptedAnswers: [],
+  },
+  [STAGES.SETS_CHOICE]: {
+    type: 'CHOICE',
+    text: [
+      'Small brackets. Important distinction.',
+      'We use [cat] on the text cat. What does regex find?',
+    ],
+    choices: [
+      'One match: cat',
+      'Three matches: c, a, t',
+      'Two matches: ca, t',
+      'No matches',
+    ],
+    answer: 1,
+    successText: [
+      'Exactly! The brackets offer a choice of characters. They don’t keep those characters together as a word.',
+    ],
+    failText: [
+      'Each match takes ONE character from the set. So [cat] finds c, then a, then t: three separate matches.',
+    ],
+  },
+  [STAGES.SETS_REPEAT]: {
+    type: 'REGEX',
+    text: [
+      'Remember our friend +?',
+      'Put a quantifier after a set and it repeats the whole choice. Each repetition can pick a different character from that set.',
+      'Match every run of lowercase vowels below. Keep neighbouring vowels together in one match.',
+    ],
+    searchBody: 'queue for the moon',
+    answer: '[aeiou]+',
+    hint: 'Start with your vowel set. Then ask for one or more.',
+    successText: [
+      'ueue, o, e, oo. Quite the conversation.',
+      'Notice that the letters in a match don’t have to be identical. They just have to belong to the set.',
+    ],
+    acceptedAnswers: [],
+  },
+  [STAGES.SETS_RANGE]: {
+    type: 'REGEX',
+    text: [
+      'Listing the whole alphabet sounds like homework. Let’s not.',
+      'Inside a set, a-z means every lowercase letter from a through z. Both ends count.',
+      'Try [a-z]+ below. Watch what happens to Shhh.',
+    ],
+    searchBody: 'QUIET quiet Shhh 123',
+    answer: '[a-z]+',
+    hint: 'A lowercase range inside brackets, followed by one or more.',
+    successText: [
+      'quiet and hhh make the cut. The capital S stays behind.',
+      'Ranges are case-sensitive, and a match can start partway through a word.',
+    ],
+    acceptedAnswers: [],
+  },
+  [STAGES.SETS_DIGITS]: {
+    type: 'CHOICE',
+    text: [
+      'You’ve actually been using a ready-made set all along.',
+      'Which pattern means the same thing as \\d: one digit from 0 to 9?',
+    ],
+    choices: ['[09]', '[0-9]+', '[0-9]', '[0-9]?'],
+    answer: 2,
+    successText: [
+      'Yep! [0-9] and \\d both match one digit. Same job, different outfit.',
+    ],
+    failText: [
+      '[0-9] includes every digit between 0 and 9. [09] only includes those two digits.',
+      'Adding + or ? changes how many digits we can match.',
+    ],
+  },
+  [STAGES.SETS_COMBINED]: {
+    type: 'REGEX',
+    text: [
+      'Ranges can share a set. [a-zA-Z] allows lowercase OR uppercase letters.',
+      'Match each run of letters below, whatever their case. Leave the numbers and spaces alone.',
+    ],
+    searchBody: 'Room 7 has WiFi and 2 ROBOTS',
+    answer: '[a-zA-Z]+',
+    hint: 'Both ranges go inside the same brackets. The quantifier goes outside.',
+    successText: [
+      'Mixed case? No problem. WiFi is one match, and the ROBOTS have been accounted for.',
+    ],
+    acceptedAnswers: ['[A-Za-z]+'],
+  },
+  [STAGES.SETS_NEGATED]: {
+    type: 'REGEX',
+    text: [
+      'Put ^ immediately after the opening bracket and the set changes its mind.',
+      '[^aeiou] means “one character that ISN’T a lowercase vowel.”',
+      'Try it below. Keep an eye on the space.',
+    ],
+    searchBody: 'a b!2',
+    answer: '[^aeiou]',
+    hint: 'The ^ goes just inside the opening bracket, before the vowels.',
+    successText: [
+      'The space, b, exclamation mark and digit all match.',
+      '“Not a vowel” doesn’t mean “a consonant.” Anything outside the set gets through.',
+    ],
+    acceptedAnswers: [],
+  },
+  [STAGES.SETS_NEGATED_CHOICE]: {
+    type: 'CHOICE',
+    text: [
+      'We use [^0-9] on a7 ! (there’s a space before the exclamation mark).',
+      'Which characters get matched?',
+    ],
+    choices: ['Only a', 'a and !', 'a, the space, and !', 'Only 7'],
+    answer: 2,
+    successText: [
+      'Spot on. Only digits are excluded. Spaces and punctuation are still invited.',
+    ],
+    failText: [
+      'This set excludes digits, not everything except letters. So a, the space and ! each match. The 7 doesn’t.',
+    ],
+  },
+  [STAGES.SETS_PUNCTUATION]: {
+    type: 'REGEX',
+    text: [
+      'Inside a set, . and ? are ordinary characters. No wildcard. No optional extra. Just punctuation.',
+      'Match each run of dots and question marks below. Leave the exclamation mark alone.',
+    ],
+    searchBody: 'Wait... what? Really?!',
+    answer: '[.?]+',
+    hint: 'Put the two punctuation characters inside one set, then match one or more.',
+    successText: [
+      'Three dots together, then two separate question marks. The exclamation mark can wait its turn.',
+      'Outside brackets, these symbols still have their usual special meanings.',
+    ],
+    acceptedAnswers: ['[?.]+', '[\\.?]+', '[.\\?]+', '[\\.\\?]+'],
+  },
+  [STAGES.SETS_HYPHEN]: {
+    type: 'REGEX',
+    text: [
+      'A hyphen between characters can make a range. But sometimes we just want an actual hyphen.',
+      'Put it last in the set and it stays literal.',
+      'Try [+-] to find the plus and minus signs below.',
+    ],
+    searchBody: '8+3-2=9',
+    answer: '[+-]',
+    hint: 'Plus first, hyphen last. Both inside the brackets.',
+    successText: [
+      'Two signs, two matches. The plus is literal inside this set too.',
+      'A hyphen can also go first: [-+] works just as well.',
+    ],
+    acceptedAnswers: ['[-+]', '[+\\-]', '[\\-+]'],
+  },
+  [STAGES.SETS_CHALLENGE]: {
+    type: 'REGEX',
+    text: [
+      'The warehouse robots have mixed up the parcel labels. Naturally.',
+      'Find each complete label: a capital A, B or C, exactly two digits, then a colon.',
+      'Include the colon in each match. Leave the other labels behind.',
+    ],
+    searchBody: 'A12: B07: D55: C004: C42: A9:',
+    answer: '[ABC][0-9]{2}:',
+    hint: 'A set for the first letter, a digit shorthand or range with an exact count, then a literal colon.',
+    successText: [
+      'A12:, B07: and C42:. Parcels sorted. Robots looking suspiciously pleased with themselves.',
+      'You can now choose which characters belong, which don’t, and how many to match.',
+    ],
+    acceptedAnswers: [
+      '[ABC]\\d{2}:',
+      '[A-C][0-9]{2}:',
+      '[A-C]\\d{2}:',
+      '[ABC]\\d\\d:',
+      '[A-C]\\d\\d:',
+    ],
+  },
 };
 
 export const MODULES_CONFIG: Record<ModuleKey, Module> = {
@@ -428,6 +631,26 @@ export const MODULES_CONFIG: Record<ModuleKey, Module> = {
       STAGES.MINIMUM_COUNT,
       STAGES.QUANTIFIER_SCOPE,
       STAGES.QUANTIFIERS_CHALLENGE,
+    ],
+  },
+  [MODULES.CHARACTER_SETS]: {
+    id: MODULES.CHARACTER_SETS,
+    name: 'Character Sets',
+    pictureText: '[]',
+    points: 300,
+    stages: [
+      STAGES.SETS_INTRO,
+      STAGES.SETS_VOWELS,
+      STAGES.SETS_CHOICE,
+      STAGES.SETS_REPEAT,
+      STAGES.SETS_RANGE,
+      STAGES.SETS_DIGITS,
+      STAGES.SETS_COMBINED,
+      STAGES.SETS_NEGATED,
+      STAGES.SETS_NEGATED_CHOICE,
+      STAGES.SETS_PUNCTUATION,
+      STAGES.SETS_HYPHEN,
+      STAGES.SETS_CHALLENGE,
     ],
   },
 };
