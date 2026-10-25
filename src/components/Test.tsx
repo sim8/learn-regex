@@ -14,9 +14,12 @@ const SearchBody = styled.div`
   margin: 18px 0;
   box-sizing: border-box;
   word-break: break-word;
+  white-space: break-spaces;
   .matched {
     color: #adff12;
     background-color: black;
+    outline: 1px solid #adff12;
+    outline-offset: -1px;
   }
 `;
 

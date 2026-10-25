@@ -8,6 +8,7 @@ export type RegexStage = {
   text: string[];
   searchBody?: string;
   answer: string;
+  acceptedAnswers?: string[];
   successText?: string[];
   hint?: string;
 };
