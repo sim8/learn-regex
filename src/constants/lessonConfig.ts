@@ -211,7 +211,7 @@ export const STAGE_CONFIG: Record<StageKey, Stage> = {
     type: STAGE_TYPES.INFO,
     text: [
       'Back for more? Excellent. So is regex.',
-      'Last time, we matched one character at a time. Three digits? We could write <span class="code">\\d\\d\\d</span>. Twelve digits? Our keyboard would like a word.',
+      'Last time, we built patterns character by character. Three digits? We could write <span class="code">\\d\\d\\d</span>. Twelve digits? Our keyboard would like a word.',
       'Meet quantifiers. They tell regex how many times to repeat the character or shorthand just before them. Less typing. More matching. Lovely.',
     ],
   },
