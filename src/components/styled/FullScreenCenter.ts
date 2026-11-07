@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 
 const FullScreenCenter = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  min-height: calc(100svh - 60px);
+  box-sizing: border-box;
+  padding: 24px 20px;
+  overflow-wrap: anywhere;
   display: flex;
   align-items: center;
   justify-content: center;

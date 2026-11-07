@@ -5,9 +5,8 @@ import { returnToAllModules } from '../slices/moduleProgress';
 import Link from './styled/Link';
 
 const NavWrapper = styled.div`
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
+  text-align: right;
+  padding: 0 10px 10px;
 `;
 
 export default function Nav() {

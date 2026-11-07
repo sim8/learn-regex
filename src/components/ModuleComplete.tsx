@@ -9,8 +9,10 @@ import { returnToAllModules, getModuleConfig } from '../slices/moduleProgress';
 const Certificate = styled.div`
   border: 4px solid #adff12;
   text-align: center;
-  width: 500px;
-  padding: 60px 40px;
+  width: 588px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: clamp(20px, 6vw, 60px) clamp(16px, 4vw, 40px);
 `;
 
 export default function ModuleComplete() {

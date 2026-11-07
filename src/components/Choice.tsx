@@ -13,21 +13,21 @@ const check = <span>&#10004;</span>;
 const cross = <span className="error">&#x2716;</span>;
 
 const Choices = styled(UnstyledList)`
-  display: inline-block;
+  max-width: 100%;
   li {
-    display: table-row;
-    > div {
-      display: table-cell;
-      &:last-child {
-        padding-left: 14px;
-      }
-      .error {
-        color: #ff0000;
-      }
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    > div:first-child {
+      min-width: 0;
+      flex: 1;
+    }
+    .error {
+      color: #ff0000;
     }
     ${Button} {
       width: 100%;
-      margin-bottom: 12px;
+      margin: 0 0 12px;
       text-align: left;
     }
   }

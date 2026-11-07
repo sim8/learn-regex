@@ -6,7 +6,7 @@ import ProgressBar from './styled/ProgressBar';
 import { formatPercentage } from '../utils/textUtils';
 
 const ModuleProgressBarWrapper = styled.div`
-  position: fixed;
+  position: absolute;
   display: flex;
   align-items: center;
   top: 22px;

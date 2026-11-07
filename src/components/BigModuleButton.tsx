@@ -8,8 +8,8 @@ import Button from './styled/Button';
 import ProgressBar from './styled/ProgressBar';
 
 const ModuleWrapper = styled.div`
-  width: 270px;
-  margin: 30px 0 0 30px;
+  width: min(270px, calc(100% - 40px));
+  margin: 20px 0 0 20px;
   display: inline-block;
   position: relative;
 `;

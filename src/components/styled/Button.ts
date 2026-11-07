@@ -14,6 +14,9 @@ export default styled.button<Props>`
   color: ${(props) => (props.use === 'primary' ? 'black' : '#adff12')};
   border: 2px solid #adff12;
   cursor: pointer;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
   margin-right: 10px;
   &:disabled {
     cursor: auto;

@@ -19,8 +19,8 @@ import ModuleProgressBar from './ModuleProgressBar';
 
 const StageWrapper = styled.div`
   .main-text {
-    padding-top: 13vh;
-    min-height: 300px;
+    padding-top: clamp(50px, 10svh, 100px);
+    overflow-wrap: anywhere;
     .complete-text {
       font-style: italic;
     }
@@ -28,13 +28,17 @@ const StageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
-  margin: 0 20px;
+  min-height: calc(100svh - 60px);
+  box-sizing: border-box;
+  gap: 40px;
+  padding: 0 20px 24px;
 `;
 
 const NavButtons = styled.div`
-  height: 70px;
-  padding-bottom: 10vh;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 4svh;
 `;
 
 function renderStageContent(config: Stage, id: StageKey) {
