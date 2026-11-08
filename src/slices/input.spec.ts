@@ -18,7 +18,7 @@ function stateWithPattern(value: string) {
     moduleProgress: {
       stageIndex: MODULES_CONFIG[MODULES.BASICS].stages.indexOf(STAGES.PERIOD),
     },
-    input: { value, caretPos: value.length },
+    input: { value },
   }).getState();
 }
 

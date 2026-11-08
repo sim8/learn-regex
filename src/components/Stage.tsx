@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/store';
 import styled from 'styled-components';
+import { mobile } from '../styles/media';
 import Test from './Test';
 import Choice from './Choice';
 import Button from './styled/Button';
@@ -30,11 +31,34 @@ const StageWrapper = styled.div`
   justify-content: space-between;
   height: 100vh;
   margin: 0 20px;
+
+  ${mobile} {
+    height: auto;
+    min-height: calc(100svh - 60px);
+    margin: 0;
+    box-sizing: border-box;
+    gap: 40px;
+    padding: 0 20px 24px;
+
+    .main-text {
+      padding-top: clamp(50px, 10svh, 100px);
+      min-height: 0;
+      overflow-wrap: anywhere;
+    }
+  }
 `;
 
 const NavButtons = styled.div`
   height: 70px;
   padding-bottom: 10vh;
+
+  ${mobile} {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding-bottom: 4svh;
+  }
 `;
 
 function renderStageContent(config: Stage, id: StageKey) {

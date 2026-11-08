@@ -1,91 +1,97 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { mobile } from '../styles/media';
 import { useAppDispatch, useAppSelector } from '../hooks/store';
+import { getInputValue, getHasError, updateInput } from '../slices/input';
 import {
-  getInputValue,
-  getCaretPos,
-  getHasError,
-  keyPress,
-  keyDown,
-} from '../slices/input';
+  getCanMoveToNextStage,
+  moveToNextScreen,
+} from '../slices/moduleProgress';
 
-const Caret = styled.span`
-  position: relative;
+const InputWrapper = styled.form`
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+  font-size: 60px;
+
+  ${mobile} {
+    font-size: clamp(40px, 15vw, 60px);
+  }
 `;
 
-const InputWrapper = styled.div<{ $hasError: boolean }>`
-  > div {
-    -webkit-appearance: none;
-    border: 0px solid;
-    font-size: 60px;
+const TerminalInput = styled.input<{ $hasError: boolean }>`
+  appearance: none;
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  caret-color: ${(props) => (props.$hasError ? '#ff0000' : '#adff12')};
+  caret-shape: block;
+
+  @media (pointer: coarse) {
+    border-bottom: 1px solid #adff1260;
+  }
+
+  &:focus {
     outline: none;
-    word-break: break-all;
+  }
 
-    &:focus ${Caret} {
-      background-color: ${(props) => (props.$hasError ? '#ff0000' : '#adff12')};
-      color: black;
-    }
-
-    &:not(:focus) ${Caret} {
-      &::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        box-sizing: border-box;
-        border: 2px solid
-          ${(props) => (props.$hasError ? '#ff0000' : '#adff12')};
-      }
-    }
+  &::selection {
+    background: #adff12;
+    color: black;
   }
 `;
-
-function formatWithCaret(inputValue: string, caretPos: number) {
-  if (caretPos === inputValue.length) {
-    return (
-      <span>
-        {inputValue}
-        <Caret>&nbsp;</Caret>
-      </span>
-    );
-  }
-  return (
-    <span>
-      {inputValue.substring(0, caretPos)}
-      <Caret>{inputValue[caretPos]}</Caret>
-      {inputValue.substring(caretPos + 1)}
-    </span>
-  );
-}
 
 export default function Prompt() {
   const dispatch = useAppDispatch();
   const inputValue = useAppSelector(getInputValue);
-  const caretPos = useAppSelector(getCaretPos);
   const hasError = useAppSelector(getHasError);
-
-  const promptRef = useRef<HTMLDivElement | null>(null);
+  const canContinue = useAppSelector(getCanMoveToNextStage);
+  const promptRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (promptRef.current) {
-      promptRef.current.focus();
+    // Phones need a user tap to open the keyboard. Avoid scrolling the lesson
+    // to the input on load, while keeping desktop typing ready immediately.
+    if (window.matchMedia('(pointer: fine)').matches) {
+      promptRef.current?.focus({ preventScroll: true });
     }
   }, []);
-  const inputValueWithCaret = formatWithCaret(inputValue, caretPos);
+
   return (
-    <InputWrapper $hasError={hasError}>
-      <div
-        ref={promptRef}
-        tabIndex={0}
-        role="textbox"
-        onKeyPress={(e) => dispatch(keyPress(e))}
-        onKeyDown={(e) => dispatch(keyDown(e))}
-      >
+    <InputWrapper
+      onSubmit={(event) => {
+        event.preventDefault();
+        if (canContinue) dispatch(moveToNextScreen());
+      }}
+    >
+      <label htmlFor="regex-input" aria-hidden="true">
         &gt;
-        {inputValueWithCaret}
-      </div>
+      </label>
+      <TerminalInput
+        id="regex-input"
+        ref={promptRef}
+        type="text"
+        aria-label="Regex input"
+        aria-invalid={hasError}
+        $hasError={hasError}
+        autoCapitalize="none"
+        autoCorrect="off"
+        autoComplete="off"
+        spellCheck={false}
+        enterKeyHint="go"
+        value={inputValue}
+        onChange={(event) => dispatch(updateInput(event.target.value))}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' && event.nativeEvent.isComposing) {
+            event.preventDefault();
+          }
+        }}
+      />
     </InputWrapper>
   );
 }

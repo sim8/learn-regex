@@ -1,11 +1,8 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { KeyboardEvent } from 'react';
 
 import type { AppState, AppThunk } from '../store';
 import {
-  getCanMoveToNextStage,
   getRegexStageConfigOrThrow,
-  moveToNextScreen,
   moveToNextStage,
   stageCompleteAction,
   _moveToPreviousStage,
@@ -16,43 +13,18 @@ import { startOverModule } from './overallProgress';
 
 export interface InputState {
   value: string;
-  caretPos: number;
 }
 
 export const initialState: InputState = {
   value: '',
-  caretPos: 0,
 };
 
 export const inputSlice = createSlice({
   name: 'input',
   initialState,
   reducers: {
-    enterCharacter: (state, { payload: char }: PayloadAction<string>) => {
-      const { value, caretPos } = state;
-      state.value = `${value.slice(0, caretPos)}${char}${value.slice(
-        caretPos,
-      )}`;
-      state.caretPos += 1;
-    },
-    backspace: (state) => {
-      const { value, caretPos } = state;
-      if (caretPos > 0) {
-        state.value = `${value.slice(0, caretPos - 1)}${value.slice(caretPos)}`;
-        state.caretPos -= 1;
-      }
-    },
-    keyLeft: (state) => {
-      const { caretPos } = state;
-      if (caretPos > 0) {
-        state.caretPos -= 1;
-      }
-    },
-    keyRight: (state) => {
-      const { value, caretPos } = state;
-      if (caretPos < value.length) {
-        state.caretPos += 1;
-      }
+    setValue: (state, { payload }: PayloadAction<string>) => {
+      state.value = payload;
     },
   },
   extraReducers: (builder) => {
@@ -64,10 +36,9 @@ export const inputSlice = createSlice({
   },
 });
 
-const { enterCharacter, keyLeft, keyRight, backspace } = inputSlice.actions;
+const { setValue } = inputSlice.actions;
 
 export const getInputValue = (state: AppState) => state.input.value;
-export const getCaretPos = (state: AppState) => state.input.caretPos;
 
 export const getMatches = createSelector(
   [getInputValue, getRegexStageConfigOrThrow],
@@ -102,41 +73,18 @@ export const getHasError = createSelector(
   (matches) => matches === false,
 );
 
-export const keyPress =
-  ({ key }: KeyboardEvent<HTMLDivElement>): AppThunk =>
+// Read the complete native input value so paste, selection, deletion and mobile
+// keyboard input all follow the same answer validation path.
+export const updateInput =
+  (value: string): AppThunk =>
   (dispatch, getState) => {
-    const state = getState();
-    const stageConfig = getRegexStageConfigOrThrow(state);
-    if (key === 'Enter') {
-      if (getCanMoveToNextStage(state)) {
-        dispatch(moveToNextScreen());
-      }
-      return;
-    }
-    dispatch(enterCharacter(key));
-    const inputValue = getInputValue(getState());
+    dispatch(setValue(value));
+    const stageConfig = getRegexStageConfigOrThrow(getState());
     if (
-      inputValue === stageConfig.answer ||
-      stageConfig.acceptedAnswers?.includes(inputValue)
+      value === stageConfig.answer ||
+      stageConfig.acceptedAnswers?.includes(value)
     ) {
       dispatch(stageCompleteAction());
-    }
-  };
-
-export const keyDown =
-  ({ key }: KeyboardEvent<HTMLDivElement>): AppThunk =>
-  (dispatch) => {
-    switch (key) {
-      case 'ArrowLeft':
-        dispatch(keyLeft());
-        break;
-      case 'ArrowRight':
-        dispatch(keyRight());
-        break;
-      case 'Backspace':
-        dispatch(backspace());
-        break;
-      default:
     }
   };
 

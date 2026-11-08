@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import { makeStore } from '../store';
@@ -70,6 +70,39 @@ describe('Stage framework', () => {
       expect(store.getState().input.value).toBe('');
     },
   );
+
+  it('uses a native input and validates pasted text and selection edits', async () => {
+    const user = userEvent.setup();
+    const store = renderApp();
+    const input = screen.getByRole('textbox') as HTMLInputElement;
+    expect(input.tagName).toBe('INPUT');
+    expect(input).not.toHaveFocus();
+    await user.click(input);
+    await user.paste('cart');
+    expect(store.getState().input.value).toBe('cart');
+    input.setSelectionRange(2, 3);
+    await user.keyboard('{Delete}');
+    expect(input).toHaveValue('cat');
+    expect(screen.getByText('Pattern accepted.')).toBeInTheDocument();
+    await user.keyboard('{Enter}');
+    expect(screen.getByText('Choose an answer.')).toBeInTheDocument();
+  });
+
+  it('validates mobile change events without keypresses and ignores composing Enter', () => {
+    renderApp();
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: '*' } });
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    fireEvent.change(input, { target: { value: 'cat' } });
+    expect(input).toHaveAttribute('aria-invalid', 'false');
+    expect(screen.getByText('Pattern accepted.')).toBeInTheDocument();
+    expect(fireEvent.keyDown(input, { key: 'Enter', isComposing: true })).toBe(
+      false,
+    );
+    expect(screen.getByText('Find the animal.')).toBeInTheDocument();
+    fireEvent.submit(input.closest('form')!);
+    expect(screen.getByText('Choose an answer.')).toBeInTheDocument();
+  });
 
   it('keeps an incorrect pattern from advancing', async () => {
     const user = userEvent.setup();

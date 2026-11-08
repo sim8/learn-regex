@@ -35,7 +35,7 @@ describe('Module selection', () => {
       const user = userEvent.setup();
       const store = makeStoreWithTestOverrides({
         moduleProgress: { stageIndex: 1 },
-        input: { value: 'leftover', caretPos: 8 },
+        input: { value: 'leftover' },
       });
       store.dispatch(
         markStageAsComplete({
@@ -56,7 +56,7 @@ describe('Module selection', () => {
       await user.click(screen.getByRole('button', { name: action }));
       expect(screen.getByText(text)).toBeInTheDocument();
       expect(store.getState().moduleProgress.stageIndex).toBe(index);
-      expect(store.getState().input).toEqual({ value: '', caretPos: 0 });
+      expect(store.getState().input).toEqual({ value: '' });
       if (action === 'Start over')
         expect(store.getState().overallProgress.modules.BASICS).toBeUndefined();
     },
@@ -65,7 +65,7 @@ describe('Module selection', () => {
   it('clears old input when starting a fresh module', async () => {
     const user = userEvent.setup();
     const store = makeStoreWithTestOverrides({
-      input: { value: 'leftover', caretPos: 8 },
+      input: { value: 'leftover' },
     });
     render(
       <Provider store={store}>
@@ -75,6 +75,6 @@ describe('Module selection', () => {
     await user.click(screen.getByText('ALL LESSONS'));
     await user.click(screen.getByText('Test lesson'));
     expect(screen.getByText('First screen.')).toBeInTheDocument();
-    expect(store.getState().input).toEqual({ value: '', caretPos: 0 });
+    expect(store.getState().input).toEqual({ value: '' });
   });
 });
