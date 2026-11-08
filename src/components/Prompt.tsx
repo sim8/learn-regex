@@ -20,7 +20,6 @@ const TerminalInput = styled.input`
   min-width: 0;
   width: 100%;
   border: 0;
-  border-bottom: 1px solid #adff1260;
   border-radius: 0;
   padding: 0;
   background: transparent;
@@ -30,12 +29,17 @@ const TerminalInput = styled.input`
   caret-color: currentColor;
   caret-shape: block;
 
+  @media (pointer: coarse) {
+    border-bottom: 1px solid #adff1260;
+  }
+
   &:focus {
     outline: none;
   }
 
   &:focus-visible {
-    box-shadow: 0 2px currentColor;
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
   }
 
   &::selection {
