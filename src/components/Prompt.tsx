@@ -37,11 +37,6 @@ const TerminalInput = styled.input`
     outline: none;
   }
 
-  &:focus-visible {
-    outline: 2px solid currentColor;
-    outline-offset: 4px;
-  }
-
   &::selection {
     background: #adff12;
     color: black;
