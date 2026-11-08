@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { mobile } from '../styles/media';
 import { useAppDispatch, useAppSelector } from '../hooks/store';
 import { getInputValue, getHasError, updateInput } from '../slices/input';
 import {
@@ -7,15 +8,18 @@ import {
   moveToNextScreen,
 } from '../slices/moduleProgress';
 
-const InputWrapper = styled.form<{ $hasError: boolean }>`
+const InputWrapper = styled.form`
   display: flex;
   align-items: baseline;
   min-width: 0;
-  font-size: clamp(40px, 15vw, 60px);
-  color: ${(props) => (props.$hasError ? '#ff0000' : '#adff12')};
+  font-size: 60px;
+
+  ${mobile} {
+    font-size: clamp(40px, 15vw, 60px);
+  }
 `;
 
-const TerminalInput = styled.input`
+const TerminalInput = styled.input<{ $hasError: boolean }>`
   appearance: none;
   min-width: 0;
   width: 100%;
@@ -25,8 +29,8 @@ const TerminalInput = styled.input`
   background: transparent;
   color: inherit;
   font: inherit;
-  line-height: 1.5;
-  caret-color: currentColor;
+  line-height: normal;
+  caret-color: ${(props) => (props.$hasError ? '#ff0000' : '#adff12')};
   caret-shape: block;
 
   @media (pointer: coarse) {
@@ -60,7 +64,6 @@ export default function Prompt() {
 
   return (
     <InputWrapper
-      $hasError={hasError}
       onSubmit={(event) => {
         event.preventDefault();
         if (canContinue) dispatch(moveToNextScreen());
@@ -75,6 +78,7 @@ export default function Prompt() {
         type="text"
         aria-label="Regex input"
         aria-invalid={hasError}
+        $hasError={hasError}
         autoCapitalize="none"
         autoCorrect="off"
         autoComplete="off"

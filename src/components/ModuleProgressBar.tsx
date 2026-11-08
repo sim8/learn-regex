@@ -1,16 +1,20 @@
 import React from 'react';
 import { useAppSelector } from '../hooks/store';
 import styled from 'styled-components';
+import { mobile } from '../styles/media';
 import { getPreviousStageAsPercentage } from '../slices/moduleProgress';
 import ProgressBar from './styled/ProgressBar';
 import { formatPercentage } from '../utils/textUtils';
 
 const ModuleProgressBarWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   display: flex;
   align-items: center;
   top: 22px;
   right: 22px;
+  ${mobile} {
+    position: absolute;
+  }
 `;
 
 export default function ModuleProgressBar() {

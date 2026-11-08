@@ -2,16 +2,21 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { mobile } from '../styles/media';
 import { Module } from '../types';
 
 import Button from './styled/Button';
 import ProgressBar from './styled/ProgressBar';
 
 const ModuleWrapper = styled.div`
-  width: min(270px, calc(100% - 40px));
-  margin: 20px 0 0 20px;
+  width: 270px;
+  margin: 30px 0 0 30px;
   display: inline-block;
   position: relative;
+  ${mobile} {
+    width: min(270px, calc(100% - 40px));
+    margin: 20px 0 0 20px;
+  }
 `;
 
 const ProgressWrapper = styled.div`

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { mobile } from '../styles/media';
 import Button from './styled/Button';
 import UnstyledList from './styled/UnstyledList';
 import {
@@ -13,22 +14,43 @@ const check = <span>&#10004;</span>;
 const cross = <span className="error">&#x2716;</span>;
 
 const Choices = styled(UnstyledList)`
-  max-width: 100%;
+  display: inline-block;
   li {
-    display: flex;
-    align-items: baseline;
-    gap: 14px;
-    > div:first-child {
-      min-width: 0;
-      flex: 1;
-    }
-    .error {
-      color: #ff0000;
+    display: table-row;
+    > div {
+      display: table-cell;
+      &:last-child {
+        padding-left: 14px;
+      }
+      .error {
+        color: #ff0000;
+      }
     }
     ${Button} {
       width: 100%;
-      margin: 0 0 12px;
+      margin-bottom: 12px;
       text-align: left;
+    }
+  }
+  ${mobile} {
+    max-width: 100%;
+    li {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      > div {
+        display: block;
+        &:first-child {
+          min-width: 0;
+          flex: 1;
+        }
+        &:last-child {
+          padding-left: 0;
+        }
+      }
+      ${Button} {
+        margin: 0 0 12px;
+      }
     }
   }
 `;
