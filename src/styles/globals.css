@@ -15,6 +15,6 @@ body {
 
 @media (max-width: 767px), (max-height: 500px) and (pointer: coarse) {
   body {
-    font-size: clamp(24px, 7.7vw, 30px);
+    font-size: clamp(24px, 6vw, 28px);
   }
 }
