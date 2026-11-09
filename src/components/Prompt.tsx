@@ -15,7 +15,7 @@ const InputWrapper = styled.form`
   font-size: 60px;
 
   ${mobile} {
-    font-size: clamp(40px, 15vw, 60px);
+    font-size: clamp(36px, 10vw, 48px);
   }
 `;
 
