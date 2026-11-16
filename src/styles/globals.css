@@ -12,3 +12,9 @@ body {
   background-color: #adff12;
   font-style: normal;
 }
+
+@media (max-width: 767px), (max-height: 500px) and (pointer: coarse) {
+  body {
+    font-size: clamp(24px, 7.7vw, 30px);
+  }
+}

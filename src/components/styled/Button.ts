@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { mobile } from '../../styles/media';
 
 type Props = {
   use?: 'primary';
@@ -17,5 +18,10 @@ export default styled.button<Props>`
   margin-right: 10px;
   &:disabled {
     cursor: auto;
+  }
+  ${mobile} {
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
   }
 `;

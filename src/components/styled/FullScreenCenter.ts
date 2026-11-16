@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { mobile } from '../../styles/media';
 
 const FullScreenCenter = styled.div`
   position: fixed;
@@ -10,6 +11,15 @@ const FullScreenCenter = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  ${mobile} {
+    position: static;
+    width: auto;
+    height: auto;
+    min-height: calc(100svh - 60px);
+    box-sizing: border-box;
+    padding: 24px 20px;
+    overflow-wrap: anywhere;
+  }
 `;
 
 export default FullScreenCenter;
