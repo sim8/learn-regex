@@ -37,13 +37,22 @@ const StageWrapper = styled.div`
     min-height: calc(100svh - 60px);
     margin: 0;
     box-sizing: border-box;
-    gap: 40px;
-    padding: 0 20px 24px;
+    gap: 16px;
+    padding: 0 20px 12px;
 
     .main-text {
-      padding-top: clamp(50px, 10svh, 100px);
+      padding-top: 52px;
       min-height: 0;
       overflow-wrap: anywhere;
+
+      p {
+        margin: 0 0 16px;
+      }
+
+      > p:last-child,
+      .complete-text p:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 `;
@@ -57,7 +66,11 @@ const NavButtons = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    padding-bottom: 4svh;
+    padding-bottom: 0;
+
+    > button {
+      margin-right: 0;
+    }
   }
 `;
 

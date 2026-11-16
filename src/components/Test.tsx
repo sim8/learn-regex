@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { mobile } from '../styles/media';
 import Prompt from './Prompt';
 import Hint from './Hint';
 import { getMatches } from '../slices/input';
@@ -15,6 +16,11 @@ const SearchBody = styled.div`
   box-sizing: border-box;
   word-break: break-word;
   white-space: break-spaces;
+  ${mobile} {
+    padding: 12px;
+    margin: 12px 0;
+  }
+
   .matched {
     color: #adff12;
     background-color: black;
